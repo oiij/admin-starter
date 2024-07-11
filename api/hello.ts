@@ -1,0 +1,5 @@
+import process from 'node:process'
+
+export function GET(request: Request) {
+  return new Response(`Hello from ${process.env.VERCEL_REGION} ${request.url}`)
+}
