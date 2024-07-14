@@ -37,6 +37,7 @@
     "colord": "^2.9.3",
     "echarts": "^5.5.1",
     "mixte": "^2.0.0",
+    "nanoid": "^5.0.7",
     "notivue": "^2.4.4",
     "nprogress": "^0.2.0",
     "pinia": "^2.1.7",
@@ -52,6 +53,7 @@
   "devDependencies": {
     "@antfu/eslint-config": "^2.22.0",
     "@eiog/ts-config": "^0.0.3",
+    "@iconify-json/line-md": "^1.1.38",
     "@iconify-json/ri": "^1.1.21",
     "@iconify-json/twemoji": "^1.1.15",
     "@intlify/unplugin-vue-i18n": "^4.0.0",

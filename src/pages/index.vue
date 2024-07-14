@@ -58,4 +58,5 @@ meta:
   layout: default
   title: Hello World !
   keepAlive: true
+  requireAuth: true
 </route>

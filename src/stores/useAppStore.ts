@@ -3,8 +3,12 @@ import { defineStore } from 'pinia'
 export const useAppStore = defineStore(
   'appStore',
   () => {
-    const { language, toggleLanguage } = useLanguage()
+    const layout = ref({
+      mode: 'Horizontal',
+    })
+    const { language, toggle: toggleLanguage } = useLanguage()
     return {
+      layout,
       language,
       toggleLanguage,
     }

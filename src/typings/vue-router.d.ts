@@ -4,5 +4,6 @@ declare module 'vue-router' {
   interface RouteMeta {
     keepAlive?: boolean
     transition?: string
+    requireAuth?: boolean
   }
 }

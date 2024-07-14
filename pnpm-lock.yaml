@@ -47,6 +47,9 @@ importers:
       mixte:
         specifier: ^2.0.0
         version: 2.0.0
+      nanoid:
+        specifier: ^5.0.7
+        version: 5.0.7
       notivue:
         specifier: ^2.4.4
         version: 2.4.4(@nuxt/kit@3.12.3(rollup@2.79.1))(@nuxt/schema@3.12.3(rollup@2.79.1))(defu@6.1.4)
@@ -87,6 +90,9 @@ importers:
       '@eiog/ts-config':
         specifier: ^0.0.3
         version: 0.0.3
+      '@iconify-json/line-md':
+        specifier: ^1.1.38
+        version: 1.1.38
       '@iconify-json/ri':
         specifier: ^1.1.21
         version: 1.1.21
@@ -1779,6 +1785,9 @@ packages:
   '@humanwhocodes/retry@0.3.0':
     resolution: {integrity: sha512-d2CGZR2o7fS6sWB7DG/3a95bGKQyHMACZ5aW8qGkkqQpUoZV6C0X7Pc7l4ZNMZkfNBf4VWNe9E1jRsf0G146Ew==}
     engines: {node: '>=18.18'}
+
+  '@iconify-json/line-md@1.1.38':
+    resolution: {integrity: sha512-W+y4G/7QqO1sTGUypwsm0UUwjbGt/BjRg4kZylek7BwH5EG8f1uUJgcZwRASjsH4xGL+LVQbw6FAGbQ1UHNCow==}
 
   '@iconify-json/ri@1.1.21':
     resolution: {integrity: sha512-ssU2CRaB4T83Q3cncCZtITholhYkH6gEL5XLmdMII6Xzn8bTCpDCkt+HdX4URc24uUMD0PGIaNLJUIAgdfLMjQ==}
@@ -5427,6 +5436,11 @@ packages:
   nanoid@3.3.7:
     resolution: {integrity: sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
+    hasBin: true
+
+  nanoid@5.0.7:
+    resolution: {integrity: sha512-oLxFY2gd2IqnjcYyOXD8XGCftpGtZP2AbHbOkthDkvRywH5ayNtPVy9YlOPcHckXzbLTCHpkb7FB+yuxKV13pQ==}
+    engines: {node: ^18 || >=20}
     hasBin: true
 
   nanomatch@1.2.13:
@@ -9219,6 +9233,10 @@ snapshots:
   '@humanwhocodes/module-importer@1.0.1': {}
 
   '@humanwhocodes/retry@0.3.0': {}
+
+  '@iconify-json/line-md@1.1.38':
+    dependencies:
+      '@iconify/types': 2.0.0
 
   '@iconify-json/ri@1.1.21':
     dependencies:
@@ -13511,6 +13529,8 @@ snapshots:
       vueuc: 0.4.58(vue@3.4.31(typescript@5.5.3))
 
   nanoid@3.3.7: {}
+
+  nanoid@5.0.7: {}
 
   nanomatch@1.2.13:
     dependencies:
