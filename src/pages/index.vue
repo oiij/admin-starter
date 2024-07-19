@@ -56,7 +56,8 @@ const localValue = useLocalStorageRef('localValue', 'str')
 name:
 meta:
   layout: default
-  title: Hello World !
+  title: 首页
   keepAlive: true
   requireAuth: true
+  icon: svg:home
 </route>

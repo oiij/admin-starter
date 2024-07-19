@@ -5,10 +5,19 @@ export const useAppStore = defineStore(
   () => {
     const layout = ref({
       mode: 'Horizontal',
+      sideBar: {
+        width: 200,
+        collapsedWidth: 60,
+        collapsed: false,
+      },
     })
+    function toggleCollapsed() {
+      layout.value.sideBar.collapsed = !layout.value.sideBar.collapsed
+    }
     const { language, toggle: toggleLanguage } = useLanguage()
     return {
       layout,
+      toggleCollapsed,
       language,
       toggleLanguage,
     }
@@ -16,7 +25,7 @@ export const useAppStore = defineStore(
   {
     persist: {
       key: '__APP_STORE_PERSIST__',
-      paths: [''],
+      paths: ['layout', 'language'],
     },
   },
 )

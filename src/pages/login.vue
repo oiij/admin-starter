@@ -1,6 +1,5 @@
 <script setup lang='ts'>
 import type { LoginType } from '~/api'
-import Logo from '~/layouts/Components/Logo.vue'
 
 const route = useRoute()
 const redirect = route.query.redirect as string || '/'
@@ -24,11 +23,12 @@ const { formRef, formValue, formProps, validate } = useNaiveForm<LoginType['Data
     },
   },
 })
+const { loading, runAsync: handleLogin } = useRequest(() => login(formValue.value), { manual: true })
 
 async function handleValidate() {
   try {
     await validate()
-    await login(formValue.value)
+    await handleLogin()
     window.$message.success('登录成功')
     router.push(redirect)
   }
@@ -39,8 +39,13 @@ async function handleValidate() {
 </script>
 
 <template>
-  <div class="wh-full flex items-center justify-center">
-    <div class="w-[400px] flex-col rounded-2xl bg-white p-[20px] transition-base hover:shadow-xl">
+  <div class="background wh-full flex items-center justify-center dark:brightness-75">
+    <div class="absolute right-[20px] top-[20px] flex-y-center rounded-xl bg-white/70 p-[10px] backdrop-blur-2xl dark:bg-white/30">
+      <ToggleFullScreen />
+      <ToggleLanguage />
+      <ToggleDarkMode />
+    </div>
+    <div class="w-[400px] flex-col rounded-3xl bg-white/60 p-[20px] backdrop-blur-2xl transition-base dark:bg-white/30 hover:shadow-xl">
       <div class="p-y-[10px]">
         <Logo size="large" />
       </div>
@@ -52,7 +57,7 @@ async function handleValidate() {
           <n-input v-model:value="formValue.password" size="large" placeholder="密码" type="password" show-password-on="click" />
         </n-form-item>
         <n-form-item>
-          <n-button type="primary" size="large" block :loading="false" @click="handleValidate">
+          <n-button type="primary" size="large" block :loading="loading" @click="handleValidate">
             登录
           </n-button>
         </n-form-item>
@@ -62,7 +67,12 @@ async function handleValidate() {
 </template>
 
 <style scoped lang='less'>
-
+.background {
+  background-image: url(~/assets/background.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
 </style>
 
 <route lang='yaml'>
@@ -70,4 +80,5 @@ name: login
 meta:
   layout: blank
   title: 登录
+  hideOnMenu: true
 </route>

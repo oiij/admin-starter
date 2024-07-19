@@ -33,4 +33,5 @@ name:
 meta:
   layout: default
   title: 401 无权限
+  hideOnMenu: true
 </route>

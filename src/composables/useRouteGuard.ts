@@ -41,11 +41,13 @@ export function useRouteGuard(router: Router) {
     }
   })
   router.afterEach((to, from) => {
+    const { addTab } = useAuthStore()
     const toDepth = to.path.split('/').length
     const fromDepth = from.path.split('/').length
     to.meta.transition = toDepth < fromDepth ? 'slide-right' : toDepth > fromDepth ? 'slide-left' : 'fade'
 
     useChangeTitle(to)
     done()
+    addTab(to.path)
   })
 }

@@ -1,27 +1,15 @@
 import { defineStore } from 'pinia'
-// import { routes } from 'vue-router/auto-routes'
-import type { LoginType, StatusType } from '~/api'
 
 // const exclude = ['/login', '/401', '/:all(.*)']
 export const useAuthStore = defineStore(
-  'appStore',
+  'authStore',
   () => {
-    const token = ref<string>()
-    const routePermission = ref<StatusType['Res']['routes']>()
-    const logged = ref(false)
-    const refreshed = ref(false)
+    const { token, routePermission, logged, refreshed, login, refresh, logout } = useLogin()
+    const { routeList, authMenu, authFlatMenu } = useAuthMenu()
 
-    async function refresh(data: { token: string }) {
-      const { routes, token: refreshedToken } = await baseApi.status({ token: data.token })
-      routePermission.value = routes
-      token.value = refreshedToken
-      refreshed.value = true
-    }
-    async function login(data: LoginType['Data']) {
-      token.value = (await baseApi.login(data)).token
-      logged.value = true
-    }
-
+    const { currentPath } = useCurrentRoute()
+    const { tabs, openedPath, addTab, removeTab, clearTab } = useTabs()
+    const { miniNavigation } = useMiniNavigation()
     return {
       token,
       routePermission,
@@ -29,6 +17,17 @@ export const useAuthStore = defineStore(
       refreshed,
       refresh,
       login,
+      logout,
+      routeList,
+      authMenu,
+      authFlatMenu,
+      currentPath,
+      openedPath,
+      tabs,
+      addTab,
+      removeTab,
+      clearTab,
+      miniNavigation,
     }
   },
   {

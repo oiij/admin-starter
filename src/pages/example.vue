@@ -1,16 +1,18 @@
 <script setup lang='ts'>
 definePage({
   meta: {
-    title: 'Super',
+    layout: 'default',
+    title: 'Example',
+    keepAlive: true,
     requireAuth: true,
-    icon: 'svg:super',
+    icon: 'svg:window',
   },
 })
 </script>
 
 <template>
   <div>
-    page
+    <RouterView />
   </div>
 </template>
 
