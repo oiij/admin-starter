@@ -5,7 +5,10 @@ const { toggle, isFullscreen } = useFullscreen()
 <template>
   <TooltipButton :tooltip="`${isFullscreen ? '退出全屏' : '切换全屏'}`" @click="toggle">
     <template #icon>
-      <i class="i-line-md-menu-unfold-left" />
+      <Transition name="fade" mode="out-in">
+        <i v-if="isFullscreen" class="i-mage-minimize" />
+        <i v-else class="i-mage-maximize" />
+      </Transition>
     </template>
   </TooltipButton>
 </template>

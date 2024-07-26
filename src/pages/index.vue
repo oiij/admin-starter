@@ -15,7 +15,7 @@ const localValue = useLocalStorageRef('localValue', 'str')
 <template>
   <div class="flex-col-center gap-10">
     <HelloWorld />
-
+    <n-countdown :duration="1000 * 100" :active="true" />
     {{ data }}
     <div>
       <n-button @click="localValue = 'strrrrrr'">

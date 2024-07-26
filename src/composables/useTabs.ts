@@ -1,4 +1,4 @@
-import type { MenuOption } from 'naive-ui'
+import type { IMenuOption as MenuOption } from 'naive-ui'
 import { router } from '~/modules'
 
 function findChildren(authMenu: MenuOption[], openedPath: string[]) {
@@ -23,7 +23,7 @@ function findChildren(authMenu: MenuOption[], openedPath: string[]) {
   return sortTabs
 }
 
-const { currentPath } = useCurrentRoute()
+const { currentPath } = useRouters()
 const { authMenu } = useAuthMenu()
 const openedPath = ref<string[]>([])
 const tabs = computed<MenuOption[]>(() => findChildren(authMenu.value, openedPath.value))

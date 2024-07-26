@@ -5,9 +5,9 @@ export const useAuthStore = defineStore(
   'authStore',
   () => {
     const { token, routePermission, logged, refreshed, login, refresh, logout } = useLogin()
-    const { routeList, authMenu, authFlatMenu } = useAuthMenu()
+    const { rawRoutes, authMenu, authFlatMenu } = useAuthMenu()
 
-    const { currentPath } = useCurrentRoute()
+    const { currentPath, keepAlive } = useRouters()
     const { tabs, openedPath, addTab, removeTab, clearTab } = useTabs()
     const { miniNavigation } = useMiniNavigation()
     return {
@@ -18,7 +18,7 @@ export const useAuthStore = defineStore(
       refresh,
       login,
       logout,
-      routeList,
+      rawRoutes,
       authMenu,
       authFlatMenu,
       currentPath,
@@ -28,6 +28,7 @@ export const useAuthStore = defineStore(
       removeTab,
       clearTab,
       miniNavigation,
+      keepAlive,
     }
   },
   {

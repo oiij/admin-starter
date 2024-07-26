@@ -36,6 +36,7 @@ function auth2Menu(routeList: RouteRecordRaw[], routePermission?: StatusType['Re
       key: route.path,
       icon: renderIcon(route.meta?.icon),
       show: !route.meta?.hideOnMenu,
+      meta: route.meta,
     }
     if (route.children)
       routeMenu.children = auth2Menu(route.children, routePermission)
@@ -56,16 +57,16 @@ function flatMenu(menus: MenuOption[]) {
   return returns
 }
 const { routePermission } = useLogin()
-const routeList = computed(() => routesFormat(routes))
+const rawRoutes = computed(() => routesFormat(routes))
 const authMenu = computed(() => {
-  return auth2Menu(routeList.value, routePermission.value)
+  return auth2Menu(rawRoutes.value, routePermission.value)
 })
 const authFlatMenu = computed(() => {
   return flatMenu(authMenu.value)
 })
 export function useAuthMenu() {
   return {
-    routeList,
+    rawRoutes,
     authMenu,
     authFlatMenu,
   }

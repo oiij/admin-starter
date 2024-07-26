@@ -20,7 +20,7 @@ const options: DropdownOption[] = [
         }),
     },
     icon: () => {
-      return h('i', { class: 'i-line-md-log-out' })
+      return h('i', { class: 'i-mage-logout' })
     },
   },
 ]

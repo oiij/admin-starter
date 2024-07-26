@@ -202,7 +202,7 @@ declare global {
   const useCssVars: typeof import('vue')['useCssVars']
   const useCurrentElement: typeof import('@vueuse/core')['useCurrentElement']
   const useCurrentPath: typeof import('./src/composables/useCurrentPath')['useCurrentPath']
-  const useCurrentRoute: typeof import('./src/composables/useCurrentRoute')['useCurrentRoute']
+  const useCurrentRoute: typeof import('./src/composables/useRouters')['useCurrentRoute']
   const useCycleList: typeof import('@vueuse/core')['useCycleList']
   const useDark: typeof import('@vueuse/core')['useDark']
   const useDateFormat: typeof import('@vueuse/core')['useDateFormat']
@@ -305,6 +305,7 @@ declare global {
   const useRouteThree: typeof import('./src/composables/useRouteThree')['useRouteThree']
   const useRouter: typeof import('vue-router')['useRouter']
   const useRouterSearch: typeof import('./src/composables/useRouterSearch')['useRouterSearch']
+  const useRouters: typeof import('./src/composables/useRouters')['useRouters']
   const useScreenOrientation: typeof import('@vueuse/core')['useScreenOrientation']
   const useScreenSafeArea: typeof import('@vueuse/core')['useScreenSafeArea']
   const useScriptTag: typeof import('@vueuse/core')['useScriptTag']
@@ -585,7 +586,6 @@ declare module 'vue' {
     readonly useCssVar: UnwrapRef<typeof import('@vueuse/core')['useCssVar']>
     readonly useCssVars: UnwrapRef<typeof import('vue')['useCssVars']>
     readonly useCurrentElement: UnwrapRef<typeof import('@vueuse/core')['useCurrentElement']>
-    readonly useCurrentRoute: UnwrapRef<typeof import('./src/composables/useCurrentRoute')['useCurrentRoute']>
     readonly useCycleList: UnwrapRef<typeof import('@vueuse/core')['useCycleList']>
     readonly useDark: UnwrapRef<typeof import('@vueuse/core')['useDark']>
     readonly useDateFormat: UnwrapRef<typeof import('@vueuse/core')['useDateFormat']>
@@ -684,6 +684,7 @@ declare module 'vue' {
     readonly useRouteGuard: UnwrapRef<typeof import('./src/composables/useRouteGuard')['useRouteGuard']>
     readonly useRouter: UnwrapRef<typeof import('vue-router')['useRouter']>
     readonly useRouterSearch: UnwrapRef<typeof import('./src/composables/useRouterSearch')['useRouterSearch']>
+    readonly useRouters: UnwrapRef<typeof import('./src/composables/useRouters')['useRouters']>
     readonly useScreenOrientation: UnwrapRef<typeof import('@vueuse/core')['useScreenOrientation']>
     readonly useScreenSafeArea: UnwrapRef<typeof import('@vueuse/core')['useScreenSafeArea']>
     readonly useScriptTag: UnwrapRef<typeof import('@vueuse/core')['useScriptTag']>
@@ -954,7 +955,6 @@ declare module '@vue/runtime-core' {
     readonly useCssVar: UnwrapRef<typeof import('@vueuse/core')['useCssVar']>
     readonly useCssVars: UnwrapRef<typeof import('vue')['useCssVars']>
     readonly useCurrentElement: UnwrapRef<typeof import('@vueuse/core')['useCurrentElement']>
-    readonly useCurrentRoute: UnwrapRef<typeof import('./src/composables/useCurrentRoute')['useCurrentRoute']>
     readonly useCycleList: UnwrapRef<typeof import('@vueuse/core')['useCycleList']>
     readonly useDark: UnwrapRef<typeof import('@vueuse/core')['useDark']>
     readonly useDateFormat: UnwrapRef<typeof import('@vueuse/core')['useDateFormat']>
@@ -1053,6 +1053,7 @@ declare module '@vue/runtime-core' {
     readonly useRouteGuard: UnwrapRef<typeof import('./src/composables/useRouteGuard')['useRouteGuard']>
     readonly useRouter: UnwrapRef<typeof import('vue-router')['useRouter']>
     readonly useRouterSearch: UnwrapRef<typeof import('./src/composables/useRouterSearch')['useRouterSearch']>
+    readonly useRouters: UnwrapRef<typeof import('./src/composables/useRouters')['useRouters']>
     readonly useScreenOrientation: UnwrapRef<typeof import('@vueuse/core')['useScreenOrientation']>
     readonly useScreenSafeArea: UnwrapRef<typeof import('@vueuse/core')['useScreenSafeArea']>
     readonly useScriptTag: UnwrapRef<typeof import('@vueuse/core')['useScriptTag']>

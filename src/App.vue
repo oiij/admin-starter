@@ -26,6 +26,7 @@ useHead({
       </Transition>
     </RouterView>
     <NotivueProvider />
+    <Watermark />
   </NaiveProvider>
 </template>
 

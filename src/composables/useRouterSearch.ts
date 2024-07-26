@@ -9,10 +9,10 @@ function search(value?: string, authFlatMenu?: MenuOption[]) {
       return reg.test(f.label as string) || reg.test(f.key.toString())
     return false
   })
-  return res
+  return res ?? []
 }
-export function useRouterSearch() {
-  const value = ref()
+export function useRouterSearch(defaultValue?: string) {
+  const value = ref(defaultValue)
   const result = computed(() => search(value.value, authFlatMenu.value))
   return {
     value,

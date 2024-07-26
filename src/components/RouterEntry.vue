@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import type { RouteLocationNormalizedLoaded } from 'vue-router'
 
-const keepAliveName = computed(() => useRouter().getRoutes().filter(f => !f.meta.isLayout).filter(f => f.meta.keepAlive).map((m) => {
-  return m.path
-}))
+const { reloadFlag, transition } = storeToRefs(useAppStore())
+const { keepAlive } = storeToRefs(useAuthStore())
 
 // 用来存已经创建的组件
 const wrapperMap = new Map()
@@ -31,10 +30,10 @@ function formatComponentInstance(component: Component, route: RouteLocationNorma
 
 <template>
   <RouterView v-slot="{ Component, route }">
-    <Transition appear mode="out-in" :name="route.meta.transition">
-      <KeepAlive :include="keepAliveName">
+    <Transition appear mode="out-in" :name="transition || ''">
+      <KeepAlive :include="keepAlive" :exclude="reloadFlag ? keepAlive : undefined">
         <Suspense>
-          <component :is="formatComponentInstance(Component, route)" :key="route.path" />
+          <component :is="formatComponentInstance(Component, route)" v-if="!reloadFlag" :key="route.path" />
           <template #fallback>
             <slot name="fallback">
               Component Fallback

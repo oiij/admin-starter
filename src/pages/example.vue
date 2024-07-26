@@ -11,9 +11,7 @@ definePage({
 </script>
 
 <template>
-  <div>
-    <RouterView />
-  </div>
+  <div><RouterEntryBlank /></div>
 </template>
 
 <style scoped lang='less'>

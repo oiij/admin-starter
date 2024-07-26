@@ -1,4 +1,6 @@
-import type { DialogProviderInst, LoadingBarProviderInst, MessageProviderInst, NotificationProviderInst } from 'naive-ui'
+import 'naive-ui'
+import type { DialogProviderInst, LoadingBarProviderInst, MenuOption, MessageProviderInst, NotificationProviderInst } from 'naive-ui'
+import type { RouteMeta } from 'vue-router'
 
 declare global {
   interface Window {
@@ -6,5 +8,10 @@ declare global {
     $notification: NotificationProviderInst
     $dialog: DialogProviderInst
     $loadingBar: LoadingBarProviderInst
+  }
+}
+declare module 'naive-ui' {
+  type IMenuOption = MenuOption & {
+    meta?: RouteMeta
   }
 }

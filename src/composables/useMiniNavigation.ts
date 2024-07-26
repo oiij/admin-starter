@@ -51,7 +51,7 @@ function injectProps(menuOptions?: MenuOption[]): DropdownOption[] {
   })
   return options
 }
-const { currentPath } = useCurrentRoute()
+const { currentPath } = useRouters()
 const { authMenu } = useAuthMenu()
 const miniNavigation = computed(() => findMiniNavigation(authMenu.value, currentPath.value))
 

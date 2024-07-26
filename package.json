@@ -54,6 +54,7 @@
     "@antfu/eslint-config": "^2.22.0",
     "@eiog/ts-config": "^0.0.3",
     "@iconify-json/line-md": "^1.1.38",
+    "@iconify-json/mage": "^1.1.0",
     "@iconify-json/mi": "^1.1.8",
     "@iconify-json/ri": "^1.1.21",
     "@iconify-json/twemoji": "^1.1.15",
