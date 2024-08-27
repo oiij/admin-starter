@@ -14,7 +14,7 @@ const emit = defineEmits<{
 <template>
   <n-tooltip v-bind="tooltipProps">
     <template #trigger>
-      <n-button quaternary v-bind="buttonProps" @click="(ev) => emit('click', ev)">
+      <n-button quaternary v-bind="buttonProps" @click="(ev:any) => emit('click', ev)">
         <slot />
         <template #icon>
           <slot name="icon" />

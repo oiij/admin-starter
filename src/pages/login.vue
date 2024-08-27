@@ -1,6 +1,14 @@
 <script setup lang='ts'>
 import type { LoginType } from '~/api'
 
+definePage({
+  meta: {
+    layout: 'blank',
+    title: '登录',
+    hideOnMenu: true,
+  },
+})
+
 const route = useRoute()
 const redirect = route.query.redirect as string || '/'
 const router = useRouter()
@@ -74,11 +82,3 @@ async function handleValidate() {
   background-repeat: no-repeat;
 }
 </style>
-
-<route lang='yaml'>
-name: login
-meta:
-  layout: blank
-  title: 登录
-  hideOnMenu: true
-</route>

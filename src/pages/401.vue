@@ -1,4 +1,11 @@
 <script setup lang='ts'>
+definePage({
+  meta: {
+    layout: 'default',
+    title: '401 无权限',
+    hideOnMenu: true,
+  },
+})
 const route = useRoute()
 const redirect = route.query.redirect as string || '/'
 const router = useRouter()
@@ -27,11 +34,3 @@ const router = useRouter()
 <style scoped lang='less'>
 
 </style>
-
-<route lang='yaml'>
-name:
-meta:
-  layout: default
-  title: 401 无权限
-  hideOnMenu: true
-</route>

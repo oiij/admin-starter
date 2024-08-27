@@ -30,7 +30,23 @@ export const useAppStore = defineStore(
     const showWatermark = ref(true)
     const watermarkContent = ref('水印')
     const transition = ref('fade')
-
+    const screenLock = ref(false)
+    function setScreenLock(pin?: string) {
+      if (pin) {
+        setPin(pin)
+      }
+      screenLock.value = true
+    }
+    const screenPin = ref('0000')
+    function setPin(pin: string) {
+      screenPin.value = pin
+    }
+    function setScreenUnlock(pin: string) {
+      if (screenPin.value !== pin) {
+        return window.$message.error('密码错误')
+      }
+      screenLock.value = false
+    }
     return {
       layout,
       sideCollapsed,
@@ -45,6 +61,11 @@ export const useAppStore = defineStore(
       showWatermark,
       watermarkContent,
       transition,
+      screenLock,
+      setScreenLock,
+      setScreenUnlock,
+      screenPin,
+      setPin,
     }
   },
   {

@@ -1,4 +1,14 @@
 <script setup lang='ts'>
+definePage({
+  meta: {
+    layout: 'blank',
+    title: 'FileExplorer',
+    keepAlive: true,
+    requireAuth: true,
+    icon: 'svg:charts',
+    hideOnMenu: true,
+  },
+})
 const { formRef, formProps, formValue, validate, resetValidation, resetForm, reset, clear } = useNaiveForm({
   value: {
     id: undefined,

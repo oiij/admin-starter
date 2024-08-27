@@ -12,7 +12,6 @@ import {
 } from 'unocss'
 import { presetExtra } from 'unocss-preset-extra'
 import { presetScrollbar } from 'unocss-preset-scrollbar'
-import { presetDaisy } from '@unscatty/unocss-preset-daisy'
 
 export default defineConfig({
   shortcuts: {
@@ -71,7 +70,6 @@ export default defineConfig({
     }),
     presetExtra(),
     presetScrollbar(),
-    presetDaisy(),
   ],
   transformers: [
     transformerDirectives(),

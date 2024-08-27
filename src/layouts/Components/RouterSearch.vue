@@ -63,7 +63,7 @@ watchEffect(() => {
       Ctrl+K
     </n-tag>
   </TooltipButton>
-  <n-modal v-model:show="show" preset="card" :closable="false" class="h-[600px]! w-[600px]!" @after-leave="reset">
+  <n-modal v-model:show="show" preset="card" :closable="false" class="h-[600px]! w-[600px]!" content-class="min-h-0" @after-leave="reset">
     <template #header>
       <n-input v-model:value="value" placeholder="搜索路由" size="large" />
     </template>

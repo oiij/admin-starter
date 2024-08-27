@@ -3,9 +3,9 @@ definePage({
   meta: {
     layout: 'default',
     title: 'Example',
+    icon: 'svg:window',
     keepAlive: true,
     requireAuth: true,
-    icon: 'svg:window',
   },
 })
 </script>

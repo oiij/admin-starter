@@ -1,42 +1,28 @@
 <script setup lang='ts'>
-import { useRequest } from 'vue-hooks-plus'
-import { useLocalStorageRef } from '~/composables/useLocalStorageRef'
-
 defineOptions({
 
+})
+definePage({
+  meta: {
+    layout: 'default',
+    title: '首页',
+    icon: 'svg:home',
+    keepAlive: true,
+    requireAuth: true,
+  },
 })
 useHead({
   title: '首页',
 })
-const { data } = useRequest(() => get('/info'))
-const localValue = useLocalStorageRef('localValue', 'str')
 </script>
 
 <template>
-  <div class="flex-col-center gap-10">
-    <HelloWorld />
-    <n-countdown :duration="1000 * 100" :active="true" />
-    {{ data }}
-    <div>
-      <n-button @click="localValue = 'strrrrrr'">
-        ++
-      </n-button>
-      {{ localValue }}
-      <n-button @click="localValue = 'st'">
-        --
-      </n-button>
-    </div>
-    <DefineInput />
-    <div class="flex items-center justify-center gap-1">
-      <NButton v-track:exposure>
-        ExposureTrack
-      </NButton>
-      <NButton v-track:click>
-        ClickTrack
-      </NButton>
-      <NButton v-track:long-press>
-        LongPressTrack
-      </NButton>
+  <div class="wh-full flex-col gap-[10px]">
+    <div class="h-[20%] w-full rounded-xl bg-black/5 dark:bg-white/5" />
+    <div class="w-full flex flex-1 gap-[10px] rounded-xl">
+      <div class="h-full w-[30%] rounded-xl bg-black/5 dark:bg-white/5" />
+      <div class="h-full w-[50%] rounded-xl bg-black/5 dark:bg-white/5" />
+      <div class="h-full w-[20%] rounded-xl bg-black/5 dark:bg-white/5" />
     </div>
   </div>
 </template>
@@ -45,19 +31,8 @@ const localValue = useLocalStorageRef('localValue', 'str')
 .i-border {
   border: solid 4px transparent;
   border-radius: 10px;
-  background-image: linear-gradient(#fff, #fff),
-    linear-gradient(135deg, rgba(183, 40, 255, 1), rgba(40, 112, 255, 1));
+  background-image: linear-gradient(#fff, #fff), linear-gradient(135deg, rgba(183, 40, 255, 1), rgba(40, 112, 255, 1));
   background-origin: border-box;
   background-clip: content-box, border-box;
 }
 </style>
-
-<route lang="yaml">
-name:
-meta:
-  layout: default
-  title: 首页
-  keepAlive: true
-  requireAuth: true
-  icon: svg:home
-</route>

@@ -29,7 +29,7 @@ function renderIcon(iconName?: string) {
 function auth2Menu(routeList: RouteRecordRaw[], routePermission?: StatusType['Res']['routes']) {
   const routeMenus: MenuOption[] = []
   routeList.forEach((route) => {
-    if (route.meta?.hideOnMenu || !routePermission?.some(s => s.path === route.path))
+    if (route.meta?.hideOnMenu || (route.meta?.requireAuth && !routePermission?.some(s => s.path === route.path)))
       return
     const routeMenu: MenuOption = {
       label: route.meta?.title ?? (route.name as string),

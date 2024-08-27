@@ -1,4 +1,13 @@
 <script setup lang='ts'>
+definePage({
+  meta: {
+    layout: 'blank',
+    title: 'UseNumberAnimation',
+    keepAlive: true,
+    requireAuth: false,
+    icon: 'svg:charts',
+  },
+})
 const { value } = useNumberAnimation(100)
 </script>
 
@@ -11,10 +20,3 @@ const { value } = useNumberAnimation(100)
 <style scoped lang='less'>
 
 </style>
-
-<route lang='yaml'>
-name:
-meta:
-  layout: default
-  title: UseNumberAnimation
-</route>

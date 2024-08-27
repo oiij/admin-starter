@@ -7,12 +7,12 @@ const layoutMap = {
   Horizontal: HorizontalLayout,
   Vertical: VerticalLayout,
 }
-const LayoutComponent = computed(() => layoutMap[layout.value])
+const LayoutComponent = computed(() => layoutMap[layout.value] ?? HorizontalLayout)
 </script>
 
 <template>
   <div class="wh-full">
-    <component :is="LayoutComponent ?? HorizontalLayout">
+    <component :is="LayoutComponent ">
       <RouterEntry />
     </component>
   </div>

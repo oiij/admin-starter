@@ -1,17 +1,20 @@
 <script setup lang='ts'>
 definePage({
   meta: {
+    layout: 'default',
     title: 'Super',
+    icon: 'svg:super',
     requireAuth: true,
     keepAlive: false,
-    icon: 'svg:super',
   },
 })
 </script>
 
 <template>
-  <div>
-    page
+  <div class="wh-full flex-col-center">
+    <h1 class="text-xl">
+      SuperPage
+    </h1>
   </div>
 </template>
 

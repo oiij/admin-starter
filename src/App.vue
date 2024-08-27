@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const { screenLock } = storeToRefs(useAppStore())
 useHead({
   title: import.meta.env.VITE_APP_NAME,
   meta: [
@@ -27,6 +28,9 @@ useHead({
     </RouterView>
     <NotivueProvider />
     <Watermark />
+    <Transition name="fade">
+      <ScreenLock v-if="screenLock" />
+    </Transition>
   </NaiveProvider>
 </template>
 
