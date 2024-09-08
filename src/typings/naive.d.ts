@@ -1,6 +1,6 @@
-import 'naive-ui'
 import type { DialogProviderInst, LoadingBarProviderInst, MenuOption, MessageProviderInst, NotificationProviderInst } from 'naive-ui'
 import type { RouteMeta } from 'vue-router'
+import 'naive-ui'
 
 declare global {
   interface Window {

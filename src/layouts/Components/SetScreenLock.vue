@@ -1,6 +1,6 @@
 <script setup lang='ts'>
-import type { InputInst } from 'naive-ui'
 import { NInput } from 'naive-ui'
+import type { InputInst } from 'naive-ui'
 
 const { setScreenLock } = useAppStore()
 const inputRef = ref<InputInst>()

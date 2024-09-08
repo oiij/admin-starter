@@ -71,7 +71,7 @@ export const useAppStore = defineStore(
   {
     persist: {
       key: '__APP_STORE_PERSIST__',
-      paths: ['layout', 'sideCollapsed', 'language', 'color', 'contentFullScreen', 'showWatermark', 'transition'],
+      pick: ['layout', 'sideCollapsed', 'language', 'color', 'contentFullScreen', 'showWatermark', 'transition'],
     },
   },
 )

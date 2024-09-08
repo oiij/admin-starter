@@ -1,5 +1,5 @@
-import type { Request, Response } from 'express'
 import { nanoid } from 'nanoid'
+import type { Request, Response } from 'express'
 
 export default function handler(
   req: Request,

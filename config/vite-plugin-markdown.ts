@@ -1,11 +1,11 @@
-import type { PluginOption } from 'vite'
-
-import Markdown from 'unplugin-vue-markdown/vite'
-import LinkAttributes from 'markdown-it-link-attributes'
 import Shiki from '@shikijs/markdown-it'
+
 import {
   transformerTwoslash,
 } from '@shikijs/twoslash'
+import LinkAttributes from 'markdown-it-link-attributes'
+import Markdown from 'unplugin-vue-markdown/vite'
+import type { PluginOption } from 'vite'
 
 export function VitePluginMarkdown(): PluginOption[] {
   return [
