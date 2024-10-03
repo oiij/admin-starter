@@ -1,6 +1,6 @@
-import { routes } from 'vue-router/auto-routes'
 import type { MenuOption } from 'naive-ui'
 import type { RouteRecordRaw } from 'vue-router'
+import { routes } from 'vue-router/auto-routes'
 import type { StatusType } from '~/api'
 import SvgIcon from '~/components/SvgIcon.vue'
 
