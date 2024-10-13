@@ -91,15 +91,13 @@ export default defineConfig(({ command, mode }) => {
       open: false, // 自动打开浏览器
       cors: true, // 跨域设置允许
       strictPort: true, // 如果端口已占用直接退出
-      proxy: VITE_API_BASE_URL === ''
-        ? undefined
-        : {
-            [VITE_API_BASE_PREFIX]: {
-              target: VITE_API_BASE_URL,
-              changeOrigin: true,
-              rewrite: path => path.replace(new RegExp(`^${VITE_API_BASE_PREFIX}`), ''),
-            },
-          },
+      proxy: {
+        [VITE_API_BASE_PREFIX]: {
+          target: VITE_API_BASE_URL,
+          changeOrigin: true,
+          rewrite: path => path.replace(new RegExp(`^${VITE_API_BASE_PREFIX}`), ''),
+        },
+      },
     },
     preview: {
       host: true,
@@ -110,15 +108,13 @@ export default defineConfig(({ command, mode }) => {
       sourcemap: debug,
       brotliSize: false,
       chunkSizeWarningLimit: 2000,
-      // 在生产环境移除console.log
-      // terserOptions: {
-      //   compress: {
-      //     drop_console: true,
-      //     drop_debugger: true,
-      //   },
-      // },
+      terserOptions: {
+        compress: {
+          drop_console: true,
+          drop_debugger: true,
+        },
+      },
       assetsDir: 'static/assets',
-      // 静态资源打包到dist下的不同目录
       rollupOptions: {
         output: {
           chunkFileNames: 'static/js/[name]-[hash].js',
@@ -130,8 +126,7 @@ export default defineConfig(({ command, mode }) => {
     },
     resolve: {
       alias: {
-        '~': resolve(__dirname, './src'), // 路径别名
-        'vue-i18n': 'vue-i18n/dist/vue-i18n.runtime.esm-bundler.js',
+        '~': resolve(__dirname, './src'),
       },
     },
     css: {

@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 import type { SelectOption } from 'naive-ui'
 
-const { color, showWatermark, transition, layout } = storeToRefs(useAppStore())
+const { color, showWatermark, transition, layout, language, colorMode } = storeToRefs(useAppStore())
 const show = ref(false)
 function handleOpen() {
   show.value = true
@@ -14,6 +14,35 @@ const transitionOptions: SelectOption[] = [
   { value: 'fade-bottom', label: '底部进入' },
   { value: 'zoom-in', label: '缩小进入' },
   { value: 'zoom-out', label: '放大进入' },
+]
+const localesOptions: SelectOption[] = [
+  {
+    label: '跟随系统',
+    value: 'auto',
+  },
+  {
+    label: '简体中文',
+    value: 'zh-CN',
+  },
+  {
+    label: '英文',
+    value: 'en-US',
+  },
+]
+const colorModeOptions: SelectOption[] = [
+  {
+    label: '跟随系统',
+    value: 'auto',
+
+  },
+  {
+    label: '浅色',
+    value: 'light',
+  },
+  {
+    label: '深色',
+    value: 'dark',
+  },
 ]
 </script>
 
@@ -29,6 +58,17 @@ const transitionOptions: SelectOption[] = [
         系统设置
       </template>
       <div class="w-full flex-col">
+        <n-divider title-placement="left">
+          通用
+        </n-divider>
+        <div class="w-full flex-col gap-[10px] rounded-md bg-black/5 p-[10px] dark:bg-white/5">
+          <n-form-item label="语言">
+            <n-select v-model:value="language" class="w-[260px]!" :options="localesOptions" />
+          </n-form-item>
+          <n-form-item label="颜色模式">
+            <n-select v-model:value="colorMode" class="w-[260px]!" :options="colorModeOptions" />
+          </n-form-item>
+        </div>
         <n-divider title-placement="left">
           布局
         </n-divider>

@@ -57,7 +57,6 @@ function handleUpdateValue(key: string) {
           <div class="flex-y-center gap-[10px] p-x-[10px]">
             <SetScreenLock />
             <ToggleFullScreen />
-            <ToggleLanguage />
             <ToggleDarkMode />
             <Setting />
             <GitHubButton />
