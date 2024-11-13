@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const { isDark, preferredDark } = useTheme()
 const { screenLock } = storeToRefs(useAppStore())
 useHead({
   title: import.meta.env.VITE_APP_NAME,

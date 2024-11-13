@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia'
-import { colorMode } from '~/composables/useColorMode'
 
 export const useAppStore = defineStore(
   'appStore',
@@ -10,6 +9,7 @@ export const useAppStore = defineStore(
       sideCollapsed.value = !sideCollapsed.value
     }
     const { language, setLanguage } = useLanguage()
+    const { colorMode } = useTheme()
     const { color } = useNaiveTheme()
     const reloadFlag = ref(false)
     async function reload(delay = 300) {
