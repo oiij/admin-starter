@@ -184,6 +184,7 @@ declare global {
   const useAuthMenu: typeof import('./src/composables/useAuthMenu')['useAuthMenu']
   const useAuthStore: typeof import('./src/stores/useAuthStore')['useAuthStore']
   const useAutoLoadData: typeof import('./src/composables/useAutoLoadData')['useAutoLoadData']
+  const useAutoScroll: typeof import('./src/composables/useAutoScroll')['useAutoScroll']
   const useBScroll: typeof import('./src/composables/useBScroll')['useBScroll']
   const useBase64: typeof import('@vueuse/core')['useBase64']
   const useBattery: typeof import('@vueuse/core')['useBattery']
@@ -201,6 +202,7 @@ declare global {
   const useCloned: typeof import('@vueuse/core')['useCloned']
   const useColorMode: typeof import('@vueuse/core')['useColorMode']
   const useConfirmDialog: typeof import('@vueuse/core')['useConfirmDialog']
+  const useContextMenu: typeof import('./src/composables/useContextMenu')['useContextMenu']
   const useCopyCode: typeof import('./src/composables/useCopyCode')['useCopyCode']
   const useCounter: typeof import('@vueuse/core')['useCounter']
   const useCssModule: typeof import('vue')['useCssModule']
@@ -339,6 +341,7 @@ declare global {
   const useSupported: typeof import('@vueuse/core')['useSupported']
   const useSwipe: typeof import('@vueuse/core')['useSwipe']
   const useTabs: typeof import('./src/composables/useTabs')['useTabs']
+  const useTabsScroll: typeof import('./src/composables/useTabsScroll')['useTabsScroll']
   const useTemplateRef: typeof import('vue')['useTemplateRef']
   const useTemplateRefsList: typeof import('@vueuse/core')['useTemplateRefsList']
   const useTextDirection: typeof import('@vueuse/core')['useTextDirection']
@@ -596,6 +599,7 @@ declare module 'vue' {
     readonly useCloned: UnwrapRef<typeof import('@vueuse/core')['useCloned']>
     readonly useColorMode: UnwrapRef<typeof import('@vueuse/core')['useColorMode']>
     readonly useConfirmDialog: UnwrapRef<typeof import('@vueuse/core')['useConfirmDialog']>
+    readonly useContextMenu: UnwrapRef<typeof import('./src/composables/useContextMenu')['useContextMenu']>
     readonly useCounter: UnwrapRef<typeof import('@vueuse/core')['useCounter']>
     readonly useCssModule: UnwrapRef<typeof import('vue')['useCssModule']>
     readonly useCssVar: UnwrapRef<typeof import('@vueuse/core')['useCssVar']>
@@ -725,6 +729,7 @@ declare module 'vue' {
     readonly useSupported: UnwrapRef<typeof import('@vueuse/core')['useSupported']>
     readonly useSwipe: UnwrapRef<typeof import('@vueuse/core')['useSwipe']>
     readonly useTabs: UnwrapRef<typeof import('./src/composables/useTabs')['useTabs']>
+    readonly useTabsScroll: UnwrapRef<typeof import('./src/composables/useTabsScroll')['useTabsScroll']>
     readonly useTemplateRef: UnwrapRef<typeof import('vue')['useTemplateRef']>
     readonly useTemplateRefsList: UnwrapRef<typeof import('@vueuse/core')['useTemplateRefsList']>
     readonly useTextDirection: UnwrapRef<typeof import('@vueuse/core')['useTextDirection']>

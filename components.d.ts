@@ -8,6 +8,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AppBar: typeof import('./src/components/AppBar.vue')['default']
+    ATabs: typeof import('./src/components/ATabs.vue')['default']
     BackButton: typeof import('./src/components/BackButton.vue')['default']
     BaseAppBar: typeof import('./src/components/BaseAppBar.vue')['default']
     Blank: typeof import('./src/layouts/blank.vue')['default']
