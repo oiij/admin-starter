@@ -1,5 +1,6 @@
 <script setup lang='ts'>
-import type { TabsOptions } from '~/components/ATabs.vue'
+import { TabItem, TabsBar } from '@eiog/ui'
+import '@eiog/ui/style.css'
 
 defineOptions({
 
@@ -16,11 +17,10 @@ definePage({
 useHead({
   title: '首页',
 })
-const options = ref<TabsOptions[] >([
+const options = ref([
   {
     key: '1',
     label: '标签一',
-    icon: '❤️',
     disabled: true,
   },
   {
@@ -43,8 +43,8 @@ const options = ref<TabsOptions[] >([
   },
 ])
 const value = ref('1')
-function onClose(option: TabsOptions) {
-  const index = options.value.findIndex(item => item.key === option.key)
+function onClose(name: string) {
+  const index = options.value.findIndex(item => item.key === name)
   if (index !== -1) {
     options.value.splice(index, 1)
   }
@@ -54,7 +54,7 @@ function addOne() {
   options.value.push({
     key,
     label: `标签${key}`,
-  })
+  } as any)
   value.value = key
 }
 </script>
@@ -65,7 +65,11 @@ function addOne() {
     <div class="w-full flex flex-1 gap-[10px] rounded-xl">
       <div class="h-full w-[30%] rounded-xl bg-black/5 dark:bg-white/5" />
       <div class="h-full w-[50%] rounded-xl bg-black/5 p-[10px] dark:bg-white/5">
-        <ATabs v-model:value="value" :options="options" @close="onClose" />
+        <TabsBar v-model:value="value" @close="onClose">
+          <TabItem v-for="item in options" :key="item.key" :name="item.key" :icon="item.icon" :disabled="item.disabled" :closeable="true">
+            {{ item.label }}
+          </TabItem>
+        </TabsBar>
       </div>
       <div class="h-full w-[20%] rounded-xl bg-black/5 dark:bg-white/5">
         <n-button @click="addOne">

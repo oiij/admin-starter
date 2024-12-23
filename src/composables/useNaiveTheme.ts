@@ -82,6 +82,9 @@ const themeOverrides: Ref<GlobalThemeOverrides> = computed(() => {
       errorColorPressed: getStatusColor(color.value.error).pressed,
       errorColorSuppl: getStatusColor(color.value.error).suppl,
     },
+    Dialog: {
+      borderRadius: '18px',
+    },
   }
 })
 const locale = computed(() => naiveLocaleMap[_locale.value].locale)

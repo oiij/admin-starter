@@ -1,18 +1,21 @@
 <script setup lang='ts'>
+import { useImageVerify, useNaiveForm } from '@eiog/use'
+
 definePage({
   meta: {
     layout: 'blank',
     title: 'FileExplorer',
     keepAlive: true,
-    requireAuth: true,
+    requireAuth: false,
     icon: 'svg:charts',
-    hideOnMenu: true,
+    hideOnMenu: false,
   },
 })
 const { formRef, formProps, formValue, validate, resetValidation, resetForm, reset, clear } = useNaiveForm({
   value: {
     id: undefined,
-    name: '',
+    name: 'ddd',
+    tag: ['a', '2'],
   },
   rules: {
     id: {
@@ -22,6 +25,12 @@ const { formRef, formProps, formValue, validate, resetValidation, resetForm, res
       trigger: ['input', 'blur'],
     },
     name: {
+      required: true,
+      message: '请输入',
+      trigger: ['input'],
+    },
+    tag: {
+      type: 'array',
       required: true,
       message: '请输入',
       trigger: ['input'],
@@ -47,6 +56,7 @@ const code = `const { formRef, formProps, formValue, validate, resetValidation, 
     },
   },
 })`
+const { domRef } = useImageVerify()
 </script>
 
 <template>
@@ -58,6 +68,9 @@ const code = `const { formRef, formProps, formValue, validate, resetValidation, 
         </n-form-item>
         <n-form-item label="Name" path="name">
           <n-input v-model:value="formValue.name" />
+        </n-form-item>
+        <n-form-item label="Tag" path="tag">
+          <n-dynamic-tags v-model:value="formValue.tag" />
         </n-form-item>
         <div class="flex gap-3">
           <n-button @click="validate">
@@ -80,6 +93,9 @@ const code = `const { formRef, formProps, formValue, validate, resetValidation, 
     </div>
     <div>
       <Code :code="code" />
+    </div>
+    <div>
+      <canvas ref="domRef" />
     </div>
   </div>
 </template>

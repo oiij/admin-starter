@@ -1,12 +1,19 @@
 <script setup lang="ts">
 import type {
   ConfigProviderProps,
+  DialogProviderInst,
   DialogProviderProps,
+  LoadingBarProviderInst,
   LoadingBarProviderProps,
+  MessageProviderInst,
   MessageProviderProps,
+  ModalProviderInst,
   ModalProviderProps,
+  NotificationProviderInst,
   NotificationProviderProps,
 } from 'naive-ui'
+import { useNaiveTheme } from '@eiog/use'
+
 import {
   NDialogProvider,
   NLoadingBarProvider,
@@ -18,8 +25,7 @@ import {
   useModal,
   useNotification,
 } from 'naive-ui'
-
-import { defineComponent } from 'vue'
+import { defineComponent, onMounted } from 'vue'
 
 const {
   configProviderProps,
@@ -36,6 +42,15 @@ const {
   notificationProviderProps?: NotificationProviderProps
   messageProviderProps?: MessageProviderProps
 }>()
+declare global {
+  interface Window {
+    $dialog: DialogProviderInst
+    $loadingBar: LoadingBarProviderInst
+    $message: MessageProviderInst
+    $modal: ModalProviderInst
+    $notification: NotificationProviderInst
+  }
+}
 const { theme, themeOverrides, locale, dateLocale } = useNaiveTheme()
 
 // 挂载naive组件的方法至window, 以便在路由钩子函数和请求函数里面调用
@@ -53,7 +68,7 @@ const NaiveProviderContent = defineComponent({
     })
   },
   render() {
-    return h('div')
+    return null
   },
 })
 </script>

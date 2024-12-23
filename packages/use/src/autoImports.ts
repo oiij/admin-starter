@@ -1,0 +1,22 @@
+export const eiogUseImports = {
+  '@eiog/use': [
+    'useAiEditor',
+    'useAutoRatio',
+    'useContextMenu',
+    'useEcharts',
+    'useImageVerify',
+    'useLanguage',
+    'useMediaRecorder',
+    'useNaiveForm',
+    'useNaiveTheme',
+    'usePdf',
+    'useScanCode',
+    'useSheets',
+    'useTabsScroll',
+    'useTheme',
+    'useThreeJs',
+    'useUserDisplayMedia',
+    'useWebRTC',
+    'useWebSockets',
+  ],
+}

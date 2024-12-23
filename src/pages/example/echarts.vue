@@ -1,6 +1,7 @@
 <script setup lang='ts'>
+import type { EChartsOption } from '@eiog/use'
+import { useEcharts } from '@eiog/use'
 import * as echarts from 'echarts/core'
-import type { ECOption } from '~/composables/useEcharts'
 
 definePage({
   meta: {
@@ -12,7 +13,7 @@ definePage({
   },
 })
 
-const lineChartOptions = ref<ECOption>({
+const lineChartOptions = ref<EChartsOption>({
   color: ['#80FFA5', '#00DDFF', '#37A2FF', '#FF0087', '#FFBF00'],
   tooltip: {
     trigger: 'axis',
@@ -195,7 +196,7 @@ const { domRef: lineChartRef } = useEcharts(
   lineChartOptions,
 )
 
-const columnOptions = ref<ECOption>({
+const columnOptions = ref<EChartsOption>({
   tooltip: {
     trigger: 'axis',
     axisPointer: {
@@ -235,7 +236,7 @@ const { domRef: columnRef } = useEcharts(
   columnOptions,
 )
 
-const pieOptions = ref<ECOption>({
+const pieOptions = ref<EChartsOption>({
   tooltip: {
     trigger: 'item',
   },
@@ -282,7 +283,7 @@ const { domRef: pieRef } = useEcharts(
   pieOptions,
 )
 
-const scatterOptions = ref<ECOption>({
+const scatterOptions = ref<EChartsOption>({
   xAxis: {},
   yAxis: {},
   series: [

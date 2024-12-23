@@ -1,0 +1,46 @@
+{
+  "name": "@eiog/ui",
+  "type": "module",
+  "version": "0.0.1",
+  "description": "",
+  "author": "Eiog",
+  "license": "MIT",
+  "homepage": "https://github.com/Eiog/vue3-starter-simple",
+  "keywords": [
+    "@eiog/ui"
+  ],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.umd.cjs"
+    },
+    "./style.css": "./dist/index.css"
+  },
+  "main": "./dist/index.umd.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "pnpm run /^dev:.*/",
+    "dev:ui": "rimraf dist && vue-tsc --declaration --emitDeclarationOnly --skipLibCheck && vite build --watch ",
+    "dev:tsup": "tsup --watch",
+    "build": "vue-tsc --declaration --emitDeclarationOnly && vite build && tsup"
+  },
+  "peerDependencies": {
+
+  },
+  "dependencies": {
+    "@eiog/use": "workspace:*",
+    "naive-ui": "^2.40.3"
+  },
+  "devDependencies": {
+
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

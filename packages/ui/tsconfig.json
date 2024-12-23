@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@eiog/ts-config/tsconfig.json",
+  "compilerOptions": {
+    "types": [
+      "naive-ui/volar"
+    ],
+    "outDir": "dist"
+  },
+  "include": [
+    "components/**/*.ts",
+    "components/**/*.vue"
+  ],
+  "exclude": ["node_modules", "dist", "test"]
+
+}

@@ -146,6 +146,7 @@ declare global {
   const templateRef: typeof import('@vueuse/core')['templateRef']
   const throttledRef: typeof import('@vueuse/core')['throttledRef']
   const throttledWatch: typeof import('@vueuse/core')['throttledWatch']
+  const to: typeof import('await-to-js')['to']
   const toRaw: typeof import('vue')['toRaw']
   const toReactive: typeof import('@vueuse/core')['toReactive']
   const toRef: typeof import('vue')['toRef']
@@ -228,6 +229,7 @@ declare global {
   const useDraggable: typeof import('@vueuse/core')['useDraggable']
   const useDropZone: typeof import('@vueuse/core')['useDropZone']
   const useEcharts: typeof import('./src/composables/useEcharts')['default']
+  const useEchartsD: typeof import('./src/composables/useEcharts.d')['default']
   const useElementBounding: typeof import('@vueuse/core')['useElementBounding']
   const useElementByPoint: typeof import('@vueuse/core')['useElementByPoint']
   const useElementHover: typeof import('@vueuse/core')['useElementHover']
@@ -244,6 +246,7 @@ declare global {
   const useFocus: typeof import('@vueuse/core')['useFocus']
   const useFocusWithin: typeof import('@vueuse/core')['useFocusWithin']
   const useFormat: typeof import('./src/utils/useFormat')['default']
+  const useFormatD: typeof import('./src/utils/useFormat.d')['default']
   const useFps: typeof import('@vueuse/core')['useFps']
   const useFullscreen: typeof import('@vueuse/core')['useFullscreen']
   const useGamepad: typeof import('@vueuse/core')['useGamepad']
@@ -255,6 +258,7 @@ declare global {
   const useIdle: typeof import('@vueuse/core')['useIdle']
   const useImage: typeof import('@vueuse/core')['useImage']
   const useImageVerify: typeof import('./src/composables/useImageVerify')['default']
+  const useImageVerifyD: typeof import('./src/composables/useImageVerify.d')['default']
   const useInfiniteScroll: typeof import('@vueuse/core')['useInfiniteScroll']
   const useIntersectionObserver: typeof import('@vueuse/core')['useIntersectionObserver']
   const useInterval: typeof import('@vueuse/core')['useInterval']
@@ -364,6 +368,7 @@ declare global {
   const useTrack: typeof import('./src/composables/useTrack')['useTrack']
   const useTransition: typeof import('@vueuse/core')['useTransition']
   const useTyped: typeof import('./src/composables/useTyped')['default']
+  const useTypedD: typeof import('./src/composables/useTyped.d')['default']
   const useUrlSearchParams: typeof import('@vueuse/core')['useUrlSearchParams']
   const useUserMedia: typeof import('@vueuse/core')['useUserMedia']
   const useVModel: typeof import('@vueuse/core')['useVModel']
@@ -405,6 +410,7 @@ declare global {
   export type { EnumContentType, EnumDataType } from './src/utils/useEnum'
   import('./src/utils/useEnum')
 }
+
 // for vue template auto import
 import { UnwrapRef } from 'vue'
 declare module 'vue' {
@@ -546,6 +552,7 @@ declare module 'vue' {
     readonly templateRef: UnwrapRef<typeof import('@vueuse/core')['templateRef']>
     readonly throttledRef: UnwrapRef<typeof import('@vueuse/core')['throttledRef']>
     readonly throttledWatch: UnwrapRef<typeof import('@vueuse/core')['throttledWatch']>
+    readonly to: UnwrapRef<typeof import('await-to-js')['to']>
     readonly toRaw: UnwrapRef<typeof import('vue')['toRaw']>
     readonly toReactive: UnwrapRef<typeof import('@vueuse/core')['toReactive']>
     readonly toRef: UnwrapRef<typeof import('vue')['toRef']>
