@@ -1,4 +1,6 @@
 <script setup lang='ts'>
+import { TooltipButton } from '@eiog/ui'
+
 const router = useRouter()
 const { value, result } = useRouterSearch('')
 const index = ref(0)
@@ -55,7 +57,7 @@ watchEffect(() => {
 </script>
 
 <template>
-  <TooltipButton tooltip="全局搜索" @click="openModal">
+  <TooltipButton :button-props="{ quaternary: true }" tooltip="全局搜索" @click="openModal">
     <template #icon>
       <i class="i-mage-search" />
     </template>

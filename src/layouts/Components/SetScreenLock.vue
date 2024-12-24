@@ -1,5 +1,6 @@
 <script setup lang='ts'>
 import type { InputInst } from 'naive-ui'
+import { TooltipButton } from '@eiog/ui'
 import { NInput } from 'naive-ui'
 
 const { setScreenLock } = useAppStore()
@@ -37,7 +38,7 @@ async function onClick() {
 </script>
 
 <template>
-  <TooltipButton tooltip="锁屏" @click="onClick">
+  <TooltipButton :button-props="{ quaternary: true }" tooltip="锁屏" @click="onClick">
     <template #icon>
       <i class="i-mage-lock" />
     </template>

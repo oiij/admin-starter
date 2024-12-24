@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { RouterEntry } from '@eiog/ui'
 import HorizontalLayout from './Components/HorizontalLayout.vue'
 import VerticalLayout from './Components/VerticalLayout.vue'
 

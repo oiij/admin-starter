@@ -1,7 +1,8 @@
 <script setup lang='ts'>
 import type { ButtonProps, TooltipProps } from 'naive-ui'
+import { NButton, NTooltip } from 'naive-ui'
 
-defineProps<{
+const { tooltip, tooltipProps, buttonProps } = defineProps<{
   tooltip?: string
   tooltipProps?: TooltipProps
   buttonProps?: ButtonProps
@@ -12,28 +13,21 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <n-tooltip v-bind="tooltipProps">
+  <NTooltip v-bind="tooltipProps">
     <template #trigger>
-      <n-button quaternary v-bind="buttonProps" @click="(ev:any) => emit('click', ev)">
+      <NButton v-bind="buttonProps" @click="(ev) => emit('click', ev)">
         <slot />
         <template #icon>
           <slot name="icon" />
         </template>
-      </n-button>
+      </NButton>
     </template>
     <slot name="tooltip">
       {{ tooltip }}
     </slot>
-  </n-tooltip>
+  </NTooltip>
 </template>
 
 <style scoped lang='less'>
 
 </style>
-
-<route lang='yaml'>
-name:
-meta:
-  layout: default
-  title:
-</route>

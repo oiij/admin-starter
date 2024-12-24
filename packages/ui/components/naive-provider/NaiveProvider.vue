@@ -15,9 +15,12 @@ import type {
 import { useNaiveTheme } from '@eiog/use'
 
 import {
+  NConfigProvider,
   NDialogProvider,
+  NGlobalStyle,
   NLoadingBarProvider,
   NMessageProvider,
+  NModalProvider,
   NNotificationProvider,
   useDialog,
   useLoadingBar,

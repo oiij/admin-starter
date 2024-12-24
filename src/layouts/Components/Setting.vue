@@ -1,5 +1,6 @@
 <script setup lang='ts'>
 import type { SelectOption } from 'naive-ui'
+import { TooltipButton } from '@eiog/ui'
 
 const { color, showWatermark, transition, layout, language, colorMode } = storeToRefs(useAppStore())
 const show = ref(false)
@@ -47,7 +48,7 @@ const colorModeOptions: SelectOption[] = [
 </script>
 
 <template>
-  <TooltipButton tooltip="系统设置" @click="handleOpen">
+  <TooltipButton :button-props="{ quaternary: true }" tooltip="系统设置" @click="handleOpen">
     <template #icon>
       <i class="i-mage-settings" />
     </template>

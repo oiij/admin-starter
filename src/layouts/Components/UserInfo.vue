@@ -1,5 +1,6 @@
 <script setup lang='ts'>
 import type { DropdownOption } from 'naive-ui'
+import { SvgIcon } from '@eiog/ui'
 
 const router = useRouter()
 const { logout } = useAuthStore()

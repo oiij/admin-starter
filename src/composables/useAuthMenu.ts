@@ -1,8 +1,8 @@
 import type { MenuOption } from 'naive-ui'
 import type { RouteRecordRaw } from 'vue-router'
 import type { StatusType } from '~/api'
+import { SvgIcon } from '@eiog/ui'
 import { routes } from 'vue-router/auto-routes'
-import SvgIcon from '~/components/SvgIcon.vue'
 
 function routesFormat(routes: RouteRecordRaw[]) {
   const routeList: RouteRecordRaw[] = []

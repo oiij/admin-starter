@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { NaiveProvider } from '@eiog/ui'
+
 const { isDark, preferredDark } = useTheme()
 const { screenLock } = storeToRefs(useAppStore())
 useHead({

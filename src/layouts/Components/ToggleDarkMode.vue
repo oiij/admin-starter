@@ -1,9 +1,11 @@
 <script setup lang='ts'>
+import { TooltipButton } from '@eiog/ui'
+
 const { isDark, toggleDark } = useTheme()
 </script>
 
 <template>
-  <TooltipButton :tooltip="`${isDark ? '切换亮色' : '切换暗色'}`" @click="(ev:any) => toggleDark(ev, true)">
+  <TooltipButton :button-props="{ quaternary: true }" :tooltip="`${isDark ? '切换亮色' : '切换暗色'}`" @click="(ev:any) => toggleDark(ev, true)">
     <template #icon>
       <div :class="isDark ? 'text-[#FFEB3B]/50' : 'text-[#FF7043]'" class="transition-base hover:scale-110">
         <Transition enter-active-class="animated animated-faster animated-rotate-in" leave-active-class="animated animated-faster animated-rotate-out" mode="out-in">

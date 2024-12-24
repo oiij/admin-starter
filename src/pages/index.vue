@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import { TabItem, TabsBar } from '@eiog/ui'
+import { CopyButton, TabItem, TabsBar } from '@eiog/ui'
 import '@eiog/ui/style.css'
 
 defineOptions({
@@ -75,6 +75,9 @@ function addOne() {
         <n-button @click="addOne">
           Add
         </n-button>
+        <CopyButton value="CopyButton">
+          Copy
+        </CopyButton>
       </div>
     </div>
   </div>

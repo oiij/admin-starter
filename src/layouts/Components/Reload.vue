@@ -1,4 +1,6 @@
 <script setup lang='ts'>
+import { TooltipButton } from '@eiog/ui'
+
 const { reload } = useAppStore()
 const loading = ref(false)
 function handleReload() {
@@ -11,7 +13,7 @@ function handleReload() {
 </script>
 
 <template>
-  <TooltipButton tooltip="重载页面" @click="handleReload">
+  <TooltipButton :button-props="{ quaternary: true }" tooltip="重载页面" @click="handleReload">
     <template #icon>
       <i class="i-mage-reload" :class="loading ? 'animate-spin' : ''" />
     </template>
