@@ -5,7 +5,7 @@ definePage({
   meta: {
     layout: 'blank',
     title: '登录',
-    hideOnMenu: true,
+    hide: true,
   },
 })
 

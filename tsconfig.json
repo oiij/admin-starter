@@ -8,6 +8,9 @@
     "paths": {
       "~/*": [
         "src/*"
+      ],
+      "~packages/*": [
+        "packages/*"
       ]
 
     },

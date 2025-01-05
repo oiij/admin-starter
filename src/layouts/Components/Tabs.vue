@@ -1,18 +1,39 @@
 <script setup lang='ts'>
+import type { DropdownOption } from 'naive-ui'
 import { TabItem, TabsBar } from '@eiog/ui'
+import { useContextMenu } from '@eiog/use'
+import '@eiog/ui/style.css'
 
-const { tabs, currentPath } = storeToRefs(useAuthStore())
+const { authTabs, currentPath } = storeToRefs(useAuthStore())
 const { removeTab } = useAuthStore()
 const router = useRouter()
-
+const { x, y, show, contextMenuEvent, hide } = useContextMenu()
+const options: DropdownOption[] = [
+  {
+    label: '刷新页面',
+    key: 'refresh',
+  },
+]
 function handleUpdateValue(key: string | number) {
   router.push(key as string)
+}
+function handleContextMenuClick(ev: MouseEvent) {
+  contextMenuEvent(ev)
 }
 </script>
 
 <template>
+  <n-dropdown
+    placement="bottom-start"
+    trigger="manual"
+    :x="x"
+    :y="y"
+    :options="options"
+    :show="show"
+    :on-clickoutside="hide"
+  />
   <TabsBar :value="currentPath" @update:value="handleUpdateValue" @close="removeTab">
-    <TabItem v-for="item in tabs" :key="item.key" :name="(item.key as string)" :closeable="item.key !== '/'" :icon="(item.icon as any)">
+    <TabItem v-for="item in authTabs" :key="item.key" :name="(item.key as string)" :closeable="item.key !== '/'" :icon="(item.icon as any)" @contextmenu="handleContextMenuClick">
       <div class="flex-y-center gap-[5px]">
         <div class="flex-y-center gap-[5px]" :class="item.key !== currentPath ? 'grayscale-100' : ''">
           {{ item.label }}

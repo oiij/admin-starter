@@ -26,19 +26,27 @@
   ],
   "scripts": {
     "dev": "pnpm run /^dev:.*/",
-    "dev:ui": "rimraf dist && vue-tsc --declaration --emitDeclarationOnly --skipLibCheck && vite build --watch ",
+    "dev:ui": "vite build --watch",
     "dev:tsup": "tsup --watch",
-    "build": "vue-tsc --declaration --emitDeclarationOnly && vite build && tsup"
+    "build": "vite build && tsup"
   },
   "peerDependencies": {
-
+    "@unocss/reset": "^0.65.1",
+    "@vueuse/core": "^12.0.0",
+    "cropperjs": "^1.6.2",
+    "naive-ui": "^2.40.3",
+    "shiki": "^1.24.0",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0"
   },
   "dependencies": {
     "@eiog/use": "workspace:*",
-    "naive-ui": "^2.40.3"
+    "colord": "^2.9.3",
+    "radash": "^12.1.0",
+    "simplex-noise": "^4.0.3"
   },
   "devDependencies": {
-
+    "vite-plugin-dts": "^4.4.0"
   },
   "publishConfig": {
     "access": "public"

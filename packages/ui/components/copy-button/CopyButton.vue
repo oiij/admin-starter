@@ -10,7 +10,6 @@ const { value, config, tooltipProps, buttonProps } = defineProps<{
   config?: UseClipboardOptions<string | undefined>
   tooltipProps?: TooltipProps
   buttonProps?: ButtonProps
-
 }>()
 const emit = defineEmits<{
   (e: 'copied', v: typeof value): void

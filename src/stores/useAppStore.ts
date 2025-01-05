@@ -1,16 +1,18 @@
 import { defineStore } from 'pinia'
+import { i18n } from '~/modules'
 
 export const useAppStore = defineStore(
   'appStore',
   () => {
+    const { locale, language } = useLanguage(i18n)
+    const { isDark, preferredDark, colorMode } = useTheme()
+    const { color, theme, themeOverrides, locale: naiveLocal, dateLocale } = useNaiveTheme(isDark, locale)
+
     const layout = ref<'Horizontal' | 'Vertical'>('Horizontal')
     const sideCollapsed = ref(false)
     function toggleCollapsed() {
       sideCollapsed.value = !sideCollapsed.value
     }
-    const { language, setLanguage } = useLanguage()
-    const { colorMode } = useTheme()
-    const { color } = useNaiveTheme()
     const reloadFlag = ref(false)
     async function reload(delay = 300) {
       reloadFlag.value = true
@@ -30,7 +32,7 @@ export const useAppStore = defineStore(
     }
     const showWatermark = ref(true)
     const watermarkContent = ref('水印')
-    const transition = ref('fade')
+    const transitionName = ref('fade')
     const screenLock = ref(false)
     function setScreenLock(pin?: string) {
       if (pin) {
@@ -49,20 +51,26 @@ export const useAppStore = defineStore(
       screenLock.value = false
     }
     return {
+      locale,
+      language,
+      isDark,
+      preferredDark,
+      colorMode,
+      color,
+      theme,
+      themeOverrides,
+      naiveLocal,
+      dateLocale,
       layout,
       sideCollapsed,
       toggleCollapsed,
-      language,
-      setLanguage,
-      colorMode,
       reloadFlag,
       reload,
       contentFullScreen,
       toggleContentFullScreen,
-      color,
       showWatermark,
       watermarkContent,
-      transition,
+      transitionName,
       screenLock,
       setScreenLock,
       setScreenUnlock,

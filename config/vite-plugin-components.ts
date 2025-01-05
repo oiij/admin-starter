@@ -10,9 +10,9 @@ export function VitePluginComponents(): PluginOption[] {
   return [
     Components({
       dirs: ['src/components', 'src/layouts'],
-      extensions: ['vue', 'md'],
+      extensions: ['vue', 'md', 'tsx'],
       deep: true,
-      include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
+      include: [/\.vue$/, /\.vue\?vue/, /\.md$/, /\.tsx$/],
       resolvers: [
         NaiveUiResolver(),
         VueUseComponentsResolver(),

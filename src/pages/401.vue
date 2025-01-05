@@ -3,7 +3,7 @@ definePage({
   meta: {
     layout: 'default',
     title: '401 无权限',
-    hideOnMenu: true,
+    hide: true,
   },
 })
 const route = useRoute()

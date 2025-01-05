@@ -1,17 +1,26 @@
 <script setup lang='ts'>
+import type { AiEditorOptions } from '@eiog/use'
 import { useAiEditor } from '@eiog/use'
 import { computed, watch } from 'vue'
 
-const { darkMode, language } = defineProps<{
+const { darkMode, language, options, readonly } = defineProps<{
   darkMode?: boolean
   language?: 'zh' | 'en'
+  options?: AiEditorOptions
+  readonly?: boolean
 }>()
 const value = defineModel<string>('value')
-const { domRef, value: _value } = useAiEditor({}, computed(() => darkMode ?? false), computed(() => language ?? 'zh'))
+const { domRef, value: _value, readonly: _readonly } = useAiEditor(options, computed(() => darkMode ?? false), computed(() => language ?? 'zh'))
 watch(value, (v) => {
   if (v) {
     _value.value = v
   }
+})
+watch(_value, (v) => {
+  value.value = v
+})
+watch(() => readonly, (v) => {
+  _readonly.value = v
 })
 </script>
 

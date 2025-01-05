@@ -2,7 +2,7 @@
 import type { SelectOption } from 'naive-ui'
 import { TooltipButton } from '@eiog/ui'
 
-const { color, showWatermark, transition, layout, language, colorMode } = storeToRefs(useAppStore())
+const { showWatermark, transitionName, layout, language, colorMode, color } = storeToRefs(useAppStore())
 const show = ref(false)
 function handleOpen() {
   show.value = true
@@ -92,7 +92,7 @@ const colorModeOptions: SelectOption[] = [
           </div>
           <div class="h-[30px] w-full flex-y-center justify-between">
             <span>动画效果</span>
-            <n-select v-model:value="transition" class="w-[120px]!" :options="transitionOptions" />
+            <n-select v-model:value="transitionName" class="w-[120px]!" :options="transitionOptions" />
           </div>
         </div>
       </div>

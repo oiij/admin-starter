@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { NaiveProvider } from '@eiog/ui'
 
-const { isDark, preferredDark } = useTheme()
-const { screenLock } = storeToRefs(useAppStore())
+const { screenLock, isDark, preferredDark, theme, themeOverrides, naiveLocal, dateLocale } = storeToRefs(useAppStore())
 useHead({
   title: import.meta.env.VITE_APP_NAME,
   meta: [
@@ -23,7 +22,7 @@ useHead({
 </script>
 
 <template>
-  <NaiveProvider>
+  <NaiveProvider :config-provider-props="{ theme, themeOverrides, locale: naiveLocal, dateLocale }">
     <RouterView v-slot="{ Component }">
       <Transition appear mode="out-in" name="fade">
         <Component :is="Component" />

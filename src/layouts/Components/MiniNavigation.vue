@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-const { miniNavigation } = storeToRefs(useAuthStore())
+const { miniNavigation } = useAuthRouter()
 </script>
 
 <template>

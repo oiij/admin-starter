@@ -3,7 +3,11 @@
 </script>
 
 <template>
-  <RouterEntryBlank />
+  <RouterView v-slot="{ Component }">
+    <KeepAlive>
+      <component :is="Component" />
+    </KeepAlive>
+  </RouterView>
 </template>
 
 <style scoped lang="less"></style>
