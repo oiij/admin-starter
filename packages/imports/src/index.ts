@@ -1,34 +1,51 @@
 export const eiogUseImports = {
-  '@eiog/use': [
+  '@eiog/aieditor': [
     'useAiEditor',
+  ],
+  '@eiog/document': [
+    'usePdf',
+    'useSheets',
+  ],
+  '@eiog/echarts': [
+    'useEChart',
+  ],
+  '@eiog/emoji': [
+    'useEmojiPicker',
+  ],
+  '@eiog/naive-ui': [
+    'useNaiveForm',
+    'useNaiveTheme',
+  ],
+  '@eiog/shiki': [
+    'useShiki',
+  ],
+  '@eiog/three': [
+    'useThreeJs',
+  ],
+  '@eiog/use': [
     'useAutoRatio',
     'useBoolean',
     'useBScroll',
     'useCanvas',
     'useClock',
-    'useCodeFormat',
     'useContextMenu',
-    'useEChart',
-    'useEmojiPicker',
     'useEventBusKey',
     'useImageVerify',
     'useInjectionKey',
     'useLanguage',
     'useMediaRecorder',
-    'useNaiveForm',
-    'useNaiveTheme',
     'useNProgress',
     'useNumberAnimation',
-    'usePdf',
     'useScanCode',
     'useScrollView',
-    'useSheets',
-    'useString',
     'useTheme',
-    'useThreeJs',
-    'useTypeOf',
     'useUserDisplayMedia',
-    'useVChart',
     'useWebSockets',
+  ],
+  '@eiog/utils': [
+
+  ],
+  '@eiog/vchart': [
+    'useVChart',
   ],
 }

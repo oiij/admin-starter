@@ -3,7 +3,7 @@ import vue from '@vitejs/plugin-vue'
 import Unocss from 'unocss/vite'
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
-import { name } from './package.json'
+import { name, peerDependencies } from './package.json'
 
 export default defineConfig({
   build: {
@@ -21,17 +21,10 @@ export default defineConfig({
       ],
     },
     rollupOptions: {
-      external: [
-        'vue',
-        'naive-ui',
-        '@eiog/use',
-      ],
+      external: Object.keys(peerDependencies),
       output: {
         globals: {
-          'vue': 'Vue',
-          '@vueuse/core': 'VueUseCore',
-          'naive-ui': 'NaiveUI',
-          '@eiog/use': 'EiogUse',
+          vue: 'Vue',
         },
       },
     },

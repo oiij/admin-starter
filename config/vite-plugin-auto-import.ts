@@ -1,5 +1,5 @@
 import type { PluginOption } from 'vite'
-import { eiogUseImports } from '@eiog/use/auto-imports'
+import { eiogUseImports } from '@eiog/imports'
 
 import { unheadVueComposablesImports } from '@unhead/vue'
 import { VueHooksPlusResolver } from '@vue-hooks-plus/resolvers'

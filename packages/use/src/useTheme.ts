@@ -1,7 +1,7 @@
 // these APIs are auto-imported from @vueuse/core
 import { useColorMode, useDark, usePreferredDark } from '@vueuse/core'
 import { nextTick } from 'vue'
-import '../styles/view-transition.css'
+import './styles/view-transition.css'
 
 export function useTheme() {
   const storageKey = 'color-mode'

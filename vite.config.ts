@@ -77,7 +77,7 @@ export default defineConfig(({ command, mode }) => {
       TurboConsole(), // https://github.com/unplugin/unplugin-turbo-console
       Sitemap(),
       analyzer({
-        analyzerMode: 'json',
+        analyzerMode: 'static',
       }), // https://github.com/nonzzz/vite-bundle-analyzer
       ...VitePluginAutoImport(),
       ...VitePluginComponents(),
@@ -122,7 +122,12 @@ export default defineConfig(({ command, mode }) => {
           chunkFileNames: 'static/js/[name]-[hash].js',
           entryFileNames: 'static/js/[name]-[hash].js',
           assetFileNames: 'static/[ext]/[name]-[hash].[ext]',
-          manualChunks: undefined,
+          manualChunks: {
+            eiog: ['@eiog/ui', '@eiog/use'],
+            vue: ['@unhead/vue', '@vueuse/core', '@vueuse/motion', 'vue', 'vue-hooks-plus', 'vue-i18n', 'vue-router', 'naive-ui'],
+            chart: ['echarts', '@visactor/vchart'],
+            three: ['@tweakpane/plugin-essentials', '@tweenjs/tween.js', 'cannon-es', 'postprocessing', 'three', 'tweakpane'],
+          },
         },
       },
     },

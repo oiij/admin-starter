@@ -1,10 +1,10 @@
 import type { BundledLanguage, BundledTheme, CodeToHastOptions } from 'shiki'
 import type { ComputedRef } from 'vue'
+import { is } from '@eiog/utils'
 import { codeToHtml } from 'shiki'
 import { computed, onMounted, ref, watch } from 'vue'
-import { is } from '../utils'
 
-export function useCodeFormat(defaultValue?: string, options?: CodeToHastOptions<BundledLanguage, BundledTheme>, darkMode?: ComputedRef<boolean>) {
+export function useShiki(defaultValue?: string, options?: CodeToHastOptions<BundledLanguage, BundledTheme>, darkMode?: ComputedRef<boolean>) {
   const _options = {
     lang: 'javascript',
     theme: `vitesse-${darkMode?.value ? 'dark' : 'light'}`,

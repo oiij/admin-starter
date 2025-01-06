@@ -12,7 +12,7 @@ import type {
   NotificationProviderInst,
   NotificationProviderProps,
 } from 'naive-ui'
-import { useNaiveTheme } from '@eiog/use'
+import { useNaiveTheme } from '@eiog/naive-ui'
 
 import {
   NConfigProvider,

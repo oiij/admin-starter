@@ -1,6 +1,6 @@
 <script setup lang='ts'>
-import type { AiEditorOptions } from '@eiog/use'
-import { useAiEditor } from '@eiog/use'
+import type { AiEditorOptions } from '@eiog/aieditor'
+import { useAiEditor } from '@eiog/aieditor'
 import { computed, watch } from 'vue'
 
 const { darkMode, language, options, readonly } = defineProps<{

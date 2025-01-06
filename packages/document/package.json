@@ -1,13 +1,13 @@
 {
-  "name": "@eiog/use",
+  "name": "@eiog/document",
   "type": "module",
   "version": "0.0.1",
   "description": "",
   "author": "Eiog",
   "license": "MIT",
-  "homepage": "https://github.com/Eiog/vue3-starter-simple",
+  "homepage": "https://github.com/Eiog/admin-starter",
   "keywords": [
-    "@eiog/use"
+    "@eiog/document"
   ],
   "sideEffects": false,
   "exports": {
@@ -15,11 +15,6 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
-    },
-    "./auto-imports": {
-      "types": "./dist/autoImports.d.ts",
-      "import": "./dist/autoImports.js",
-      "require": "./dist/autoImports.cjs"
     }
   },
   "main": "./dist/index.cjs",
@@ -33,16 +28,21 @@
     "build": "tsc --noEmit && tsup"
   },
   "peerDependencies": {
-    "@better-scroll/core": "^2.5.1",
-    "@vueuse/core": "^12.0.0",
-    "colord": "^2.9.3",
+    "file-saver": "^2.0.5",
+    "jspdf": "^2.5.2",
+    "jszip": "^3.10.1",
     "mixte": "3.0.0-beta.3",
     "nanoid": "^5.0.9",
-    "nprogress": "^0.2.0",
+    "pdfjs-dist": "^4.9.155",
     "vue": "^3.5.13",
-    "vue-i18n": "^10.0.5"
+    "xlsx": "^0.18.5"
+  },
+  "dependencies": {
+
   },
   "devDependencies": {
+    "@types/file-saver": "^2.0.7",
+    "@types/wicg-file-system-access": "^2023.10.5",
     "tsup": "^8.3.5"
   },
   "publishConfig": {
