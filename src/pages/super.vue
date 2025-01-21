@@ -2,7 +2,7 @@
 definePage({
   meta: {
     layout: 'default',
-    title: 'Super',
+    title: 'RequireAuth',
     icon: 'svg:super',
     requireAuth: true,
     keepAlive: false,

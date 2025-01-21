@@ -1,15 +1,10 @@
 <script setup lang="ts">
 import type { RouteLocationNormalizedLoaded } from 'vue-router'
-import HorizontalLayout from './Components/HorizontalLayout.vue'
-import VerticalLayout from './Components/VerticalLayout.vue'
+import Layout from './Components/Layout.vue'
 
-const { layout, reloadFlag, transitionName } = storeToRefs(useAppStore())
+const { reloadFlag, transitionName } = storeToRefs(useAppStore())
 const { keepAlivePath, currentPath } = useAuthRouter()
-const layoutMap = {
-  Horizontal: HorizontalLayout,
-  Vertical: VerticalLayout,
-}
-const LayoutComponent = computed(() => layoutMap[layout.value] ?? HorizontalLayout)
+
 // 用来存已经创建的组件
 const wrapperMap = new Map()
 // 将router传个我们的组件重新换一个新的组件，原组件包里面
@@ -35,8 +30,8 @@ function formatComponentInstance(component: Component, route: RouteLocationNorma
 </script>
 
 <template>
-  <div class="wh-full">
-    <component :is="LayoutComponent ">
+  <div class="h-[100vh] w-[100vw]">
+    <Layout>
       <RouterView v-slot="{ Component, route }">
         <Transition appear mode="out-in" :name="transitionName">
           <KeepAlive :include="keepAlivePath" :exclude="reloadFlag ? currentPath : undefined">
@@ -51,7 +46,7 @@ function formatComponentInstance(component: Component, route: RouteLocationNorma
           </KeepAlive>
         </Transition>
       </RouterView>
-    </component>
+    </Layout>
   </div>
 </template>
 

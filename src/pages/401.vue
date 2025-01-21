@@ -2,24 +2,24 @@
 definePage({
   meta: {
     layout: 'default',
-    title: '401 无权限',
+    title: '🔒无权限',
     hide: true,
   },
 })
-const route = useRoute()
-const redirect = route.query.redirect as string || '/'
 const router = useRouter()
 </script>
 
 <template>
-  <div class="p-[20px]">
-    <n-empty size="huge" description="你没有访问的权限">
+  <div class="wh-full flex-col-center p-[20px]">
+    <n-empty description="无权限">
       <template #icon>
-        <i class="i-line-md-alert" />
+        <span class="flex items-center justify-center">
+          🔒
+        </span>
       </template>
       <template #extra>
         <div class="flex-y-center gap-[10px]">
-          <n-button @click="() => router.push(redirect)">
+          <n-button @click="() => router.go(-2)">
             返回上一页
           </n-button>
           <n-button @click="() => router.push('/')">

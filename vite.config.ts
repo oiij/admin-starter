@@ -5,6 +5,7 @@ import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import postcssPresetEnv from 'postcss-preset-env'
 import Unocss from 'unocss/vite'
+import AutoExport from 'unplugin-auto-export/vite'
 import Icons from 'unplugin-icons/vite'
 import Info from 'unplugin-info/vite'
 import TurboConsole from 'unplugin-turbo-console/vite'
@@ -14,13 +15,13 @@ import { analyzer } from 'vite-bundle-analyzer'
 import VitePluginDebug from 'vite-plugin-debug'
 import Sitemap from 'vite-plugin-sitemap'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
+import svgSfc from 'vite-plugin-svg-sfc'
 import ServerUrlCopy from 'vite-plugin-url-copy'
 import { vitePluginVersionMark } from 'vite-plugin-version-mark'
 import VueDevTools from 'vite-plugin-vue-devtools'
 import Layouts from 'vite-plugin-vue-layouts'
 import WebfontDownload from 'vite-plugin-webfont-dl'
 import { VitePluginAutoImport, VitePluginComponents, VitePluginI18n, VitePluginMarkdown, VitePluginPWA } from './config'
-import { VitePluginMock } from './plugin'
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
   const { VITE_DEV_PORT, VITE_API_BASE_PREFIX, VITE_API_BASE_URL, VITE_BASE } = loadEnv(mode, process.cwd(), '')
@@ -45,15 +46,20 @@ export default defineConfig(({ command, mode }) => {
           color: 'white',
         },
       }), // https://github.com/XioDone/vite-plugin-url-copy
+      AutoExport({
+        path: ['src/{utils,api}/*'],
+        extname: 'ts',
+        formatter: fileName => `export * from './${fileName}'`,
+      }), // https://github.com/coderhyh/unplugin-auto-export
       VitePluginDebug(), // https://github.com/hu3dao/vite-plugin-debug/blob/master/README.zh-CN.md
       // virtual({
       //   'virtual:module': 'export default { mode: \'web\' }',
       // }), // https://github.com/patak-dev/vite-plugin-virtual Vite5 type=module 报错
-      VitePluginMock({ prefix: VITE_API_BASE_PREFIX }),
       createSvgIconsPlugin({
         iconDirs: [resolve(process.cwd(), 'src/assets/icons')],
         symbolId: 'icon-[dir]-[name]',
       }), // https://github.com/vbenjs/vite-plugin-svg-icons
+      svgSfc(),
       webUpdateNotice({
         logVersion: true,
       }), // https://github.com/GreatAuk/plugin-web-update-notification
@@ -122,12 +128,7 @@ export default defineConfig(({ command, mode }) => {
           chunkFileNames: 'static/js/[name]-[hash].js',
           entryFileNames: 'static/js/[name]-[hash].js',
           assetFileNames: 'static/[ext]/[name]-[hash].[ext]',
-          manualChunks: {
-            eiog: ['@eiog/ui', '@eiog/use'],
-            vue: ['@unhead/vue', '@vueuse/core', '@vueuse/motion', 'vue', 'vue-hooks-plus', 'vue-i18n', 'vue-router', 'naive-ui'],
-            chart: ['echarts', '@visactor/vchart'],
-            three: ['@tweakpane/plugin-essentials', '@tweenjs/tween.js', 'cannon-es', 'postprocessing', 'three', 'tweakpane'],
-          },
+          manualChunks: {},
         },
       },
     },

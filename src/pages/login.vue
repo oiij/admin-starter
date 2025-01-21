@@ -11,6 +11,7 @@ definePage({
 
 const route = useRoute()
 const redirect = route.query.redirect as string || '/'
+
 const router = useRouter()
 const { login } = useAuthStore()
 const { formRef, formValue, formProps, validate } = useNaiveForm<LoginType['Data']>({
@@ -36,8 +37,8 @@ const { loading, runAsync: handleLogin } = useRequest(() => login(formValue.valu
 async function handleValidate() {
   try {
     await validate()
-    await handleLogin()
-    window.$message.success('登录成功')
+    const { msg } = await handleLogin()
+    window.$message.success(msg)
     router.push(redirect)
   }
   catch {
@@ -50,7 +51,6 @@ async function handleValidate() {
   <div class="background wh-full flex items-center justify-center dark:brightness-75">
     <div class="absolute right-[20px] top-[20px] flex-y-center rounded-xl bg-white/70 p-[10px] backdrop-blur-2xl dark:bg-white/30">
       <ToggleFullScreen />
-      <ToggleLanguage />
       <ToggleDarkMode />
     </div>
     <div class="w-[400px] flex-col rounded-3xl bg-white/60 p-[20px] backdrop-blur-2xl transition-base dark:bg-white/30 hover:shadow-xl">

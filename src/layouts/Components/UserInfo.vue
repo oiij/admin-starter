@@ -31,7 +31,7 @@ const options: DropdownOption[] = [
   <n-dropdown trigger="click" :options="options">
     <n-badge>
       <n-avatar round>
-        <SvgIcon :width="3" :height="3" name="code" class="cursor-pointer transition-base! hover:scale-90" />
+        <SvgIcon :size="2" name="code" class="cursor-pointer transition-base! hover:scale-90" />
       </n-avatar>
     </n-badge>
   </n-dropdown>

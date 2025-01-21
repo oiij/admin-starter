@@ -1,4 +1,4 @@
-import { onUnmounted, ref } from 'vue'
+import { onUnmounted, ref, shallowRef } from 'vue'
 
 type State = 'CONNECTING' | 'OPEN' | 'CLOSING' | 'CLOSED' | 'PENDING'
 const ReadyState: {
@@ -13,36 +13,40 @@ interface Options {
   protocols?: string | string[]
   manual?: boolean
 }
-type DataType = string | ArrayBufferLike | Blob | ArrayBufferView
-export function useWebSockets<T extends DataType>(url: string | URL, options?: Options) {
+interface MessageType {
+  type: string
+  data: any
+}
+export function useWebSockets<T extends MessageType>(url: string | URL, options?: Options) {
   const { protocols, manual = false } = options ?? {}
-  let socket: WebSocket | null = null
+  const handlerMap = new Map<string, (data: any) => void>()
+  const socket = shallowRef< WebSocket > ()
   const status = ref<State>('PENDING')
   const error = ref<Event>()
   const data = ref<T>()
   function setStatus() {
-    if (socket) {
-      status.value = ReadyState[socket.readyState]
+    if (socket.value) {
+      status.value = ReadyState[socket.value.readyState]
     }
   }
   function connect() {
-    socket = new WebSocket(url, protocols)
-    socket.addEventListener('open', onOpen)
-    socket.addEventListener('message', onMessage)
-    socket.addEventListener('close', onClose)
-    socket.addEventListener('error', onError)
+    socket.value = new WebSocket(url, protocols)
+    socket.value.addEventListener('open', onOpen)
+    socket.value.addEventListener('message', onMessage)
+    socket.value.addEventListener('close', onClose)
+    socket.value.addEventListener('error', onError)
   }
   if (!manual) {
     connect()
   }
-  function send(data: DataType) {
-    if (socket) {
-      socket.send(data)
+  function send(data: any) {
+    if (socket.value) {
+      socket.value.send(data)
     }
   }
   function close() {
-    if (socket) {
-      socket.close()
+    if (socket.value) {
+      socket.value.close()
     }
   }
   let onOpenFn: ((ev: Event) => void) | null = null
@@ -52,12 +56,24 @@ export function useWebSockets<T extends DataType>(url: string | URL, options?: O
       onOpenFn(ev)
     }
   }
-  let onMessageFn: ((ev: MessageEvent<T>) => void) | null = null
-  function onMessage(ev: MessageEvent<T>) {
+  let onMessageFn: ((ev: MessageEvent) => void) | null = null
+  function onMessage(ev: MessageEvent) {
     setStatus()
-    data.value = ev.data
     if (onMessageFn) {
       onMessageFn(ev)
+    }
+    try {
+      const dataJson = JSON.parse(ev.data) as T
+      data.value = ev.data
+      if (dataJson && dataJson.type) {
+        const handler = handlerMap.get(dataJson.type)
+        if (handler) {
+          handler(dataJson.data)
+        }
+      }
+    }
+    catch (error) {
+      console.error('Failed to parse message:', error)
     }
   }
   let onCloseFn: ((ev: CloseEvent) => void) | null = null
@@ -75,13 +91,16 @@ export function useWebSockets<T extends DataType>(url: string | URL, options?: O
       onErrorFn(ev)
     }
   }
+  function registerHandler(type: string, handler: (data: any) => void) {
+    handlerMap.set(type, handler)
+  }
   function destroy() {
     close()
-    socket?.removeEventListener('open', onOpen)
-    socket?.removeEventListener('message', onMessage)
-    socket?.removeEventListener('close', onClose)
-    socket?.removeEventListener('error', onError)
-    socket = null
+    socket.value?.removeEventListener('open', onOpen)
+    socket.value?.removeEventListener('message', onMessage)
+    socket.value?.removeEventListener('close', onClose)
+    socket.value?.removeEventListener('error', onError)
+    socket.value = undefined
     onOpenFn = null
     onMessageFn = null
     onCloseFn = null
@@ -110,5 +129,6 @@ export function useWebSockets<T extends DataType>(url: string | URL, options?: O
     onError(fn: (ev: Event) => void) {
       onErrorFn = fn
     },
+    registerHandler,
   }
 }

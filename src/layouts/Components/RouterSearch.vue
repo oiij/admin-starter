@@ -1,5 +1,8 @@
 <script setup lang='ts'>
 import { SearchInput, TooltipButton } from '@eiog/ui'
+import { useThemeVars } from 'naive-ui'
+
+const themeVars = useThemeVars()
 
 const router = useRouter()
 const { searchValue, searchRouteResult } = useAuthRouter()
@@ -31,11 +34,11 @@ function handleDown() {
 function reset() {
   searchValue.value = ''
   index.value = 0
-  show.value = false
 }
 function handleChoose() {
   const item = searchRouteResult.value[index.value]
   if (item) {
+    show.value = false
     router.push(item.key as string)
     reset()
   }
@@ -54,22 +57,32 @@ watchEffect(() => {
   if (Enter.value)
     return handleChoose()
 })
+const highLightStyle = computed(() => {
+  return {
+    padding: '0 4px',
+    borderRadius: themeVars.value.borderRadius,
+    display: 'inline-block',
+    color: themeVars.value.baseColor,
+    background: themeVars.value.primaryColor,
+    transition: `all .3s ${themeVars.value.cubicBezierEaseInOut}`,
+  }
+})
 </script>
 
 <template>
-  <TooltipButton :button-props="{ quaternary: true }" tooltip="全局搜索" @click="openModal">
+  <TooltipButton :button-props="{ quaternary: true }" :tooltip="$t(`common.globalSearch.placeholder`)" @click="openModal">
     <template #icon>
       <i class="i-mage-search" />
     </template>
-    <n-tag round :bordered="false" size="small">
+    <NTag round :bordered="false" size="small">
       Ctrl+K
-    </n-tag>
+    </NTag>
   </TooltipButton>
-  <n-modal v-model:show="show" preset="card" :closable="false" class="h-[600px]! w-[600px]!" content-class="min-h-0" @after-leave="reset">
+  <NModal v-model:show="show" preset="card" :closable="false" class="h-[600px]! w-[600px]!" content-class="min-h-0" @after-leave="reset">
     <template #header>
-      <SearchInput v-model:value="searchValue" :input-props="{ placeholder: '搜索路由', size: 'large' }" :button-props="{ size: 'large' }" />
+      <SearchInput v-model:value="searchValue" :input-props="{ placeholder: $t(`common.globalSearch.placeholder`), size: 'large' }" :button-props="{ size: 'large' }" />
     </template>
-    <n-scrollbar v-if="searchRouteResult.length > 0" class="wh-full">
+    <NScrollbar v-if="searchRouteResult.length > 0" class="wh-full">
       <div class="w-full flex-col gap-[10px]">
         <div
           v-for="(item, _index) in searchRouteResult"
@@ -80,47 +93,47 @@ watchEffect(() => {
           @mouseenter="index = _index"
         >
           <div class="flex items-center justify-center">
-            <n-icon :component="item.icon" :size="40" />
+            <NIcon :component="item.icon" :size="40" />
           </div>
           <div class="w-full flex-col">
             <div class="text-xl font-medium dark:text-white">
-              {{ item.label }}
+              <NHighlight :text="(item.label as string)" :patterns="[searchValue]" :highlight-style="highLightStyle" />
             </div>
             <div class="text-black/50 dark:text-white/60">
-              {{ item.key }}
+              <NHighlight :text="(item.key as string)" :patterns="[searchValue]" :highlight-style="highLightStyle" />
             </div>
           </div>
         </div>
       </div>
-    </n-scrollbar>
+    </NScrollbar>
     <div v-else class="wh-full flex items-center justify-center">
-      <n-empty description="无内容" />
+      <NEmpty description="无内容" />
     </div>
 
     <template #footer>
       <div class="flex-y-center gap-[10px]">
         <div class="flex-y-center gap-[5px]">
-          <n-tag size="small" :bordered="false">
+          <NTag size="small" :bordered="false">
             <i class="i-mage-l-arrow-down-left" />
-          </n-tag>
-          Choose
+          </NTag>
+          {{ $t('common.globalSearch.enter') }}
         </div>
         <div class="flex-y-center gap-[5px]">
-          <n-tag size="small" :bordered="false">
+          <NTag size="small" :bordered="false">
             <i class="i-mage-arrow-up" />
             <i class="i-mage-arrow-down" />
-          </n-tag>
-          Navigate
+          </NTag>
+          {{ $t('common.globalSearch.navigate') }}
         </div>
         <div class="flex-y-center gap-[5px]">
-          <n-tag size="small" :bordered="false">
+          <NTag size="small" :bordered="false">
             <i class="">Esc</i>
-          </n-tag>
-          Closure
+          </NTag>
+          {{ $t('common.globalSearch.closure') }}
         </div>
       </div>
     </template>
-  </n-modal>
+  </NModal>
 </template>
 
 <style scoped lang='less'>

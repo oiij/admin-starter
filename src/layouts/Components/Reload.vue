@@ -2,18 +2,22 @@
 import { TooltipButton } from '@eiog/ui'
 
 const { reload } = useAppStore()
+const { currentPath } = storeToRefs(useAuthStore())
+const { setTabLoading, removeTabLoading } = useAuthStore()
 const loading = ref(false)
 function handleReload() {
   loading.value = true
+  setTabLoading(currentPath.value)
   reload()
   setTimeout(() => {
     loading.value = false
+    removeTabLoading()
   }, 1000)
 }
 </script>
 
 <template>
-  <TooltipButton :button-props="{ quaternary: true }" tooltip="重载页面" @click="handleReload">
+  <TooltipButton :button-props="{ quaternary: true }" :tooltip="$t('common.refreshPage')" @click="handleReload">
     <template #icon>
       <i class="i-mage-reload" :class="loading ? 'animate-spin' : ''" />
     </template>

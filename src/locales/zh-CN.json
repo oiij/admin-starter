@@ -1,0 +1,24 @@
+{
+  "Hello": "你好 世界 !",
+  "Welcome": "欢迎使用这个模板",
+  "Examples": "示例",
+  "Dependents": "依赖",
+  "common": {
+    "globalSearch": {
+      "placeholder": "全局搜索",
+      "enter": "进入",
+      "navigate": "选择",
+      "closure": "关闭"
+    },
+    "lockScreen": "锁屏",
+    "fullScreen": "全屏",
+    "exitFullScreen": "退出全屏",
+    "darkMode": "深色模式",
+    "lightMode": "浅色模式",
+    "systemMode": "跟随系统",
+    "systemSetting": "系统设置",
+    "refreshPage": "刷新页面",
+    "enterContentFullScreenMode": "进入内容全屏模式",
+    "exitContentFullScreenMode": "进入内容全屏模式"
+  }
+}

@@ -4,32 +4,12 @@ import { defineStore } from 'pinia'
 export const useAuthStore = defineStore(
   'authStore',
   () => {
-    const { token, routePermission, logged, refreshed, login, refresh, logout } = useLogin()
+    const login = useLogin()
 
-    const { routes, authRoutes, authMenu, authFlatMenu, currentRoute, currentPath, keepAlivePath, tabsPath, authTabs, addTab, removeTab, clearTab, searchValue, searchRouteResult, miniNavigation } = useAuthRouter()
+    const authRouter = useAuthRouter()
     return {
-      token,
-      routePermission,
-      logged,
-      refreshed,
-      login,
-      refresh,
-      logout,
-      routes,
-      authRoutes,
-      authMenu,
-      authFlatMenu,
-      currentRoute,
-      currentPath,
-      keepAlivePath,
-      tabsPath,
-      authTabs,
-      addTab,
-      removeTab,
-      clearTab,
-      searchValue,
-      searchRouteResult,
-      miniNavigation,
+      ...login,
+      ...authRouter,
     }
   },
   {

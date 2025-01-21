@@ -9,7 +9,7 @@ function handleClick() {
 </script>
 
 <template>
-  <TooltipButton :button-props="{ quaternary: true }" :tooltip="contentFullScreen ? '退出内容全屏模式' : '进入内容全屏模式'" @click="handleClick">
+  <TooltipButton :button-props="{ quaternary: true }" :tooltip="contentFullScreen ? $t('common.exitContentFullScreenMode') : $t('common.enterContentFullScreenMode')" @click="handleClick">
     <template #icon>
       <Transition name="fade" mode="out-in">
         <i v-if="contentFullScreen" class="i-mage-television-minus" />

@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-
 import type {
   AxiosError,
   AxiosInstance,
@@ -17,11 +16,16 @@ const axiosInstance: AxiosInstance = axios.create({
     'Content-Type': 'application/json',
   },
 })
-
+const isDev = import.meta.env.DEV
 axiosInstance.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     if (!NProgress.isStarted())
       NProgress.start()
+    const { token } = useAuthStore()
+
+    if (token) {
+      config.headers.setAuthorization(`Bearer ${token}`)
+    }
     return config
   },
   (error: AxiosError) => {
@@ -33,7 +37,8 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   (response: AxiosResponse) => {
     NProgress.done()
-    console.log('response', response)
+    if (isDev)
+      console.log(`${response.config.url}`, response)
     return response.data
   },
   (error: AxiosError) => {

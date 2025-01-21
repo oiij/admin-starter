@@ -4,8 +4,8 @@ import { TabItem, TabsBar } from '@eiog/ui'
 import { useContextMenu } from '@eiog/use'
 import '@eiog/ui/style.css'
 
-const { authTabs, currentPath } = storeToRefs(useAuthStore())
-const { removeTab } = useAuthStore()
+const { authTabs, currentPath, tabLoadingPath } = storeToRefs(useAuthStore())
+const { removeTab, setTabLoading, removeTabLoading } = useAuthStore()
 const router = useRouter()
 const { x, y, show, contextMenuEvent, hide } = useContextMenu()
 const options: DropdownOption[] = [
@@ -15,7 +15,10 @@ const options: DropdownOption[] = [
   },
 ]
 function handleUpdateValue(key: string | number) {
-  router.push(key as string)
+  setTabLoading(key as string)
+  router.push(key as string).then(() => {
+    removeTabLoading()
+  })
 }
 function handleContextMenuClick(ev: MouseEvent) {
   contextMenuEvent(ev)
@@ -33,7 +36,7 @@ function handleContextMenuClick(ev: MouseEvent) {
     :on-clickoutside="hide"
   />
   <TabsBar :value="currentPath" @update:value="handleUpdateValue" @close="removeTab">
-    <TabItem v-for="item in authTabs" :key="item.key" :name="(item.key as string)" :closeable="item.key !== '/'" :icon="(item.icon as any)" @contextmenu="handleContextMenuClick">
+    <TabItem v-for="item in authTabs" :key="item.key" :name="(item.key as string)" :closeable="item.key !== '/'" :icon="(item.icon as any)" :loading="tabLoadingPath === item.key" @contextmenu="handleContextMenuClick">
       <div class="flex-y-center gap-[5px]">
         <div class="flex-y-center gap-[5px]" :class="item.key !== currentPath ? 'grayscale-100' : ''">
           {{ item.label }}

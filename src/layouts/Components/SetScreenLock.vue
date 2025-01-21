@@ -38,7 +38,7 @@ async function onClick() {
 </script>
 
 <template>
-  <TooltipButton :button-props="{ quaternary: true }" tooltip="锁屏" @click="onClick">
+  <TooltipButton :button-props="{ quaternary: true }" :tooltip="$t('common.lockScreen')" @click="onClick">
     <template #icon>
       <i class="i-mage-lock" />
     </template>

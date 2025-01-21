@@ -1,18 +1,21 @@
 <script setup lang='ts'>
+import { is } from '@eiog/utils'
 import { computed } from 'vue'
 
-const { prefix = 'icon-', name, color = '#000', width = 1, height = 1 } = defineProps<{
+const { prefix = 'icon-', name, color = '#000', size = 1 } = defineProps<{
   prefix?: string
   name: string
   color?: string
-  width?: number
-  height?: number
+  size?: number | string
 }>()
 const symbolId = computed(() => `#${prefix}${name}`)
+const _size = computed(() => {
+  return is.isNumber(size) ? `${size}em` : size
+})
 </script>
 
 <template>
-  <svg aria-hidden="true" :style="{ width: `${width}em`, height: `${height}em` }">
+  <svg aria-hidden="true" :style="{ width: _size, height: _size }">
     <use :xlink:href="symbolId" :fill="color" />
   </svg>
 </template>

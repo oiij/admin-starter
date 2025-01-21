@@ -1,0 +1,52 @@
+{
+  "name": "@eiog/server",
+  "type": "module",
+  "version": "0.0.1",
+  "description": "",
+  "author": "Eiog",
+  "license": "MIT",
+  "homepage": "https://github.com/Eiog/admin-starter",
+  "keywords": [
+    "@eiog/server"
+  ],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc --noEmit && tsup",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "consola": "^3.4.0",
+    "h3": "^1.13.1",
+    "jsonwebtoken": "^9.0.2",
+    "mime": "^4.0.6",
+    "mongoose": "^8.9.5",
+    "nanoid": "^5.0.9",
+    "qiniu": "^7.14.0",
+    "redis": "^4.7.0",
+    "ws": "^8.18.0",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/ws": "^8.5.13",
+    "tsup": "^8.3.5",
+    "tsx": "^4.19.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

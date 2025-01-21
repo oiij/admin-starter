@@ -82,8 +82,12 @@ export function useNaiveTheme(darkMode?: ComputedRef<boolean>, language?: Comput
         errorColorHover: getStatusColor(color.value.error).hover,
         errorColorPressed: getStatusColor(color.value.error).pressed,
         errorColorSuppl: getStatusColor(color.value.error).suppl,
+        borderRadius: '6px',
+      },
+      Dialog: {
         borderRadius: '12px',
-        borderRadiusSmall: '6px',
+        padding: '20px',
+        closeMargin: '20px 20px 0 0',
       },
     }
   })

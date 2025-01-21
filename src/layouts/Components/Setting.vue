@@ -48,7 +48,7 @@ const colorModeOptions: SelectOption[] = [
 </script>
 
 <template>
-  <TooltipButton :button-props="{ quaternary: true }" tooltip="系统设置" @click="handleOpen">
+  <TooltipButton :button-props="{ quaternary: true }" :tooltip="$t('common.systemSetting')" @click="handleOpen">
     <template #icon>
       <i class="i-mage-settings" />
     </template>
@@ -56,7 +56,7 @@ const colorModeOptions: SelectOption[] = [
   <n-drawer v-model:show="show" :width="320">
     <n-drawer-content>
       <template #header>
-        系统设置
+        {{ $t('common.systemSetting') }}
       </template>
       <div class="w-full flex-col">
         <n-divider title-placement="left">

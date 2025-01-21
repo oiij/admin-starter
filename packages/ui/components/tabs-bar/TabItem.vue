@@ -1,15 +1,17 @@
 <script setup lang='ts'>
-import { computed, inject, onMounted, type VNode } from 'vue'
+import { computed, h, inject, onMounted, type VNode } from 'vue'
 import { tabsBarInjectionKey } from './index'
 
 type VNodeChild = VNode | string | number | undefined | void | null | boolean
 
-const { name, disabled, closeable, icon } = defineProps<{
+const { name, disabled, closeable, icon, loading, loadingRender = () => h('i', { class: 'i-line-md-loading-twotone-loop', style: { width: `16px`, height: `16px` } }) } = defineProps<{
   name: string
   disabled?: boolean
   closeable?: boolean
   showLine?: boolean
   icon?: (() => VNodeChild) | string
+  loading?: boolean
+  loadingRender?: () => VNodeChild
 }>()
 const emit = defineEmits<{
   (e: 'close'): void
@@ -40,7 +42,7 @@ onMounted(() => {
 <template>
   <div class=":uno: group relative z-1 m-x-[-5px] h-[40px] flex-shrink-0 cursor-default select-none p-x-[10px] p-t-[6px] first:m-l-0! last:m-r-0!" :class="[active ? 'tab-active' : '', disabled ? ':uno: cursor-not-allowed! pointer-events-none! grayscale-[100]! opacity-50!' : '']" @click="onClick" @contextmenu="onContextMenu">
     <div class=":uno: relative h-[28px] flex-y-center gap-[5px] rounded-[10px] p-x-[6px] transition-base" :class="active ? '' : ':uno: group-hover:bg-[--tabs-bar-primary-color] dark:group-hover:bg-[--tabs-bar-primary-color-dark]'">
-      <component :is="icon" />
+      <component :is="loading ? loadingRender : icon" />
       <div class=":uno: text-sm">
         <slot />
       </div>

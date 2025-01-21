@@ -2,11 +2,11 @@
 definePage({
   meta: {
     layout: 'default',
-    title: 'useCodeFormat',
+    title: 'useShiki',
   },
 })
 const { isDark } = storeToRefs(useAppStore())
-const { domRef, value } = useCodeFormat(`export const foo = ref('foo');`, undefined, isDark)
+const { domRef, value } = useShiki(`export const foo = ref('foo');`, undefined, isDark)
 </script>
 
 <template>

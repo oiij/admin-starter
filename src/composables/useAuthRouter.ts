@@ -3,13 +3,37 @@ import type { RouteRecordRaw } from 'vue-router'
 import type { StatusType } from '~/api'
 import { SvgIcon } from '@eiog/ui'
 import { routes as _routes } from 'vue-router/auto-routes'
-import { applyMeta, router } from '~/modules'
+import { router } from '~/modules'
 
+export function applyMeta(routes: RouteRecordRaw[]) {
+  const _routes: RouteRecordRaw[] = []
+  routes.forEach((route) => {
+    if (route.path === '_')
+      return
+    const _route = { ...route }
+    if (_route.children && _route.children.length > 0) {
+      _route.meta = {
+        ..._route.meta,
+        ..._route.children.find(f => f.path === '_')?.meta,
+      }
+      _route.children = applyMeta(_route.children).map((m) => {
+        return {
+          ...m,
+          path: `${_route.path}/${m.path}`,
+        }
+      })
+    }
+    _routes.push(_route)
+  })
+  return _routes
+}
 function verifyRoutesPermission(routes: RouteRecordRaw[], routePermission?: StatusType['Res']['routes']) {
   const _routes: RouteRecordRaw[] = []
   routes.forEach((route) => {
-    if (route.meta?.hide || (route.meta?.requireAuth && routePermission && !routePermission?.some(s => s.path === route.path)))
+    if (route.meta?.hide || (!!route.meta?.requireAuth && !routePermission?.some(s => s.path === route.path))) {
       return
+    }
+
     if (route.children) {
       route.children = verifyRoutesPermission(route.children, routePermission)
     }
@@ -19,10 +43,10 @@ function verifyRoutesPermission(routes: RouteRecordRaw[], routePermission?: Stat
 }
 function renderIcon(iconName?: string) {
   if (iconName?.startsWith('svg:')) {
-    return () => h(SvgIcon, { name: iconName?.replace('svg:', '') })
+    return () => h(SvgIcon, { name: iconName?.replace('svg:', ''), size: '16px' })
   }
   if (iconName?.startsWith('i-')) {
-    return () => h('i', { class: iconName })
+    return () => h('i', { class: iconName, style: { width: `16px`, height: `16px` } })
   }
   return undefined
 }
@@ -31,7 +55,7 @@ function routesToNaiveMenu(routes: RouteRecordRaw[]) {
   routes.forEach((route) => {
     const menu: MenuOption = {
       label: route.meta?.title ?? route.name ?? route.path,
-      key: route.name?.toString() ?? route.path,
+      key: route.path ?? route.name?.toString(),
       icon: renderIcon(route.meta?.icon),
       show: !route.meta?.hideOnMenu,
       meta: route.meta,
@@ -141,6 +165,7 @@ const currentRoute = computed(() => router.currentRoute.value)
 const currentPath = computed(() => currentRoute.value.path)
 const keepAlivePath = computed(() => flatRoutes(routes).filter(f => f.meta?.keepAlive).map(m => m.path))
 const tabsPath = ref<string[]>([])
+const tabLoadingPath = ref<string>()
 const authTabs = computed(() => {
   return tabsPath.value.map((m) => {
     return authFlatMenu.value.find(f => f.key === m)
@@ -167,6 +192,12 @@ function removeTab(path: string) {
 function clearTab() {
   tabsPath.value = []
 }
+function setTabLoading(path: string) {
+  tabLoadingPath.value = path
+}
+function removeTabLoading() {
+  tabLoadingPath.value = undefined
+}
 export function useAuthRouter() {
   return {
     routes,
@@ -184,5 +215,8 @@ export function useAuthRouter() {
     searchValue,
     searchRouteResult,
     miniNavigation,
+    tabLoadingPath,
+    setTabLoading,
+    removeTabLoading,
   }
 }

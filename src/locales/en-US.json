@@ -1,0 +1,24 @@
+{
+  "Hello": "Hello World !",
+  "Welcome": "Welcome Use This Template",
+  "Examples": "Examples",
+  "Dependents": "Dependents",
+  "common": {
+    "globalSearch": {
+      "placeholder": "Global Search",
+      "enter": "Enter",
+      "navigate": "Navigate",
+      "closure": "Closure"
+    },
+    "lockScreen": "Lock Screen",
+    "fullScreen": "Full Screen",
+    "exitFullScreen": "Exit Full Screen",
+    "darkMode": "Dark Mode",
+    "lightMode": "Light Mode",
+    "systemMode": "System Mode",
+    "systemSetting": "System Setting",
+    "refreshPage": "Refresh Page",
+    "enterContentFullScreenMode": "Enter Content Full Screen Mode",
+    "exitContentFullScreenMode": "Exit Content Full Screen Mode"
+  }
+}

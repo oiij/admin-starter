@@ -1,0 +1,40 @@
+{
+  "name": "@eiog/directives",
+  "type": "module",
+  "version": "0.0.1",
+  "description": "",
+  "author": "Eiog",
+  "license": "MIT",
+  "homepage": "https://github.com/Eiog/admin-starter",
+  "keywords": [
+    "@eiog/directives"
+  ],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "tsup --watch",
+    "build": "tsc --noEmit && tsup"
+  },
+  "peerDependencies": {
+    "@eiog/utils": "workspace:*",
+    "vue": "^3.5.13"
+  },
+  "devDependencies": {
+    "tsup": "^8.3.5"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

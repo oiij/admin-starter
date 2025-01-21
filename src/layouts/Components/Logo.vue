@@ -25,14 +25,14 @@ const iconSize = computed(() => {
 <template>
   <Transition enter-active-class="animated animated-faster animated-zoom-in" leave-active-class="animated animated-faster animated-fade-out" mode="out-in">
     <div v-if="props.size === 'small'" class="flex-col-center gap-[10px]">
-      <SvgIcon :width="iconSize" :height="iconSize" name="code" />
+      <SvgIcon :size="iconSize" name="code" />
     </div>
     <div v-else-if="props.size === 'middle'" class="flex-col-center gap-[5px]">
-      <SvgIcon :width="iconSize" :height="iconSize" name="code" />
+      <SvgIcon :size="iconSize" name="code" />
       <span class="nowrap-hidden text-xl font-bold">Code Admin</span>
     </div>
     <div v-else class="flex-col-center gap-[10px]">
-      <SvgIcon :width="iconSize" :height="iconSize" name="code" />
+      <SvgIcon :size="iconSize" name="code" />
       <span class="nowrap-hidden text-xl font-bold">Code Admin</span>
     </div>
   </Transition>

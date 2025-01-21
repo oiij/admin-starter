@@ -1,13 +1,12 @@
 import { defineStore } from 'pinia'
-import { i18n } from '~/modules'
+import { useLanguage } from '~/modules'
 
 export const useAppStore = defineStore(
   'appStore',
   () => {
-    const { locale, language } = useLanguage(i18n)
+    const { locale, language } = useLanguage()
     const { isDark, preferredDark, colorMode } = useTheme()
     const { color, theme, themeOverrides, locale: naiveLocal, dateLocale } = useNaiveTheme(isDark, locale)
-
     const layout = ref<'Horizontal' | 'Vertical'>('Horizontal')
     const sideCollapsed = ref(false)
     function toggleCollapsed() {
@@ -50,6 +49,7 @@ export const useAppStore = defineStore(
       }
       screenLock.value = false
     }
+
     return {
       locale,
       language,
@@ -81,7 +81,7 @@ export const useAppStore = defineStore(
   {
     persist: {
       key: '__APP_STORE_PERSIST__',
-      pick: ['layout', 'sideCollapsed', 'language', 'color', 'contentFullScreen', 'showWatermark', 'transition'],
+      pick: ['layout', 'sideCollapsed', 'color', 'contentFullScreen', 'showWatermark', 'transition'],
     },
   },
 )
