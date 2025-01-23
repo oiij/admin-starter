@@ -12,7 +12,7 @@
     "dev": "vite",
     "dev:server": "pnpm --filter ./server/** dev",
     "dev:packages": "pnpm --parallel --filter ./packages/** dev",
-    "build": "vite optimize && vue-tsc --noEmit && vite build",
+    "build": "vite optimize --force && vue-tsc --noEmit && vite build",
     "build:packages": "pnpm --parallel --filter ./packages/** build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",

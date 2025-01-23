@@ -4,6 +4,6 @@
   "compilerOptions": {
     "moduleResolution": "bundler"
   },
-  "include": ["src", "../document/src/useSheets.ts", "../document/src/usePdf.ts"],
+  "include": ["src"],
   "exclude": ["node_modules", "dist", "test"]
 }
