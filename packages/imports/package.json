@@ -1,13 +1,13 @@
 {
-  "name": "@eiog/imports",
+  "name": "@oiij/imports",
   "type": "module",
   "version": "0.0.1",
   "description": "",
-  "author": "Eiog",
+  "author": "oiij",
   "license": "MIT",
-  "homepage": "https://github.com/Eiog/vue3-starter-simple",
+  "homepage": "https://github.com/oiij/vue3-starter-simple",
   "keywords": [
-    "@eiog/imports"
+    "@oiij/imports"
   ],
   "sideEffects": false,
   "exports": {

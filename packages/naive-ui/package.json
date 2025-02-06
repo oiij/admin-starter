@@ -1,13 +1,13 @@
 {
-  "name": "@eiog/naive-ui",
+  "name": "@oiij/naive-ui",
   "type": "module",
   "version": "0.0.1",
   "description": "",
-  "author": "Eiog",
+  "author": "oiij",
   "license": "MIT",
-  "homepage": "https://github.com/Eiog/admin-starter",
+  "homepage": "https://github.com/oiij/admin-starter",
   "keywords": [
-    "@eiog/naive-ui"
+    "@oiij/naive-ui"
   ],
   "sideEffects": false,
   "exports": {

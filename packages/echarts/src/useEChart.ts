@@ -63,7 +63,7 @@ echarts.use([
   UniversalTransition,
   CanvasRenderer,
 ])
-export function useEChart<T extends EChartsOption >(
+export function useEChart<T extends EChartsOption>(
   options: Ref<T> | ComputedRef<T>,
   darkMode?: ComputedRef<boolean>,
   renderFun?: (chartInstance: echarts.ECharts) => void,

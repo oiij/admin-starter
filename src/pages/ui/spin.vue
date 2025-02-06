@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import { AlienSpinner, BallBounceSpinner, BanterSpinner, CubeRotationSpinner, DotSpinner, LineRotationSpinner } from '@eiog/ui'
+import { AlienSpinner, BallBounceSpinner, BanterSpinner, CubeRotationSpinner, DotSpinner, LineRotationSpinner } from '@oiij/ui'
 
 definePage({
   meta: {

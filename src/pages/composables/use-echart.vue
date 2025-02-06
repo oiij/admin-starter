@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import type { EChartsOption } from '@eiog/echarts'
+import type { EChartsOption } from '@oiij/echarts'
 import * as echarts from 'echarts/core'
 
 definePage({

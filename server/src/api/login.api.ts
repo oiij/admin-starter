@@ -1,4 +1,4 @@
-import { createRouter, defineEventHandler, readValidatedBody } from 'h3'
+import { createError, createRouter, defineEventHandler, readValidatedBody } from 'h3'
 import { object, string } from 'zod'
 import { paramsError, sign } from '../utils'
 
@@ -12,8 +12,6 @@ const routes = [
 const permissionStr = (permission: number) => `0b${permission.toString(2)}`
 
 const router = createRouter()
-export const loginRouter = router
-
 router.post('/login', defineEventHandler(async (handler) => {
   const body = await readValidatedBody(handler, object({
     username: string({ required_error: '缺少账号名称' }),
@@ -25,16 +23,15 @@ router.post('/login', defineEventHandler(async (handler) => {
   const { username, password } = body.data
   if (username === 'admin' && password === 'admin') {
     return {
-      code: 0,
       msg: '验证成功',
       token: sign({ _id: username }),
     }
   }
-  return {
-    code: 1,
-    msg: '验证失败',
-    token: '',
-  }
+  return createError({
+    status: 401,
+    statusMessage: 'Verification Failed',
+    message: '验证失败',
+  })
 }))
 router.post('/status', defineEventHandler(async (handler) => {
   const body = await readValidatedBody(handler, object({
@@ -44,8 +41,6 @@ router.post('/status', defineEventHandler(async (handler) => {
     throw paramsError(body)
   }
   return {
-    status: 'ok',
-    code: 1,
     token: body.data.token,
     routes: routes.map((m) => {
       return {
@@ -55,5 +50,11 @@ router.post('/status', defineEventHandler(async (handler) => {
         permissionStr: permissionStr(READ | WRITE | CREATE | DELETE),
       }
     }),
+    userInfo: {
+      username: 'admin',
+      nickname: '管理员',
+      avatar: 'https://avatars.githubusercontent.com/u/33677659?v=4',
+    },
   }
 }))
+export default router

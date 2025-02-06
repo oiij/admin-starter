@@ -1,6 +1,6 @@
 <script setup lang='ts'>
-import { InteractiveHoverButton } from '@eiog/ui'
-import '@eiog/ui/style.css'
+import { InteractiveHoverButton } from '@oiij/ui'
+import '@oiij/ui/style.css'
 
 definePage({
   meta: {

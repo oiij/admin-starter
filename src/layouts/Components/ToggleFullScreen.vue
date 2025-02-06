@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import { TooltipButton } from '@eiog/ui'
+import { TooltipButton } from '@oiij/ui'
 
 const { toggle, isFullscreen } = useFullscreen()
 </script>

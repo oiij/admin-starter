@@ -1,5 +1,5 @@
 import type { PluginOption } from 'vite'
-import { eiogUseImports } from '@eiog/imports'
+import { imports as oiij } from '@oiij/imports'
 
 import { unheadVueComposablesImports } from '@unhead/vue'
 import { VueHooksPlusResolver } from '@vue-hooks-plus/resolvers'
@@ -28,7 +28,7 @@ export function VitePluginAutoImport(): PluginOption[] {
         unheadVueComposablesImports,
         VueRouterAutoImports,
         { from: 'await-to-js', imports: ['to'] },
-        eiogUseImports,
+        oiij,
       ],
       dirs: ['src/hooks', 'src/composables', 'src/stores', 'src/utils', 'src/api'],
       vueTemplate: true,

@@ -1,15 +1,15 @@
 import type { LoginType, StatusType } from '~/api'
 
 const token = ref<string>()
+const userInfo = ref<StatusType['Res']['userInfo']>()
 const routePermission = ref<StatusType['Res']['routes']>()
-const refreshed = ref(false)
+const logged = computed(() => !!token.value)
 async function login(data: LoginType['Data']) {
   const [err, res] = await baseApi._login(data)
   if (err) {
     return Promise.reject(err)
   }
   token.value = res.token
-  refreshed.value = true
   return res
 }
 async function refresh(data: { token: string }) {
@@ -20,21 +20,21 @@ async function refresh(data: { token: string }) {
     logout()
     return
   }
-  const { routes, token: refreshedToken } = res
-  routePermission.value = routes
-  token.value = refreshedToken
-  refreshed.value = true
+  userInfo.value = res.userInfo
+  routePermission.value = res.routes
+  token.value = res.token
 }
 async function logout() {
+  userInfo.value = undefined
   token.value = undefined
   routePermission.value = undefined
-  refreshed.value = false
 }
 export function useLogin() {
   return {
+    userInfo,
     token,
     routePermission,
-    refreshed,
+    logged,
     login,
     refresh,
     logout,

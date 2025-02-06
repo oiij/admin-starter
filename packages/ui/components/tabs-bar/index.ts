@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import { useInjectionKey } from '@eiog/use'
+import { useInjectionKey } from '@oiij/use'
 import './index.less'
 
 export const tabsBarInjectionKey = useInjectionKey<{

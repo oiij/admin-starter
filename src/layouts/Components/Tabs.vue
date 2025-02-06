@@ -1,8 +1,8 @@
 <script setup lang='ts'>
 import type { DropdownOption } from 'naive-ui'
-import { TabItem, TabsBar } from '@eiog/ui'
-import { useContextMenu } from '@eiog/use'
-import '@eiog/ui/style.css'
+import { TabItem, TabsBar } from '@oiij/ui'
+import { useContextMenu } from '@oiij/use'
+import '@oiij/ui/style.css'
 
 const { authTabs, currentPath, tabLoadingPath } = storeToRefs(useAuthStore())
 const { removeTab, setTabLoading, removeTabLoading } = useAuthStore()

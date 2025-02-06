@@ -22,6 +22,11 @@ export interface StatusType {
       permission: number
       permissionStr: string
     }[]
+    userInfo: {
+      username: string
+      nickname: string
+      avatar: string
+    }
   }
 }
 

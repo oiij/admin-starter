@@ -1,5 +1,6 @@
 <script setup lang='ts'>
-import { computed, h, inject, onMounted, type VNode } from 'vue'
+import type { VNode } from 'vue'
+import { computed, h, inject, onMounted } from 'vue'
 import { tabsBarInjectionKey } from './index'
 
 type VNodeChild = VNode | string | number | undefined | void | null | boolean

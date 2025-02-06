@@ -1,6 +1,6 @@
 <script setup lang='ts'>
 import type { SelectOption } from 'naive-ui'
-import { TooltipButton } from '@eiog/ui'
+import { TooltipButton } from '@oiij/ui'
 
 const { showWatermark, transitionName, layout, language, colorMode, color } = storeToRefs(useAppStore())
 const show = ref(false)

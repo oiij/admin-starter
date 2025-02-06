@@ -1,28 +1,28 @@
-export const eiogUseImports = {
-  '@eiog/aieditor': [
+export const imports = {
+  '@oiij/aieditor': [
     'useAiEditor',
   ],
-  '@eiog/document': [
+  '@oiij/document': [
     'usePdf',
     'useSheets',
   ],
-  '@eiog/echarts': [
+  '@oiij/echarts': [
     'useEChart',
   ],
-  '@eiog/emoji': [
+  '@oiij/emoji': [
     'useEmojiPicker',
   ],
-  '@eiog/naive-ui': [
+  '@oiij/naive-ui': [
     'useNaiveForm',
     'useNaiveTheme',
   ],
-  '@eiog/shiki': [
+  '@oiij/shiki': [
     'useShiki',
   ],
-  '@eiog/three': [
+  '@oiij/three': [
     'useThreeJs',
   ],
-  '@eiog/use': [
+  '@oiij/use': [
     'useAutoRatio',
     'useBoolean',
     'useBScroll',
@@ -41,10 +41,10 @@ export const eiogUseImports = {
     'useViewTransition',
     'useWebSockets',
   ],
-  '@eiog/utils': [
+  '@oiij/utils': [
 
   ],
-  '@eiog/vchart': [
+  '@oiij/vchart': [
     'useVChart',
   ],
 }

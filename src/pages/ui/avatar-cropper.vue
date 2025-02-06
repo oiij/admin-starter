@@ -1,6 +1,6 @@
 <script setup lang='ts'>
 import { AvatarCropper } from '~packages/ui/components'
-import '@eiog/ui/style.css'
+import '@oiij/ui/style.css'
 
 definePage({
   meta: {

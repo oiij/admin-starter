@@ -1,13 +1,13 @@
 {
-  "name": "@eiog/directives",
+  "name": "@oiij/directives",
   "type": "module",
   "version": "0.0.1",
   "description": "",
-  "author": "Eiog",
+  "author": "oiij",
   "license": "MIT",
-  "homepage": "https://github.com/Eiog/admin-starter",
+  "homepage": "https://github.com/oiij/admin-starter",
   "keywords": [
-    "@eiog/directives"
+    "@oiij/directives"
   ],
   "sideEffects": false,
   "exports": {
@@ -28,7 +28,7 @@
     "build": "tsc --noEmit && tsup"
   },
   "peerDependencies": {
-    "@eiog/utils": "workspace:*",
+    "@oiij/utils": "workspace:*",
     "vue": "^3.5.13"
   },
   "devDependencies": {

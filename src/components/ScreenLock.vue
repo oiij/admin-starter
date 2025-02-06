@@ -3,11 +3,11 @@ import avatar from '~/assets/avatar_400.png'
 
 const { setScreenUnlock } = useAppStore()
 const { hour, minute, year, month, day } = useClock()
-const { value: showLogin, setTrue, setFalse } = useBoolean(false)
+const { value: loginFlag, setTrue: setShow, setFalse: setHide } = useBoolean(false)
 const { escape } = useMagicKeys()
 watch(escape, (v) => {
   if (v)
-    setFalse()
+    setHide()
 })
 const pin = ref('')
 function onClick() {
@@ -21,11 +21,11 @@ function onKeyUp(e: KeyboardEvent) {
 </script>
 
 <template>
-  <div class="background fixed inset-0 z-999 h-[100vh] w-[100vw] flex-col-center" @click="setTrue">
-    <div class="absolute inset-0 z-0 wh-full transition-base" :class="showLogin ? 'backdrop-blur-3xl bg-white/60 backdrop-saturate-200' : 'bg-transparent'" />
+  <div class="background fixed inset-0 z-999 h-[100vh] w-[100vw] flex-col-center" @click="setShow">
+    <div class="absolute inset-0 z-0 wh-full transition-base" :class="loginFlag ? 'backdrop-blur-3xl bg-white/60 backdrop-saturate-200' : 'bg-transparent'" />
     <div class="z-1 flex-col-center">
       <Transition name="fade-bottom" mode="out-in">
-        <div v-if="!showLogin" class="h-[600px] w-[400px] flex-col cursor-default items-center">
+        <div v-if="!loginFlag" class="h-[600px] w-[400px] flex-col cursor-default items-center">
           <h1 class="text-[100px] text-white font-bold">
             {{ hour }}:{{ minute }}
           </h1>

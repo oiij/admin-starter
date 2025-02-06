@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NaiveProvider } from '@eiog/ui'
+import { NaiveProvider } from '@oiij/ui'
 
 const { screenLock, isDark, preferredDark, theme, themeOverrides, naiveLocal, dateLocale } = storeToRefs(useAppStore())
 useHead({

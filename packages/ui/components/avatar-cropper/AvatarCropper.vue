@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/prop-name-casing -->
 <script setup lang='ts'>
-import { useBoolean } from '@eiog/use'
+import { useBoolean } from '@oiij/use'
 import Cropper from 'cropperjs'
 import { NButton, NSpin } from 'naive-ui'
 import { onMounted, ref, shallowRef, toValue } from 'vue'

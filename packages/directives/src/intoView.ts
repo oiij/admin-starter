@@ -1,5 +1,5 @@
 import type { Directive, DirectiveBinding } from 'vue'
-import { is } from '@eiog/utils'
+import { is } from '@oiij/utils'
 
 type BindingValue = (target: Element) => void
 type TargetElement = HTMLElement & {

@@ -1,6 +1,6 @@
 <script setup lang='ts'>
 import type { InputInst } from 'naive-ui'
-import { TooltipButton } from '@eiog/ui'
+import { TooltipButton } from '@oiij/ui'
 import { NInput } from 'naive-ui'
 
 const { setScreenLock } = useAppStore()

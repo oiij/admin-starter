@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import { useScrollView } from '@eiog/use'
+import { useScrollView } from '@oiij/use'
 import { colord } from 'colord'
 import { computed, nextTick, provide, ref, watch } from 'vue'
 import { tabsBarInjectionKey } from './index'

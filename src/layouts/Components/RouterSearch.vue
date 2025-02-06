@@ -1,5 +1,6 @@
 <script setup lang='ts'>
-import { SearchInput, TooltipButton } from '@eiog/ui'
+import { SearchInput, TooltipButton } from '@oiij/ui'
+import { useBoolean } from '@oiij/use'
 import { useThemeVars } from 'naive-ui'
 
 const themeVars = useThemeVars()
@@ -14,11 +15,12 @@ const { Ctrl_K, ArrowUp, ArrowDown, Enter } = useMagicKeys({
       e.preventDefault()
   },
 })
-const { value: show, setTrue: openModal } = useBoolean(false)
+
+const { value: modalFlag, setTrue: showModal, setFalse: hideModal } = useBoolean(false)
 
 watchEffect(() => {
   if (Ctrl_K.value) {
-    openModal()
+    showModal()
   }
 })
 function handleUp() {
@@ -38,7 +40,7 @@ function reset() {
 function handleChoose() {
   const item = searchRouteResult.value[index.value]
   if (item) {
-    show.value = false
+    hideModal()
     router.push(item.key as string)
     reset()
   }
@@ -48,7 +50,7 @@ function handleClick(path: string) {
   reset()
 }
 watchEffect(() => {
-  if (!show.value)
+  if (!modalFlag.value)
     return
   if (ArrowUp.value)
     return handleUp()
@@ -56,6 +58,9 @@ watchEffect(() => {
     return handleDown()
   if (Enter.value)
     return handleChoose()
+})
+const patterns = computed(() => {
+  return searchValue.value === '' ? [] : [searchValue.value]
 })
 const highLightStyle = computed(() => {
   return {
@@ -70,7 +75,7 @@ const highLightStyle = computed(() => {
 </script>
 
 <template>
-  <TooltipButton :button-props="{ quaternary: true }" :tooltip="$t(`common.globalSearch.placeholder`)" @click="openModal">
+  <TooltipButton :button-props="{ quaternary: true }" :tooltip="$t(`common.globalSearch.placeholder`)" @click="showModal">
     <template #icon>
       <i class="i-mage-search" />
     </template>
@@ -78,7 +83,7 @@ const highLightStyle = computed(() => {
       Ctrl+K
     </NTag>
   </TooltipButton>
-  <NModal v-model:show="show" preset="card" :closable="false" class="h-[600px]! w-[600px]!" content-class="min-h-0" @after-leave="reset">
+  <NModal v-model:show="modalFlag" preset="card" :closable="false" class="h-[600px]! w-[600px]!" content-class="min-h-0" @after-leave="reset">
     <template #header>
       <SearchInput v-model:value="searchValue" :input-props="{ placeholder: $t(`common.globalSearch.placeholder`), size: 'large' }" :button-props="{ size: 'large' }" />
     </template>
@@ -86,7 +91,7 @@ const highLightStyle = computed(() => {
       <div class="w-full flex-col gap-[10px]">
         <div
           v-for="(item, _index) in searchRouteResult"
-          :key="item.key"
+          :key="_index"
           class="flex-y-center cursor-pointer gap-[14px] rounded-md bg-black/5 p-[10px] transition-base dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10"
           :class="_index === index ? 'bg-black/10! dark:bg-white/10!' : ''"
           @click="handleClick(item.key as string)"
@@ -97,10 +102,10 @@ const highLightStyle = computed(() => {
           </div>
           <div class="w-full flex-col">
             <div class="text-xl font-medium dark:text-white">
-              <NHighlight :text="(item.label as string)" :patterns="[searchValue]" :highlight-style="highLightStyle" />
+              <NHighlight :text="(item.label as string)" :patterns="patterns" :highlight-style="highLightStyle" />
             </div>
             <div class="text-black/50 dark:text-white/60">
-              <NHighlight :text="(item.key as string)" :patterns="[searchValue]" :highlight-style="highLightStyle" />
+              <NHighlight :text="(item.key as string)" :patterns="patterns" :highlight-style="highLightStyle" />
             </div>
           </div>
         </div>

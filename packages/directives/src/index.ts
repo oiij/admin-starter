@@ -1,5 +1,5 @@
 import type { App } from 'vue'
-import { string } from '@eiog/utils'
+import { string } from '@oiij/utils'
 import { clickOutside } from './clickOutside'
 import { copy } from './copy'
 import { debounce } from './debounce'

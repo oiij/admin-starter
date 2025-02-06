@@ -1,13 +1,13 @@
 {
-  "name": "@eiog/aieditor",
+  "name": "@oiij/aieditor",
   "type": "module",
   "version": "0.0.1",
   "description": "",
-  "author": "Eiog",
+  "author": "oiij",
   "license": "MIT",
-  "homepage": "https://github.com/Eiog/admin-starter",
+  "homepage": "https://github.com/oiij/admin-starter",
   "keywords": [
-    "@eiog/aieditor"
+    "@oiij/aieditor"
   ],
   "sideEffects": false,
   "exports": {

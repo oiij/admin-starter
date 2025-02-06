@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 definePage({
   meta: {
-    title: 'EiogUI',
+    title: 'OiijUI',
     icon: 'svg:window',
   },
 })

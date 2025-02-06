@@ -9,7 +9,7 @@ const getValue = <T extends Record<string, any>, K extends string>(obj: T, path:
 /** 键值对创建对象 */
 const toObj = (arr: [string, any][]) => Object.fromEntries(arr)
 /** 重命名key */
-const renameKeys = <T extends Record<string, any>, K extends Record<keyof T, string> >(keysMap: K, obj: T) => Object.keys(obj).reduce((acc, key) => ({ ...acc, ...{ [keysMap[key] || key]: obj[key] } }), {})
+const renameKeys = <T extends Record<string, any>, K extends Record<keyof T, string>>(keysMap: K, obj: T) => Object.keys(obj).reduce((acc, key) => ({ ...acc, ...{ [keysMap[key] || key]: obj[key] } }), {})
 /** 从对象忽略 */
 const omit = <T extends Record<string, any>, K extends (keyof T)[]>(obj: T, keys: K) => Object.keys(obj).filter(k => !keys.includes(k)).reduce((res, k) => Object.assign(res, { [k]: obj[k] }), {})
 /** 从对象中选择 */

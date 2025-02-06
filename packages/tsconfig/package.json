@@ -1,0 +1,21 @@
+{
+  "name": "@oiij/tsconfig",
+  "version": "0.0.1",
+  "description": "oiij's tsconfig",
+  "author": "oiij",
+  "license": "MIT",
+  "keywords": [
+    "tsconfig",
+    "typescript"
+  ],
+  "files": [
+    "package.json",
+    "tsconfig.json"
+  ],
+  "scripts": {
+    "release": "bumpp -r && npm publish --access public"
+  },
+  "devDependencies": {
+    "bumpp": "^10.0.2"
+  }
+}

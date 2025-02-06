@@ -1,13 +1,13 @@
 {
-  "name": "@eiog/ui",
+  "name": "@oiij/ui",
   "type": "module",
   "version": "0.0.1",
   "description": "",
-  "author": "Eiog",
+  "author": "oiij",
   "license": "MIT",
-  "homepage": "https://github.com/Eiog/vue3-starter-simple",
+  "homepage": "https://github.com/oiij/vue3-starter-simple",
   "keywords": [
-    "@eiog/ui"
+    "@oiij/ui"
   ],
   "sideEffects": false,
   "exports": {
@@ -31,10 +31,10 @@
     "build": "vite build && tsup"
   },
   "peerDependencies": {
-    "@eiog/aieditor": "workspace:*",
-    "@eiog/emoji": "workspace:*",
-    "@eiog/naive-ui": "workspace:*",
-    "@eiog/use": "workspace:*",
+    "@oiij/aieditor": "workspace:*",
+    "@oiij/emoji": "workspace:*",
+    "@oiij/naive-ui": "workspace:*",
+    "@oiij/use": "workspace:*",
     "@unocss/reset": "^0.65.1",
     "@vueuse/core": "^12.0.0",
     "colord": "^2.9.3",
@@ -45,7 +45,7 @@
     "vue-router": "^4.5.0"
   },
   "dependencies": {
-    "@eiog/use": "workspace:*",
+    "@oiij/use": "workspace:*",
     "colord": "^2.9.3",
     "radash": "^12.1.0",
     "simplex-noise": "^4.0.3"

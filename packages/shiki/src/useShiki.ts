@@ -1,6 +1,6 @@
 import type { BundledLanguage, BundledTheme, CodeToHastOptions } from 'shiki'
 import type { ComputedRef } from 'vue'
-import { is } from '@eiog/utils'
+import { is } from '@oiij/utils'
 import { codeToHtml } from 'shiki'
 import { computed, onMounted, ref, watch } from 'vue'
 

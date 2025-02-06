@@ -1,13 +1,13 @@
 {
-  "name": "@eiog/shiki",
+  "name": "@oiij/shiki",
   "type": "module",
   "version": "0.0.1",
   "description": "",
-  "author": "Eiog",
+  "author": "oiij",
   "license": "MIT",
-  "homepage": "https://github.com/Eiog/admin-starter",
+  "homepage": "https://github.com/oiij/admin-starter",
   "keywords": [
-    "@eiog/shiki"
+    "@oiij/shiki"
   ],
   "sideEffects": false,
   "exports": {
@@ -32,7 +32,7 @@
     "vue": "^3.5.13"
   },
   "dependencies": {
-    "@eiog/utils": "workspace:*"
+    "@oiij/utils": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.3.5"

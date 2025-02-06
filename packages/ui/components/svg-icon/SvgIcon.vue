@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import { is } from '@eiog/utils'
+import { is } from '@oiij/utils'
 import { computed } from 'vue'
 
 const { prefix = 'icon-', name, color = '#000', size = 1 } = defineProps<{

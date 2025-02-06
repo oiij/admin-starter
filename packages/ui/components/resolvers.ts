@@ -1,13 +1,13 @@
 import type { ComponentResolver } from 'unplugin-vue-components'
 
-export function eiogUiResolver(): ComponentResolver {
+export function oiijUiResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {
-      if (name.match(/^Eiog[A-Z]/)) {
+      if (name.match(/^Oiij[A-Z]/)) {
         return {
           name: name.slice(4),
-          from: '@eiog/ui',
+          from: '@oiij/ui',
         }
       }
     },

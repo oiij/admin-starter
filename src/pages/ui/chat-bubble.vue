@@ -1,6 +1,6 @@
 <script setup lang='ts'>
-import { ChatBubble } from '@eiog/ui'
-import '@eiog/ui/style.css'
+import { ChatBubble } from '@oiij/ui'
+import '@oiij/ui/style.css'
 
 definePage({
   meta: {

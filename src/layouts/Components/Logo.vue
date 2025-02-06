@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import { SvgIcon } from '@eiog/ui'
+import { SvgIcon } from '@oiij/ui'
 
 const props = defineProps<{
   size?: 'small' | 'middle' | 'large'

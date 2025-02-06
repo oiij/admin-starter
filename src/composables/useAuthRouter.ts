@@ -1,7 +1,7 @@
 import type { DropdownOption, IMenuOption as MenuOption } from 'naive-ui'
 import type { RouteRecordRaw } from 'vue-router'
 import type { StatusType } from '~/api'
-import { SvgIcon } from '@eiog/ui'
+import { SvgIcon } from '@oiij/ui'
 import { routes as _routes } from 'vue-router/auto-routes'
 import { router } from '~/modules'
 
@@ -96,15 +96,17 @@ function flatMenu(menus: MenuOption[]) {
   })
   return _menus
 }
-function searchMenu(value?: string, authFlatMenu?: MenuOption[]) {
-  const queryArr = value?.split('')
-  const reg = new RegExp(`(.*?)${queryArr?.join('(.*?)')}(.*?)`, 'i')
-  const res = authFlatMenu?.filter((f) => {
+function searchMenu(value: string, authFlatMenu: MenuOption[]) {
+  const queryArr = value.replace(/\s/g, '').split('')
+  const reg = new RegExp(`(.*?)${queryArr.map(m => `${m}(.*?)`).join()}`, 'i')
+
+  const res = authFlatMenu.filter((f) => {
     if (f.key && f.label)
-      return reg.test(f.label as string) || reg.test(f.key.toString())
+      return reg.test(f.label.toString()) || reg.test(f.key.toString())
     return false
   })
-  return res ?? []
+
+  return res
 }
 function findMiniNavigation(authMenu: MenuOption[], currentPath: string) {
   const menus: {
@@ -171,7 +173,7 @@ const authTabs = computed(() => {
     return authFlatMenu.value.find(f => f.key === m)
   }).filter(f => !!f)
 })
-const searchValue = ref()
+const searchValue = ref('')
 const searchRouteResult = computed(() => searchMenu(searchValue.value, authFlatMenu.value))
 const miniNavigation = computed(() => findMiniNavigation(authMenu.value, currentPath.value))
 
