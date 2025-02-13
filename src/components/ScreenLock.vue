@@ -1,4 +1,5 @@
 <script setup lang='ts'>
+import { useBoolean } from '@oiij/use'
 import avatar from '~/assets/avatar_400.png'
 
 const { setScreenUnlock } = useAppStore()

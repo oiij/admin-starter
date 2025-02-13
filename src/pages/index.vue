@@ -1,4 +1,7 @@
+<!-- eslint-disable no-console -->
 <script setup lang='ts'>
+import { createWorker } from 'workey'
+
 defineOptions({
 
 })
@@ -13,6 +16,26 @@ definePage({
 })
 useHead({
   title: '首页',
+})
+function add(a: number, b: number) {
+  return a + b
+}
+const dayjs: any = null
+const { callWorker: worker } = createWorker((foo: string) => {
+  const arr = Array.from({ length: 1000000 }, (_, i) => i)
+  return {
+    arr: arr.reduce((pre, cur) => add(pre, cur), 0),
+    foo,
+    dayjs: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+  }
+}, {
+  dependencies: ['https://cdn.jsdelivr.net/npm/dayjs/dayjs.min.js'],
+  localDependencies: [add],
+})
+worker('foo').then((res) => {
+  console.log(res)
+}).catch((err) => {
+  console.log(err)
 })
 </script>
 

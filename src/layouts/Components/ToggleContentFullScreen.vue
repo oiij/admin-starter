@@ -1,6 +1,4 @@
 <script setup lang='ts'>
-import { TooltipButton } from '@oiij/ui'
-
 const { contentFullScreen } = storeToRefs(useAppStore())
 const { toggleContentFullScreen } = useAppStore()
 function handleClick() {

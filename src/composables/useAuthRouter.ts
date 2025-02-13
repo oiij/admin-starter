@@ -1,8 +1,8 @@
 import type { DropdownOption, IMenuOption as MenuOption } from 'naive-ui'
 import type { RouteRecordRaw } from 'vue-router'
 import type { StatusType } from '~/api'
-import { SvgIcon } from '@oiij/ui'
 import { routes as _routes } from 'vue-router/auto-routes'
+import SvgIcon from '~/components/SvgIcon.vue'
 import { router } from '~/modules'
 
 export function applyMeta(routes: RouteRecordRaw[]) {

@@ -1,3 +1,4 @@
+import { useNaiveTheme } from '@oiij/naive-ui'
 import { defineStore } from 'pinia'
 import { useLanguage } from '~/modules'
 

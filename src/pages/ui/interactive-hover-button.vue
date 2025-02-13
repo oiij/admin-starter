@@ -1,5 +1,4 @@
 <script setup lang='ts'>
-import { InteractiveHoverButton } from '@oiij/ui'
 import '@oiij/ui/style.css'
 
 definePage({

@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { NaiveProvider } from '@oiij/ui'
-
 const { screenLock, isDark, preferredDark, theme, themeOverrides, naiveLocal, dateLocale } = storeToRefs(useAppStore())
 useHead({
   title: import.meta.env.VITE_APP_NAME,

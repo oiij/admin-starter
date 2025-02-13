@@ -1,5 +1,4 @@
 <script setup lang='ts'>
-import { SearchInput, TooltipButton } from '@oiij/ui'
 import { useBoolean } from '@oiij/use'
 import { useThemeVars } from 'naive-ui'
 

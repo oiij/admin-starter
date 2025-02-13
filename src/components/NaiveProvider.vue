@@ -12,7 +12,6 @@ import type {
   NotificationProviderInst,
   NotificationProviderProps,
 } from 'naive-ui'
-import { useNaiveTheme } from '@oiij/naive-ui'
 
 import {
   NConfigProvider,
@@ -22,14 +21,13 @@ import {
   NMessageProvider,
   NModalProvider,
   NNotificationProvider,
-  NSpin,
   useDialog,
   useLoadingBar,
   useMessage,
   useModal,
   useNotification,
 } from 'naive-ui'
-import { defineComponent, onMounted, ref } from 'vue'
+import { defineComponent, onMounted } from 'vue'
 
 const {
   configProviderProps,
@@ -53,19 +51,7 @@ declare global {
     $message: MessageProviderInst
     $modal: ModalProviderInst
     $notification: NotificationProviderInst
-    $loading: (text: string) => void
-    $hideLoading: () => void
   }
-}
-const { theme, themeOverrides, locale, dateLocale } = useNaiveTheme()
-const globalLoading = ref(false)
-const globalLoadingText = ref('正在加载')
-function showGlobalLoading(text: string = '正在加载') {
-  globalLoading.value = true
-  globalLoadingText.value = text
-}
-function hideGlobalLoading() {
-  globalLoading.value = false
 }
 // 挂载naive组件的方法至window, 以便在路由钩子函数和请求函数里面调用
 function registerNaiveTools() {
@@ -74,8 +60,6 @@ function registerNaiveTools() {
   window.$message = useMessage()
   window.$modal = useModal()
   window.$notification = useNotification()
-  window.$loading = showGlobalLoading
-  window.$hideLoading = hideGlobalLoading
 }
 const NaiveProviderContent = defineComponent({
   setup() {
@@ -92,10 +76,6 @@ const NaiveProviderContent = defineComponent({
 <template>
   <NConfigProvider
     abstract
-    :theme="theme"
-    :theme-overrides="themeOverrides"
-    :locale="locale"
-    :date-locale="dateLocale"
     v-bind="configProviderProps"
   >
     <NLoadingBarProvider v-bind="loadingBarProps">
@@ -103,9 +83,7 @@ const NaiveProviderContent = defineComponent({
         <NModalProvider v-bind="modalProviderProps">
           <NNotificationProvider v-bind="notificationProviderProps">
             <NMessageProvider v-bind="messageProviderProps">
-              <NSpin :style="{ width: '100%', height: '100%' }" :content-style="{ width: '100%', height: '100%' }" :show="globalLoading" :description="globalLoadingText">
-                <slot />
-              </NSpin>
+              <slot />
               <NaiveProviderContent />
             </NMessageProvider>
           </NNotificationProvider>

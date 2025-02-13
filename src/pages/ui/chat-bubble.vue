@@ -1,7 +1,4 @@
 <script setup lang='ts'>
-import { ChatBubble } from '@oiij/ui'
-import '@oiij/ui/style.css'
-
 definePage({
   meta: {
     layout: 'default',

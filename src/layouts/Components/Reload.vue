@@ -1,6 +1,4 @@
 <script setup lang='ts'>
-import { TooltipButton } from '@oiij/ui'
-
 const { reload } = useAppStore()
 const { currentPath } = storeToRefs(useAuthStore())
 const { setTabLoading, removeTabLoading } = useAuthStore()

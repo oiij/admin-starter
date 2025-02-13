@@ -1,5 +1,6 @@
 <script setup lang='ts'>
 import type { LoginType } from '~/api'
+import { useNaiveForm } from '@oiij/naive-ui'
 
 definePage({
   meta: {

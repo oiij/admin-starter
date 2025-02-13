@@ -1,6 +1,5 @@
 <script setup lang='ts'>
-import type { EmojiPickerOptions, EmojiResult } from '@oiij/emoji'
-import { useEmojiPicker } from '@oiij/emoji'
+import type { EmojiPickerOptions, EmojiResult } from '~/composables/useEmojiPicker'
 
 const { options } = defineProps<{
   options?: EmojiPickerOptions

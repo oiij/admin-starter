@@ -1,6 +1,5 @@
 <script setup lang='ts'>
-import type { AiEditorOptions } from '@oiij/aieditor'
-import { useAiEditor } from '@oiij/aieditor'
+import type { AiEditorOptions } from '~/composables/useAiEditor'
 import { computed, watch } from 'vue'
 
 const { darkMode, language, options, readonly } = defineProps<{

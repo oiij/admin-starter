@@ -13,9 +13,7 @@ async function login(data: LoginType['Data']) {
   return res
 }
 async function refresh(data: { token: string }) {
-  window.$loading('正在获取登陆信息')
   const [err, res] = await baseApi._status({ token: data.token })
-  window.$hideLoading()
   if (err) {
     logout()
     return

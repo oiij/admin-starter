@@ -1,7 +1,4 @@
 <script setup lang='ts'>
-import { AvatarCropper } from '~packages/ui/components'
-import '@oiij/ui/style.css'
-
 definePage({
   meta: {
     layout: 'default',

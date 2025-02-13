@@ -1,6 +1,4 @@
 <script setup lang='ts'>
-import { useImageVerify } from '~packages/use/src/'
-
 definePage({
   meta: {
     layout: 'default',

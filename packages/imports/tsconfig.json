@@ -1,9 +1,0 @@
-{
-  "$schema": "https://json.schemastore.org/tsconfig",
-  "extends": "@oiij/tsconfig/tsconfig.json",
-  "compilerOptions": {
-    "moduleResolution": "bundler"
-  },
-  "include": ["src"],
-  "exclude": ["node_modules", "dist", "test"]
-}

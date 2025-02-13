@@ -1,8 +1,8 @@
 <script setup lang='ts'>
 import type { DropdownOption } from 'naive-ui'
-import { TabItem, TabsBar } from '@oiij/ui'
+import { CTabItem, CTabs } from '@oiij/chrome-tabs'
 import { useContextMenu } from '@oiij/use'
-import '@oiij/ui/style.css'
+import '@oiij/chrome-tabs/style.css'
 
 const { authTabs, currentPath, tabLoadingPath } = storeToRefs(useAuthStore())
 const { removeTab, setTabLoading, removeTabLoading } = useAuthStore()
@@ -35,8 +35,8 @@ function handleContextMenuClick(ev: MouseEvent) {
     :show="show"
     :on-clickoutside="hide"
   />
-  <TabsBar :value="currentPath" @update:value="handleUpdateValue" @close="removeTab">
-    <TabItem v-for="item in authTabs" :key="item.key" :name="(item.key as string)" :closeable="item.key !== '/'" :icon="(item.icon as any)" :loading="tabLoadingPath === item.key" @contextmenu="handleContextMenuClick">
+  <CTabs :value="currentPath" @update:value="handleUpdateValue" @close="removeTab">
+    <CTabItem v-for="item in authTabs" :key="item.key" :name="(item.key as string)" :closeable="item.key !== '/'" :icon="(item.icon as any)" :loading="tabLoadingPath === item.key" @contextmenu="handleContextMenuClick">
       <div class="flex-y-center gap-[5px]">
         <div class="flex-y-center gap-[5px]" :class="item.key !== currentPath ? 'grayscale-100' : ''">
           {{ item.label }}
@@ -48,7 +48,7 @@ function handleContextMenuClick(ev: MouseEvent) {
           KeepAlived
         </n-tooltip>
       </div>
-    </TabItem>
+    </CTabItem>
 
     <template #suffix>
       <div class="flex-y-center p-x-[10px]">
@@ -56,7 +56,7 @@ function handleContextMenuClick(ev: MouseEvent) {
         <ToggleContentFullScreen />
       </div>
     </template>
-  </TabsBar>
+  </CTabs>
 </template>
 
 <style scoped lang='less'>
