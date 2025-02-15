@@ -8,6 +8,7 @@ import Unocss from 'unocss/vite'
 import AutoExport from 'unplugin-auto-export/vite'
 import Icons from 'unplugin-icons/vite'
 import Info from 'unplugin-info/vite'
+import UnpluginSvgComponent from 'unplugin-svg-component/vite'
 import TurboConsole from 'unplugin-turbo-console/vite'
 import VueRouter from 'unplugin-vue-router/vite'
 import { defineConfig, loadEnv } from 'vite'
@@ -21,6 +22,7 @@ import { vitePluginVersionMark } from 'vite-plugin-version-mark'
 import VueDevTools from 'vite-plugin-vue-devtools'
 import Layouts from 'vite-plugin-vue-layouts'
 import WebfontDownload from 'vite-plugin-webfont-dl'
+import svgLoader from 'vite-svg-loader'
 import { VitePluginAutoImport, VitePluginComponents, VitePluginI18n, VitePluginMarkdown, VitePluginPWA } from './config'
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
@@ -55,10 +57,14 @@ export default defineConfig(({ command, mode }) => {
       // virtual({
       //   'virtual:module': 'export default { mode: \'web\' }',
       // }), // https://github.com/patak-dev/vite-plugin-virtual Vite5 type=module 报错
+      svgLoader(),
       createSvgIconsPlugin({
         iconDirs: [resolve(process.cwd(), 'src/assets/icons')],
         symbolId: 'icon-[dir]-[name]',
       }), // https://github.com/vbenjs/vite-plugin-svg-icons
+      UnpluginSvgComponent({
+        iconDir: 'src/assets/icons',
+      }),
       svgSfc(),
       webUpdateNotice({
         logVersion: true,
