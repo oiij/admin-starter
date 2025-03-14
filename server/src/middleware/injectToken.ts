@@ -6,7 +6,7 @@ interface InjectTokenOptions {
   excludePath?: string[]
 }
 export function injectToken(options?: InjectTokenOptions) {
-  const { excludePath = ['/api/login'] } = options ?? {}
+  const { excludePath = ['/api/login', '/api/sse'] } = options ?? {}
   return defineEventHandler(async (event) => {
     if (!excludePath.includes(event.path)) {
       const token = getAuthorization(event)

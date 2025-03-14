@@ -1,5 +1,5 @@
 import { useNaiveTheme } from '@oiij/naive-ui'
-import { defineStore } from 'pinia'
+import { acceptHMRUpdate, defineStore } from 'pinia'
 import { useLanguage } from '~/modules'
 
 export const useAppStore = defineStore(
@@ -86,3 +86,7 @@ export const useAppStore = defineStore(
     },
   },
 )
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useAppStore, import.meta.hot))
+}

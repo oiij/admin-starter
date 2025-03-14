@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia'
+import { acceptHMRUpdate, defineStore } from 'pinia'
 
 // const exclude = ['/login', '/401', '/:all(.*)']
 export const useAuthStore = defineStore(
@@ -19,3 +19,7 @@ export const useAuthStore = defineStore(
     },
   },
 )
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useAuthStore, import.meta.hot))
+}

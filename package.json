@@ -42,7 +42,7 @@
     "@oiij/chrome-tabs": "^0.0.1",
     "@oiij/directives": "^0.0.1",
     "@oiij/naive-ui": "^0.0.1",
-    "@oiij/use": "^0.0.1",
+    "@oiij/use": "^0.0.6",
     "@oiij/utils": "^0.0.1",
     "@tiptap/core": "^2.11.5",
     "@tiptap/pm": "^2.11.5",

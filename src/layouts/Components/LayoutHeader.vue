@@ -1,5 +1,6 @@
 <script setup lang='ts'>
 const { contentFullScreen } = storeToRefs(useAppStore())
+const { status } = storeToRefs(useEventSourceStore())
 </script>
 
 <template>
@@ -7,6 +8,9 @@ const { contentFullScreen } = storeToRefs(useAppStore())
     <div v-if="!contentFullScreen" class="h-[64px] w-full flex-y-center">
       <div class="flex-1 p-[10px]">
         <MiniNavigation />
+      </div>
+      <div>
+        <NTag>{{ status }}</NTag>
       </div>
       <div class="p-x-[10px]">
         <RouterSearch />
