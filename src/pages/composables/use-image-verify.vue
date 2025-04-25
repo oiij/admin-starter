@@ -1,4 +1,6 @@
 <script setup lang='ts'>
+import { useImageVerify } from '@oiij/use'
+
 definePage({
   meta: {
     layout: 'default',

@@ -1,6 +1,4 @@
 <script setup lang='ts'>
-import '@oiij/ui/style.css'
-
 definePage({
   meta: {
     layout: 'default',

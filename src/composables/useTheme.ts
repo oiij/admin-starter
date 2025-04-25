@@ -1,3 +1,5 @@
+import { useViewTransition } from '@oiij/use'
+
 export function useTheme() {
   const storageKey = '__COLOR_MODE__'
   const isDark = useDark({ storageKey })

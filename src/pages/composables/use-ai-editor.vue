@@ -1,4 +1,6 @@
 <script setup lang='ts'>
+import { useAiEditor } from '@oiij/ai-editor'
+
 definePage({
   meta: {
     layout: 'default',
@@ -6,7 +8,7 @@ definePage({
   },
 })
 const { isDark, locale } = storeToRefs(useAppStore())
-const { domRef, value } = useAiEditor({ placeholder: '请输入内容' }, isDark, computed(() => locale.value.slice(0, 2) as 'zh' | 'en'))
+const { domRef, value } = useAiEditor('', isDark, computed(() => locale.value.slice(0, 2) as 'zh' | 'en'), { placeholder: '请输入内容' })
 </script>
 
 <template>

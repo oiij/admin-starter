@@ -1,4 +1,6 @@
 <script setup lang='ts'>
+import { useShiki } from '@oiij/shiki'
+
 definePage({
   meta: {
     layout: 'default',
@@ -6,7 +8,7 @@ definePage({
   },
 })
 const { isDark } = storeToRefs(useAppStore())
-const { domRef, value } = useShiki(`export const foo = ref('foo');`, undefined, isDark)
+const { domRef, value } = useShiki(`export const foo = ref('foo');`, isDark)
 </script>
 
 <template>

@@ -2,7 +2,7 @@
 definePage({
   meta: {
     title: 'Composables',
-    icon: 'svg:window',
+    icon: 'svg:icon-window',
   },
 })
 </script>

@@ -9,7 +9,7 @@ definePage({
   meta: {
     layout: 'default',
     title: '首页',
-    icon: 'svg:home',
+    icon: 'svg:icon-home',
     keepAlive: true,
     requireAuth: true,
   },

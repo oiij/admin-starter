@@ -1,4 +1,6 @@
 <script setup lang='ts'>
+import { useEmojiPicker } from '@oiij/emoji-picker'
+
 definePage({
   meta: {
     layout: 'default',
@@ -6,8 +8,8 @@ definePage({
     sort: 2,
   },
 })
-const { isDark } = storeToRefs(useAppStore())
-const { domRef } = useEmojiPicker({}, isDark)
+const { isDark, locale } = storeToRefs(useAppStore())
+const { domRef } = useEmojiPicker(isDark, locale as any)
 </script>
 
 <template>

@@ -36,9 +36,9 @@ declare module 'vue-router/auto-routes' {
     '/super': RouteRecordInfo<'/super', '/super', Record<never, never>, Record<never, never>>,
     '/ui/': RouteRecordInfo<'/ui/', '/ui', Record<never, never>, Record<never, never>>,
     '/ui/_': RouteRecordInfo<'/ui/_', '/ui/_', Record<never, never>, Record<never, never>>,
-    '/ui/avatar-cropper': RouteRecordInfo<'/ui/avatar-cropper', '/ui/avatar-cropper', Record<never, never>, Record<never, never>>,
-    '/ui/chat-bubble': RouteRecordInfo<'/ui/chat-bubble', '/ui/chat-bubble', Record<never, never>, Record<never, never>>,
-    '/ui/interactive-hover-button': RouteRecordInfo<'/ui/interactive-hover-button', '/ui/interactive-hover-button', Record<never, never>, Record<never, never>>,
-    '/ui/spin': RouteRecordInfo<'/ui/spin', '/ui/spin', Record<never, never>, Record<never, never>>,
+    '/ui/avatar-cropper-demo': RouteRecordInfo<'/ui/avatar-cropper-demo', '/ui/avatar-cropper-demo', Record<never, never>, Record<never, never>>,
+    '/ui/chat-bubble-demo': RouteRecordInfo<'/ui/chat-bubble-demo', '/ui/chat-bubble-demo', Record<never, never>, Record<never, never>>,
+    '/ui/interactive-hover-button-demo': RouteRecordInfo<'/ui/interactive-hover-button-demo', '/ui/interactive-hover-button-demo', Record<never, never>, Record<never, never>>,
+    '/ui/spin-demo': RouteRecordInfo<'/ui/spin-demo', '/ui/spin-demo', Record<never, never>, Record<never, never>>,
   }
 }

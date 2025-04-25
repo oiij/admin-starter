@@ -1,5 +1,6 @@
 <script setup lang='ts'>
-import type { EChartsOption } from '~/composables/useEChart'
+import type { EChartsOption } from '@oiij/e-charts'
+import { useECharts } from '@oiij/e-charts'
 import * as echarts from 'echarts/core'
 
 definePage({
@@ -189,7 +190,7 @@ const lineChartOptions = ref<EChartsOption>({
     },
   ],
 })
-const { domRef: lineChartRef } = useEChart(
+const { domRef: lineChartRef } = useECharts(
   lineChartOptions,
   isDark,
 )
@@ -230,7 +231,7 @@ const columnOptions = ref<EChartsOption>({
     },
   ],
 })
-const { domRef: columnRef } = useEChart(
+const { domRef: columnRef } = useECharts(
   columnOptions,
   isDark,
 )
@@ -278,7 +279,7 @@ const pieOptions = ref<EChartsOption>({
     },
   ],
 })
-const { domRef: pieRef } = useEChart(
+const { domRef: pieRef } = useECharts(
   pieOptions,
   isDark,
 )
@@ -317,7 +318,7 @@ const scatterOptions = ref<EChartsOption>({
     },
   ],
 })
-const { domRef: scatterRef } = useEChart(
+const { domRef: scatterRef } = useECharts(
   scatterOptions,
   isDark,
 )

@@ -14,26 +14,23 @@ export function useRouteGuard(router: Router) {
     const path = to.path
     const toLogin = path === '/login'
 
+    if (!requireAuth)
+      return true
+
     if (token) {
-      const [err] = await _to(refresh({ token: token ?? '' }))
+      const [err] = await _to(refresh({ token }))
       if (toLogin) {
         return false
       }
-      if (requireAuth) {
-        if (err) {
-          return `/login?redirect=${to.path}`
-        }
-        if (validatePermission(path)) {
-          return true
-        }
-        return '/401'
+      if (err) {
+        return `/login?redirect=${to.path}`
       }
-      return true
+      if (validatePermission(path)) {
+        return true
+      }
+      return '/401'
     }
-    if (requireAuth) {
-      return `/login?redirect=${to.path}`
-    }
-    return true
+    return `/login?redirect=${to.path}`
   })
   router.afterEach((to, from) => {
     const { addTab } = useAuthStore()

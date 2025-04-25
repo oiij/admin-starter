@@ -1,4 +1,6 @@
-import { createRouter, defineEventHandler, setHeaders } from 'h3'
+/* eslint-disable unused-imports/no-unused-vars */
+/* eslint-disable no-console */
+import { createEventStream, createRouter, defineEventHandler } from 'h3'
 
 interface TransformSseData {
   comment?: string
@@ -29,17 +31,27 @@ function transformSseData(object: TransformSseData) {
 }
 const router = createRouter()
 router.get('/sse', defineEventHandler(async (event) => {
-  setHeaders(event, {
-    'Content-Type': 'text/event-stream',
-    'Cache-Control': 'no-cache',
-    'Connection': 'keep-alive',
+  // setHeaders(event, {
+  //   'Content-Type': 'text/event-stream',
+  //   'Cache-Control': 'no-cache',
+  //   'Connection': 'keep-alive',
+  // })
+  // return transformSseData({
+  //   event: 'open',
+  //   data: {
+  //     msg: 'hello world',
+  //   },
+  // })
+  const eventStream = createEventStream(event)
+  const interval = setInterval(async () => {
+    await eventStream.push('Hello world')
+  }, 1000)
+  eventStream.onClosed(async () => {
+    console.log('closing SSE...')
+    clearInterval(interval)
+    await eventStream.close()
   })
-  return transformSseData({
-    event: 'connect',
-    data: {
-      msg: 'hello world',
-    },
-  })
+  return eventStream.send()
 }))
 
 export default router

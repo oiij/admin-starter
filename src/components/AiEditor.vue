@@ -1,5 +1,7 @@
 <script setup lang='ts'>
-import type { AiEditorOptions } from '~/composables/useAiEditor'
+import type { AiEditorOptions } from '@oiij/ai-editor'
+
+import { useAiEditor } from '@oiij/ai-editor'
 import { computed, watch } from 'vue'
 
 const { darkMode, language, options, readonly } = defineProps<{
@@ -9,7 +11,7 @@ const { darkMode, language, options, readonly } = defineProps<{
   readonly?: boolean
 }>()
 const value = defineModel<string>('value')
-const { domRef, value: _value, readonly: _readonly } = useAiEditor(options, computed(() => darkMode ?? false), computed(() => language ?? 'zh'))
+const { domRef, value: _value, readonly: _readonly } = useAiEditor('', computed(() => darkMode ?? false), computed(() => language ?? 'zh'), options)
 watch(value, (v) => {
   if (v) {
     _value.value = v

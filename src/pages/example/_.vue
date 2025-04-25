@@ -2,7 +2,7 @@
 definePage({
   meta: {
     title: 'Example',
-    icon: 'svg:window',
+    icon: 'svg:icon-window',
   },
 })
 </script>

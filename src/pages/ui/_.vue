@@ -2,7 +2,7 @@
 definePage({
   meta: {
     title: 'OiijUI',
-    icon: 'svg:window',
+    icon: 'svg:icon-window',
   },
 })
 </script>

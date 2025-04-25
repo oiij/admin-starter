@@ -1,10 +1,21 @@
 import type { DropdownOption, IMenuOption as MenuOption } from 'naive-ui'
 import type { RouteRecordRaw } from 'vue-router'
+import type { SvgName } from '~virtual/svg-component'
 import type { StatusType } from '~/api'
 import { routes as _routes } from 'vue-router/auto-routes'
-import SvgIcon from '~/components/SvgIcon.vue'
+import SvgIcon from '~virtual/svg-component'
+
 import { router } from '~/modules'
 
+function renderIcon(iconName?: string) {
+  if (iconName?.startsWith('svg:')) {
+    return () => h(SvgIcon, { name: iconName?.replace('svg:', '') as SvgName, style: { width: `16px`, height: `16px` } })
+  }
+  if (iconName?.startsWith('i-')) {
+    return () => h('i', { class: iconName, style: { width: `16px`, height: `16px` } })
+  }
+  return undefined
+}
 export function applyMeta(routes: RouteRecordRaw[]) {
   const _routes: RouteRecordRaw[] = []
   routes.forEach((route) => {
@@ -41,15 +52,7 @@ function verifyRoutesPermission(routes: RouteRecordRaw[], routePermission?: Stat
   })
   return _routes
 }
-function renderIcon(iconName?: string) {
-  if (iconName?.startsWith('svg:')) {
-    return () => h(SvgIcon, { name: iconName?.replace('svg:', ''), size: '16px' })
-  }
-  if (iconName?.startsWith('i-')) {
-    return () => h('i', { class: iconName, style: { width: `16px`, height: `16px` } })
-  }
-  return undefined
-}
+
 function routesToNaiveMenu(routes: RouteRecordRaw[]) {
   const _menus: MenuOption[] = []
   routes.forEach((route) => {
