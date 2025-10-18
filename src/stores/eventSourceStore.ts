@@ -3,8 +3,8 @@ import { useEventSource } from '@oiij/use'
 import { acceptHMRUpdate, defineStore } from 'pinia'
 
 export const useEventSourceStore = defineStore('eventSourceStore', () => {
-  const { status, on } = useEventSource('/api/sse', { parseMessage: false })
-  on('message', (ev) => {
+  const { status, registerEvent } = useEventSource('/api/sse', { parseMessage: false })
+  registerEvent('message', (ev) => {
     console.log(ev)
   })
   return {

@@ -8,7 +8,7 @@ import Components from 'unplugin-vue-components/vite'
 
 export function VitePluginComponents(): PluginOption {
   return Components({
-    dirs: ['src/components', 'src/layouts'],
+    dirs: ['src/components'],
     extensions: ['vue', 'md'],
     deep: true,
     include: [/\.vue$/, /\.vue\?vue/, /\.md$/],

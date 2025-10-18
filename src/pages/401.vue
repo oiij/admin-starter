@@ -11,7 +11,7 @@ const router = useRouter()
 
 <template>
   <div class="wh-full flex-col-center p-[20px]">
-    <n-empty description="无权限">
+    <NEmpty description="无权限">
       <template #icon>
         <span class="flex items-center justify-center">
           🔒
@@ -19,15 +19,15 @@ const router = useRouter()
       </template>
       <template #extra>
         <div class="flex-y-center gap-[10px]">
-          <n-button @click="() => router.go(-2)">
+          <NButton @click="() => router.back()">
             返回上一页
-          </n-button>
-          <n-button @click="() => router.push('/')">
+          </NButton>
+          <NButton @click="() => router.push('/')">
             返回首页
-          </n-button>
+          </NButton>
         </div>
       </template>
-    </n-empty>
+    </NEmpty>
   </div>
 </template>
 

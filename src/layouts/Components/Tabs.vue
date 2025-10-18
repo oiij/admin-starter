@@ -1,59 +1,83 @@
 <script setup lang='ts'>
 import type { DropdownOption } from 'naive-ui'
-import { CTabItem, CTabs } from '@oiij/chrome-tabs'
-import { useContextMenu } from '@oiij/use'
-import '@oiij/chrome-tabs/style.css'
+import { CTabs } from '@oiij/chrome-tabs'
+import { colord } from 'colord'
+import Reload from './Reload.vue'
+import ToggleContentFullScreen from './ToggleContentFullScreen.vue'
 
-const { authTabs, currentPath, tabLoadingPath } = storeToRefs(useAuthStore())
-const { removeTab, setTabLoading, removeTabLoading } = useAuthStore()
+const { color } = storeToRefs(useAppStore())
+const { tabOptions, closeTab, closeOtherTabs, clearTabs } = useTabs()
+const { currentRoutePath } = useAutoRoutes()
 const router = useRouter()
-const { x, y, show, contextMenuEvent, hide } = useContextMenu()
-const options: DropdownOption[] = [
-  {
-    label: '刷新页面',
-    key: 'refresh',
-  },
-]
+
 function handleUpdateValue(key: string | number) {
-  setTabLoading(key as string)
-  router.push(key as string).then(() => {
-    removeTabLoading()
-  })
+  router.push(key as string)
 }
-function handleContextMenuClick(ev: MouseEvent) {
-  contextMenuEvent(ev)
+function handleCloseTab(key: string) {
+  if (currentRoutePath.value === key) {
+    const prevIndex = tabOptions.value.findIndex(f => f.key === key) - 1
+    const preTab = tabOptions.value[prevIndex]
+    const nextIndex = tabOptions.value.findIndex(f => f.key === key) + 1
+    const nextTab = tabOptions.value[nextIndex]
+    handleUpdateValue(preTab?.key ?? nextTab?.key ?? '/')
+
+    closeTab(key)
+  }
+  else {
+    closeTab(key)
+  }
 }
+const dropdownOptions = computed(() => {
+  return [
+    {
+      label: '全部关闭',
+      key: 'close-all',
+      props: {
+        onClick: () => {
+          clearTabs()
+          handleUpdateValue('/')
+        },
+      },
+    },
+    {
+      label: '全部其他',
+      key: 'close-others',
+      props: {
+        onClick: () => {
+          closeOtherTabs(currentRoutePath.value)
+        },
+      },
+    },
+  ] as DropdownOption[]
+})
 </script>
 
 <template>
-  <n-dropdown
-    placement="bottom-start"
-    trigger="manual"
-    :x="x"
-    :y="y"
-    :options="options"
-    :show="show"
-    :on-clickoutside="hide"
-  />
-  <CTabs :value="currentPath" @update:value="handleUpdateValue" @close="removeTab">
-    <CTabItem v-for="item in authTabs" :key="item.key" :name="(item.key as string)" :closeable="item.key !== '/'" :icon="(item.icon as any)" :loading="tabLoadingPath === item.key" @contextmenu="handleContextMenuClick">
-      <div class="flex-y-center gap-[5px]">
-        <div class="flex-y-center gap-[5px]" :class="item.key !== currentPath ? 'grayscale-100' : ''">
-          {{ item.label }}
-        </div>
-        <n-tooltip trigger="hover" :disabled="item.key !== currentPath && item.meta && !item.meta.keepAlive">
-          <template #trigger>
-            <n-badge dot processing :type="item.key !== currentPath && item.meta && !item.meta.keepAlive ? 'warning' : 'success'" />
+  <CTabs
+    data-guide="tabs"
+    :colors="{ background: '#fff', active: '#f1f1f1', primary: colord(color.primary ?? '#fff').alpha(0.3).toHex() }"
+    :options="tabOptions"
+    :value="currentRoutePath"
+    @click="handleUpdateValue"
+    @close="(key) => handleCloseTab(key as string)"
+  >
+    <template #prefix>
+      <NDropdown trigger="hover" :options="dropdownOptions">
+        <NButton quaternary size="small">
+          <template #icon>
+            <i class="i-mage-chevron-down-circle" />
           </template>
-          KeepAlived
-        </n-tooltip>
-      </div>
-    </CTabItem>
-
+        </NButton>
+      </NDropdown>
+    </template>
     <template #suffix>
-      <div class="flex-y-center p-x-[10px]">
-        <Reload />
-        <ToggleContentFullScreen />
+      <div class="flex-y-center gap-[10px] p-x-[10px]">
+        <div data-guide="reload">
+          <Reload />
+        </div>
+        <div data-guide="content-fullscreen">
+          <ToggleContentFullScreen />
+        </div>
       </div>
     </template>
   </CTabs>

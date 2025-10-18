@@ -1,11 +1,20 @@
 <script setup lang='ts'>
+import type { MenuOption } from 'naive-ui'
+import { NSearchInput, NTooltipButton } from '@oiij/naive-ui/components'
 import { useBoolean } from '@oiij/use'
+import Fuse from 'fuse.js'
 import { useThemeVars } from 'naive-ui'
 
+const { flattenMenuOptions } = useMenu()
 const themeVars = useThemeVars()
 
 const router = useRouter()
-const { searchValue, searchRouteResult } = useAuthRouter()
+const fuse = new Fuse<MenuOption>(flattenMenuOptions.value, {
+  includeScore: true,
+  keys: ['label', 'key'],
+})
+const value = ref('')
+const result = computed(() => value.value ? fuse.search(value.value).map(m => m.item) : flattenMenuOptions.value)
 const index = ref(0)
 const { Ctrl_K, ArrowUp, ArrowDown, Enter } = useMagicKeys({
   passive: false,
@@ -22,22 +31,23 @@ watchEffect(() => {
     showModal()
   }
 })
+
 function handleUp() {
   if (index.value > 0) {
     index.value -= 1
   }
 }
 function handleDown() {
-  if (index.value < searchRouteResult.value.length - 1) {
+  if (index.value < result.value.length - 1) {
     index.value += 1
   }
 }
 function reset() {
-  searchValue.value = ''
+  value.value = ''
   index.value = 0
 }
 function handleChoose() {
-  const item = searchRouteResult.value[index.value]
+  const item = result.value[index.value]
   if (item) {
     hideModal()
     router.push(item.key as string)
@@ -45,6 +55,7 @@ function handleChoose() {
   }
 }
 function handleClick(path: string) {
+  hideModal()
   router.push(path)
   reset()
 }
@@ -59,7 +70,7 @@ watchEffect(() => {
     return handleChoose()
 })
 const patterns = computed(() => {
-  return searchValue.value === '' ? [] : [searchValue.value]
+  return value.value === '' ? [] : [value.value]
 })
 const highLightStyle = computed(() => {
   return {
@@ -74,22 +85,22 @@ const highLightStyle = computed(() => {
 </script>
 
 <template>
-  <TooltipButton :button-props="{ quaternary: true }" :tooltip="$t(`common.globalSearch.placeholder`)" @click="showModal">
+  <NTooltipButton :button-props="{ quaternary: true }" :tooltip="$t(`common.globalSearch.placeholder`)" @click="showModal">
     <template #icon>
       <i class="i-mage-search" />
     </template>
     <NTag round :bordered="false" size="small">
       Ctrl+K
     </NTag>
-  </TooltipButton>
+  </NTooltipButton>
   <NModal v-model:show="modalFlag" preset="card" :closable="false" class="h-[600px]! w-[600px]!" content-class="min-h-0" @after-leave="reset">
     <template #header>
-      <SearchInput v-model:value="searchValue" :input-props="{ placeholder: $t(`common.globalSearch.placeholder`), size: 'large' }" :button-props="{ size: 'large' }" />
+      <NSearchInput v-model:value="value" :input-props="{ placeholder: $t(`common.globalSearch.placeholder`), size: 'large' }" :button-props="{ size: 'large' }" />
     </template>
-    <NScrollbar v-if="searchRouteResult.length > 0" class="wh-full">
+    <NScrollbar v-if="result.length > 0" class="wh-full">
       <div class="w-full flex-col gap-[10px]">
         <div
-          v-for="(item, _index) in searchRouteResult"
+          v-for="(item, _index) in result"
           :key="_index"
           class="flex-y-center cursor-pointer gap-[14px] rounded-md bg-black/5 p-[10px] transition-base dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10"
           :class="_index === index ? 'bg-black/10! dark:bg-white/10!' : ''"

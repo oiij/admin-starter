@@ -19,26 +19,73 @@ declare module 'vue-router/auto-routes' {
    */
   export interface RouteNamedMap {
     '/': RouteRecordInfo<'/', '/', Record<never, never>, Record<never, never>>,
-    '/[...all]': RouteRecordInfo<'/[...all]', '/:all(.*)', { all: ParamValue<true> }, { all: ParamValue<false> }>,
+    '/[...all]': RouteRecordInfo<'/[...all]', '/[...all]', { all: ParamValue<true> }, { all: ParamValue<false> }>,
     '/401': RouteRecordInfo<'/401', '/401', Record<never, never>, Record<never, never>>,
     '/composables/': RouteRecordInfo<'/composables/', '/composables', Record<never, never>, Record<never, never>>,
-    '/composables/_': RouteRecordInfo<'/composables/_', '/composables/_', Record<never, never>, Record<never, never>>,
-    '/composables/use-ai-editor': RouteRecordInfo<'/composables/use-ai-editor', '/composables/use-ai-editor', Record<never, never>, Record<never, never>>,
     '/composables/use-echart': RouteRecordInfo<'/composables/use-echart', '/composables/use-echart', Record<never, never>, Record<never, never>>,
-    '/composables/use-emoji-picker': RouteRecordInfo<'/composables/use-emoji-picker', '/composables/use-emoji-picker', Record<never, never>, Record<never, never>>,
-    '/composables/use-image-verify': RouteRecordInfo<'/composables/use-image-verify', '/composables/use-image-verify', Record<never, never>, Record<never, never>>,
     '/composables/use-naive-form': RouteRecordInfo<'/composables/use-naive-form', '/composables/use-naive-form', Record<never, never>, Record<never, never>>,
-    '/composables/use-shiki': RouteRecordInfo<'/composables/use-shiki', '/composables/use-shiki', Record<never, never>, Record<never, never>>,
     '/directives': RouteRecordInfo<'/directives', '/directives', Record<never, never>, Record<never, never>>,
-    '/example/': RouteRecordInfo<'/example/', '/example', Record<never, never>, Record<never, never>>,
-    '/example/_': RouteRecordInfo<'/example/_', '/example/_', Record<never, never>, Record<never, never>>,
-    '/login': RouteRecordInfo<'/login', '/login', Record<never, never>, Record<never, never>>,
+    '/login/': RouteRecordInfo<'/login/', '/login', Record<never, never>, Record<never, never>>,
     '/super': RouteRecordInfo<'/super', '/super', Record<never, never>, Record<never, never>>,
-    '/ui/': RouteRecordInfo<'/ui/', '/ui', Record<never, never>, Record<never, never>>,
-    '/ui/_': RouteRecordInfo<'/ui/_', '/ui/_', Record<never, never>, Record<never, never>>,
-    '/ui/avatar-cropper-demo': RouteRecordInfo<'/ui/avatar-cropper-demo', '/ui/avatar-cropper-demo', Record<never, never>, Record<never, never>>,
-    '/ui/chat-bubble-demo': RouteRecordInfo<'/ui/chat-bubble-demo', '/ui/chat-bubble-demo', Record<never, never>, Record<never, never>>,
-    '/ui/interactive-hover-button-demo': RouteRecordInfo<'/ui/interactive-hover-button-demo', '/ui/interactive-hover-button-demo', Record<never, never>, Record<never, never>>,
-    '/ui/spin-demo': RouteRecordInfo<'/ui/spin-demo', '/ui/spin-demo', Record<never, never>, Record<never, never>>,
   }
+
+  /**
+   * Route file to route info map by unplugin-vue-router.
+   * Used by the volar plugin to automatically type useRoute()
+   *
+   * Each key is a file path relative to the project root with 2 properties:
+   * - routes: union of route names of the possible routes when in this page (passed to useRoute<...>())
+   * - views: names of nested views (can be passed to <RouterView name="...">)
+   *
+   * @internal
+   */
+  export interface _RouteFileInfoMap {
+    'src/pages/index.vue': {
+      routes: '/'
+      views: never
+    }
+    'src/pages/[...all].vue': {
+      routes: '/[...all]'
+      views: never
+    }
+    'src/pages/401.vue': {
+      routes: '/401'
+      views: never
+    }
+    'src/pages/composables/index.vue': {
+      routes: '/composables/'
+      views: never
+    }
+    'src/pages/composables/02_use-echart.vue': {
+      routes: '/composables/use-echart'
+      views: never
+    }
+    'src/pages/composables/01_use-naive-form.vue': {
+      routes: '/composables/use-naive-form'
+      views: never
+    }
+    'src/pages/directives.vue': {
+      routes: '/directives'
+      views: never
+    }
+    'src/pages/login/index.vue': {
+      routes: '/login/'
+      views: never
+    }
+    'src/pages/super.vue': {
+      routes: '/super'
+      views: never
+    }
+  }
+
+  /**
+   * Get a union of possible route names in a certain route component file.
+   * Used by the volar plugin to automatically type useRoute()
+   *
+   * @internal
+   */
+  export type _RouteNamesForFilePath<FilePath extends string> =
+    _RouteFileInfoMap extends Record<FilePath, infer Info>
+      ? Info['routes']
+      : keyof RouteNamedMap
 }

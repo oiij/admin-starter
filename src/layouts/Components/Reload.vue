@@ -1,25 +1,16 @@
 <script setup lang='ts'>
+import { NTooltipButton } from '@oiij/naive-ui/components'
+
 const { reload } = useAppStore()
-const { currentPath } = storeToRefs(useAuthStore())
-const { setTabLoading, removeTabLoading } = useAuthStore()
-const loading = ref(false)
-function handleReload() {
-  loading.value = true
-  setTabLoading(currentPath.value)
-  reload()
-  setTimeout(() => {
-    loading.value = false
-    removeTabLoading()
-  }, 1000)
-}
+const { loading } = useAutoRoutes()
 </script>
 
 <template>
-  <TooltipButton :button-props="{ quaternary: true }" :tooltip="$t('common.refreshPage')" @click="handleReload">
+  <NTooltipButton :button-props="{ quaternary: true, size: 'small' }" :tooltip="$t('common.refreshPage')" @click="() => reload()">
     <template #icon>
       <i class="i-mage-reload" :class="loading ? 'animate-spin' : ''" />
     </template>
-  </TooltipButton>
+  </NTooltipButtoN>
 </template>
 
 <style scoped lang='less'>

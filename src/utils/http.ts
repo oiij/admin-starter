@@ -1,22 +1,21 @@
-/* eslint-disable no-console */
 import type {
   AxiosError,
   AxiosInstance,
   AxiosResponse,
   InternalAxiosRequestConfig,
 } from 'axios'
+import type { NotificationReactive } from 'naive-ui'
 import axios from 'axios'
 import NProgress from 'nprogress'
+import { router } from '~/modules/router'
 
-const BASE_PREFIX = import.meta.env.VITE_API_BASE_PREFIX
-const axiosInstance: AxiosInstance = axios.create({
-  baseURL: BASE_PREFIX,
-  timeout: 1000 * 30,
+export const axiosInstance: AxiosInstance = axios.create({
+  baseURL: '/api',
+  timeout: 1000 * 60 * 100,
   headers: {
     'Content-Type': 'application/json',
   },
 })
-const isDev = import.meta.env.DEV
 axiosInstance.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     if (!NProgress.isStarted())
@@ -29,22 +28,58 @@ axiosInstance.interceptors.request.use(
     return config
   },
   (error: AxiosError) => {
-    console.error('request-error', error)
     return Promise.reject(error)
   },
 )
-
+const notificationRef = ref<NotificationReactive | null>(null)
+function notification(title?: string, content?: string) {
+  if (notificationRef.value) {
+    notificationRef.value.title = title
+    notificationRef.value.content = content
+  }
+  else {
+    notificationRef.value = window.$notification.create({ title, content, type: 'error' })
+  }
+}
 axiosInstance.interceptors.response.use(
   (response: AxiosResponse) => {
     NProgress.done()
-    if (isDev)
-      console.log(`${response.config.url}`, response)
-    return response.data
+    if (response.status === 200) {
+      if (notificationRef.value) {
+        notificationRef.value.destroy()
+      }
+      return response.data
+    }
+
+    return Promise.reject(response.data)
   },
-  (error: AxiosError) => {
+  (error: AxiosError<{ msg: string }>) => {
     NProgress.done()
-    console.error('response-error', error)
-    window.$message.error(error.message)
+    const { response, request } = error
+    if (response) {
+      const code = response.status
+      if (code === 400) {
+        window.$message.error(response.data.msg, { duration: 3000 })
+        return Promise.reject(response.data)
+      }
+      if (code === 401) {
+        const { userInfo, token, logged } = storeToRefs(useAuthStore())
+        token.value = null
+        userInfo.value = null
+        logged.value = false
+        notification(`${code} 无权限`, response.data.msg)
+        const { currentRoutePath } = useAutoRoutes()
+        router.push(`/login?redirect=${currentRoutePath.value}`)
+        return Promise.reject(response.data)
+      }
+      notification(`${code} 响应错误`, response.data.msg)
+      return Promise.reject(response.data)
+    }
+    if (request) {
+      notification('请求错误', '请联系管理员')
+      return Promise.reject(error)
+    }
+    notification('未知错误', '请联系管理员')
     return Promise.reject(error)
   },
 )

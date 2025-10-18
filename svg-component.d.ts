@@ -7,20 +7,20 @@
 declare module '~virtual/svg-component' {
   const SvgIcon: import("vue").DefineComponent<{
       name: {
-          type: import("vue").PropType<"icon-ai-editor" | "icon-charts" | "icon-code" | "icon-home" | "icon-super" | "icon-window">;
+          type: import("vue").PropType<"icon-ai-editor" | "icon-charts" | "icon-code" | "icon-home" | "icon-naive" | "icon-super" | "icon-window">;
           default: string;
           required: true;
       };
   }, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
       name: {
-          type: import("vue").PropType<"icon-ai-editor" | "icon-charts" | "icon-code" | "icon-home" | "icon-super" | "icon-window">;
+          type: import("vue").PropType<"icon-ai-editor" | "icon-charts" | "icon-code" | "icon-home" | "icon-naive" | "icon-super" | "icon-window">;
           default: string;
           required: true;
       };
   }>>, {
-      name: "icon-ai-editor" | "icon-charts" | "icon-code" | "icon-home" | "icon-super" | "icon-window";
+      name: "icon-ai-editor" | "icon-charts" | "icon-code" | "icon-home" | "icon-naive" | "icon-super" | "icon-window";
   }>;
-  export const svgNames: ["icon-ai-editor", "icon-charts", "icon-code", "icon-home", "icon-super", "icon-window"];
-  export type SvgName = "icon-ai-editor" | "icon-charts" | "icon-code" | "icon-home" | "icon-super" | "icon-window";
+  export const svgNames: ["icon-ai-editor", "icon-charts", "icon-code", "icon-home", "icon-naive", "icon-super", "icon-window"];
+  export type SvgName = "icon-ai-editor" | "icon-charts" | "icon-code" | "icon-home" | "icon-naive" | "icon-super" | "icon-window";
   export default SvgIcon;
 }

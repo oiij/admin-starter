@@ -30,6 +30,19 @@ export default defineConfig(({ command, mode }) => {
     plugins: [
       VueRouter({
         extensions: ['.vue', '.md', '.tsx'],
+        exclude: ['**/components/**/*.*'],
+        extendRoute: (route) => {
+          const sortNum = Number.isNaN(Number(route.path.match(/(\d+)_/)?.[1])) ? null : Number(route.path.match(/(\d+)_/)?.[1])
+          route.addToMeta({ sort: sortNum })
+
+          if (route.name) {
+            const newName = `${route.name.replace(/\d+_/g, '')}`
+            route.name = newName.startsWith('/') ? newName : `/${newName}`
+            if (route.path !== '') {
+              route.path = route.name
+            }
+          }
+        },
       }), // https://github.com/posva/unplugin-vue-router
       vue({
         include: [/\.vue$/, /\.md$/, /\.tsx$/],
@@ -95,16 +108,19 @@ export default defineConfig(({ command, mode }) => {
     base: VITE_BASE ?? '/',
     server: {
       port: Number(VITE_DEV_PORT),
-      host: true, // host设置为true才可以使用network的形式，以ip访问项目
-      open: false, // 自动打开浏览器
-      cors: true, // 跨域设置允许
-      strictPort: true, // 如果端口已占用直接退出
+      host: true,
+      open: false,
+      cors: true,
+      strictPort: true,
       proxy: {
         [VITE_API_BASE_PREFIX]: {
           target: VITE_API_BASE_URL,
           changeOrigin: true,
           rewrite: path => path.replace(new RegExp(`^${VITE_API_BASE_PREFIX}`), ''),
         },
+      },
+      watch: {
+        ignored: ['**/**.d.ts'],
       },
     },
     preview: {

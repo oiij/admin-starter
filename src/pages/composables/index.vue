@@ -2,16 +2,17 @@
 definePage({
   meta: {
     layout: 'default',
-    title: 'Example',
     hide: true,
+    group: {
+      title: 'Composables',
+      icon: 'i-mage-box-3d-scan',
+    },
   },
 })
+const router = useRouter()
+router.replace('/appointment/appointment-list')
 </script>
 
 <template>
-  <div />
+  <span />
 </template>
-
-<style scoped lang='less'>
-
-</style>

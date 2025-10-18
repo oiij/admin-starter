@@ -1,45 +1,55 @@
 import type { Router } from 'vue-router/auto'
 import { to as _to } from 'await-to-js'
 
-function validatePermission(path: string) {
-  const { routePermission } = useAuthStore()
-  return routePermission?.some(s => s.path === path)
-}
 export function useRouteGuard(router: Router) {
-  const { start, done } = useNProgress()
-  router.beforeEach(async (to) => {
-    start()
-    const { token, refresh } = useAuthStore()
+  router.beforeEach(async (to, from) => {
+    const { loading } = useAutoRoutes()
+    loading.value = true
+    const { addTab } = useTabs()
+
+    const { token, permission } = storeToRefs(useAuthStore())
+    const { refresh } = useLogin()
     const requireAuth = to.meta.requireAuth
-    const path = to.path
-    const toLogin = path === '/login'
+    const toPath = to.path
 
-    if (!requireAuth)
+    if (token.value) {
+      if (toPath === '/login') {
+        window.$message.error('您已登录')
+        return from.path === '/login' ? '/' : from.path
+      }
+      if (requireAuth) {
+        const [err] = await _to(refresh())
+        if (err) {
+          window.$message.error('登录过期，请重新登录')
+          return `/login?redirect=${toPath === '/login' ? '/' : toPath}`
+        }
+        if (permission.value.includes(toPath)) {
+          addTab(toPath)
+          return true
+        }
+        window.$message.error('您没有权限访问该页面')
+        return '/401'
+      }
+      addTab(toPath)
       return true
-
-    if (token) {
-      const [err] = await _to(refresh({ token }))
-      if (toLogin) {
-        return false
-      }
-      if (err) {
-        return `/login?redirect=${to.path}`
-      }
-      if (validatePermission(path)) {
-        return true
-      }
-      return '/401'
     }
-    return `/login?redirect=${to.path}`
+    if (requireAuth) {
+      window.$message.error('请先登录')
+      return `/login?redirect=${toPath === '/login' ? '/' : toPath}`
+    }
+    if (toPath === '/login') {
+      return true
+    }
+    addTab(toPath)
+    return true
   })
-  router.afterEach((to, from) => {
-    const { addTab } = useAuthStore()
-    const toDepth = to.path.split('/').length
-    const fromDepth = from.path.split('/').length
-    to.meta.transition = toDepth < fromDepth ? 'slide-right' : toDepth > fromDepth ? 'slide-left' : 'fade'
-
-    useChangeTitle(to)
-    done()
-    addTab(to.path)
+  router.afterEach((to) => {
+    const title = useTitle()
+    const envTitle = import.meta.env.VITE_APP_TITLE || ''
+    title.value = to.meta.title ? `${envTitle} - ${to.meta.title}` : envTitle
+    const { loading } = useAutoRoutes()
+    loading.value = false
+    const { setLoadingDone } = useTabs()
+    setLoadingDone(to.path)
   })
 }

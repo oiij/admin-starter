@@ -1,38 +1,41 @@
-import type { LoginType, StatusType } from '~/api'
-
-const token = ref<string>()
-const userInfo = ref<StatusType['Res']['userInfo']>()
-const routePermission = ref<StatusType['Res']['routes']>()
-const logged = computed(() => !!token.value)
-async function login(data: LoginType['Data']) {
-  const [err, res] = await baseApi._login(data)
+async function login(data: { username: string, password: string }) {
+  const [err, res] = await to(loginApi.login(data))
   if (err) {
     return Promise.reject(err)
   }
+  const { token, userInfo, logged, permission } = storeToRefs(useAuthStore())
+  const { allPermission } = useAutoRoutes()
   token.value = res.token
+  userInfo.value = res.userInfo
+  logged.value = true
+  permission.value = allPermission
   return res
 }
-async function refresh(data: { token: string }) {
-  const [err, res] = await baseApi._status({ token: data.token })
+async function refresh() {
+  const [err, res] = await to(loginApi.status())
   if (err) {
     logout()
     return
   }
+  const { token, userInfo, logged, permission } = storeToRefs(useAuthStore())
+  const { allPermission } = useAutoRoutes()
   userInfo.value = res.userInfo
-  routePermission.value = res.routes
   token.value = res.token
+  permission.value = allPermission
+
+  if (!logged.value) {
+    logged.value = true
+  }
 }
 async function logout() {
-  userInfo.value = undefined
-  token.value = undefined
-  routePermission.value = undefined
+  const { token, userInfo, logged, permission } = storeToRefs(useAuthStore())
+  userInfo.value = null
+  token.value = null
+  logged.value = false
+  permission.value = []
 }
 export function useLogin() {
   return {
-    userInfo,
-    token,
-    routePermission,
-    logged,
     login,
     refresh,
     logout,

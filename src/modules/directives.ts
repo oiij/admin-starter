@@ -1,5 +1,5 @@
-import { directive } from '@oiij/directives'
+import { setupDirective } from '@oiij/directives'
 
 export {
-  directive,
+  setupDirective,
 }

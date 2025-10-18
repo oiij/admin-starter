@@ -6,6 +6,7 @@ definePage({
   meta: {
     layout: 'default',
     title: '自定义指令',
+    icon: 'svg:icon-window',
   },
 })
 useHead({
@@ -47,7 +48,7 @@ function onClickOutside() {
         </NButton>
       </NCard>
       <NCard title="长按" class="w-1/4">
-        <NButton v-long-press:[1000]="onLongPress">
+        <NButton v-long-press:1000="onLongPress">
           长按触发事件
         </NButton>
       </NCard>

@@ -1,24 +1,24 @@
+import type { UserType } from '~/api'
 import { acceptHMRUpdate, defineStore } from 'pinia'
 
-// const exclude = ['/login', '/401', '/:all(.*)']
-export const useAuthStore = defineStore(
-  'authStore',
-  () => {
-    const login = useLogin()
+export const useAuthStore = defineStore('authStore', () => {
+  const token = ref<string | null>(null)
+  const userInfo = ref<UserType | null>(null)
+  const permission = ref<string[]>([])
+  const logged = ref(false)
 
-    const authRouter = useAuthRouter()
-    return {
-      ...login,
-      ...authRouter,
-    }
+  return {
+    token,
+    userInfo,
+    permission,
+    logged,
+  }
+}, {
+  persist: {
+    key: '__AUTH_STORE_PERSIST__',
+    pick: ['token'],
   },
-  {
-    persist: {
-      key: '__AUTH_STORE_PERSIST__',
-      pick: ['token', 'logged'],
-    },
-  },
-)
+})
 
 if (import.meta.hot) {
   import.meta.hot.accept(acceptHMRUpdate(useAuthStore, import.meta.hot))

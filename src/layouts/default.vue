@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import type { RouteLocationNormalizedLoaded } from 'vue-router'
-import Layout from './Components/Layout.vue'
+import BaseLayout from './BaseLayout.vue'
+import ScreenLockProvider from './components/ScreenLockProvider.vue'
+import Watermark from './components/Watermark.vue'
 
 const { reloadFlag, transitionName } = storeToRefs(useAppStore())
-const { keepAlivePath, currentPath } = useAuthRouter()
+const { keepAlivePath, currentRoutePath } = useAutoRoutes()
 
 // 用来存已经创建的组件
 const wrapperMap = new Map()
@@ -31,10 +33,10 @@ function formatComponentInstance(component: Component, route: RouteLocationNorma
 
 <template>
   <div class="h-[100vh] w-[100vw]">
-    <Layout>
+    <BaseLayout>
       <RouterView v-slot="{ Component, route }">
         <Transition appear mode="out-in" :name="transitionName">
-          <KeepAlive :include="keepAlivePath" :exclude="reloadFlag ? currentPath : undefined">
+          <KeepAlive :include="keepAlivePath" :exclude="reloadFlag ? currentRoutePath : undefined">
             <Suspense>
               <component :is="formatComponentInstance(Component, route)" v-if="!reloadFlag" :key="route.path" />
               <template #fallback>
@@ -46,7 +48,9 @@ function formatComponentInstance(component: Component, route: RouteLocationNorma
           </KeepAlive>
         </Transition>
       </RouterView>
-    </Layout>
+    </BaseLayout>
+    <Watermark />
+    <ScreenLockProvider />
   </div>
 </template>
 

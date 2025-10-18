@@ -8,14 +8,14 @@ definePage({
     keepAlive: false,
   },
 })
+const { _ROUTE_TITLE } = usePageInfo()
+const value = ref([])
 </script>
 
 <template>
-  <div class="wh-full flex-col-center">
-    <h1 class="text-xl">
-      SuperPage
-    </h1>
-  </div>
+  <NCard :title="_ROUTE_TITLE" class="wh-full">
+    <AccessTransfer v-model:value="value" />
+  </NCard>
 </template>
 
 <style scoped lang='less'>

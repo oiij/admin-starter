@@ -1,14 +1,22 @@
 import { useNaiveTheme } from '@oiij/naive-ui'
-import { acceptHMRUpdate, defineStore } from 'pinia'
+import { defineStore } from 'pinia'
+import baseBackgroundImage from '~/assets/images/background.jpg'
 import { useLanguage } from '~/modules'
 
 export const useAppStore = defineStore(
   'appStore',
   () => {
-    const { locale, language } = useLanguage()
     const { isDark, preferredDark, colorMode } = useTheme()
-    const { color, theme, themeOverrides, locale: naiveLocal, dateLocale } = useNaiveTheme(isDark, locale)
-    const layout = ref<'Horizontal' | 'Vertical'>('Horizontal')
+    const { locale, language } = useLanguage()
+    const { color, theme, themeOverrides, locale: naiveLocal, dateLocale } = useNaiveTheme({
+      darkMode: isDark,
+      globalThemeOverrides: {
+        common: {
+          borderRadius: '8px',
+        },
+      },
+    })
+
     const sideCollapsed = ref(false)
     function toggleCollapsed() {
       sideCollapsed.value = !sideCollapsed.value
@@ -31,25 +39,14 @@ export const useAppStore = defineStore(
       contentFullScreen.value = !contentFullScreen.value
     }
     const showWatermark = ref(true)
-    const watermarkContent = ref('水印')
+    const watermarkContent = computed(() => {
+      const { userInfo } = useAuthStore()
+      return userInfo ? `${userInfo?.nickname}-${userInfo?.phone ?? ''}` : '未登录'
+    })
     const transitionName = ref('fade')
-    const screenLock = ref(false)
-    function setScreenLock(pin?: string) {
-      if (pin) {
-        setPin(pin)
-      }
-      screenLock.value = true
-    }
-    const screenPin = ref('0000')
-    function setPin(pin: string) {
-      screenPin.value = pin
-    }
-    function setScreenUnlock(pin: string) {
-      if (screenPin.value !== pin) {
-        return window.$message.error('密码错误')
-      }
-      screenLock.value = false
-    }
+
+    const backgroundImage = ref('')
+    const backgroundImageSrc = computed(() => backgroundImage.value || baseBackgroundImage)
 
     return {
       locale,
@@ -62,7 +59,6 @@ export const useAppStore = defineStore(
       themeOverrides,
       naiveLocal,
       dateLocale,
-      layout,
       sideCollapsed,
       toggleCollapsed,
       reloadFlag,
@@ -72,21 +68,20 @@ export const useAppStore = defineStore(
       showWatermark,
       watermarkContent,
       transitionName,
-      screenLock,
-      setScreenLock,
-      setScreenUnlock,
-      screenPin,
-      setPin,
+      backgroundImage,
+      backgroundImageSrc,
     }
   },
   {
     persist: {
-      key: '__APP_STORE_PERSIST__',
-      pick: ['layout', 'sideCollapsed', 'color', 'contentFullScreen', 'showWatermark', 'transition'],
+      key: '__APP_STORE_PRESET__',
+      pick: [
+        'color',
+        'showWatermark',
+        'transitionName',
+        'notify',
+        'volume',
+      ],
     },
   },
 )
-
-if (import.meta.hot) {
-  import.meta.hot.accept(acceptHMRUpdate(useAppStore, import.meta.hot))
-}

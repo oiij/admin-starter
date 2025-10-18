@@ -22,7 +22,7 @@ const buttonRef = ref<HTMLButtonElement>()
         <path d="m12 5 7 7-7 7" />
       </svg>
     </div>
-    <div class="absolute left-[18%] top-[40%] scale-100 rounded-lg bg-[--background-color] transition-all duration-300 size-2 group-hover:left-0 group-hover:top-0 group-hover:scale-[1.8] group-hover:bg-[--background-color] group-hover:size-full" />
+    <div class="absolute left-[40%] top-[40%] scale-100 rounded-lg bg-[--background-color] transition-all duration-300 size-2 group-hover:left-0 group-hover:top-0 group-hover:scale-[1.8] group-hover:bg-[--background-color] group-hover:size-full" />
   </button>
 </template>
 

@@ -1,7 +1,9 @@
 <script setup lang='ts'>
 import type { SelectOption } from 'naive-ui'
+import { NTooltipButton } from '@oiij/naive-ui/components'
+import ThemeColorSelect from './ThemeColorSelect.vue'
 
-const { showWatermark, transitionName, layout, language, colorMode, color } = storeToRefs(useAppStore())
+const { showWatermark, transitionName, colorMode, color, backgroundImage } = storeToRefs(useAppStore())
 const show = ref(false)
 function handleOpen() {
   show.value = true
@@ -15,20 +17,7 @@ const transitionOptions: SelectOption[] = [
   { value: 'zoom-in', label: '缩小进入' },
   { value: 'zoom-out', label: '放大进入' },
 ]
-const localesOptions: SelectOption[] = [
-  {
-    label: '跟随系统',
-    value: 'auto',
-  },
-  {
-    label: '简体中文',
-    value: 'zh-CN',
-  },
-  {
-    label: '英文',
-    value: 'en-US',
-  },
-]
+
 const colorModeOptions: SelectOption[] = [
   {
     label: '跟随系统',
@@ -47,56 +36,39 @@ const colorModeOptions: SelectOption[] = [
 </script>
 
 <template>
-  <TooltipButton :button-props="{ quaternary: true }" :tooltip="$t('common.systemSetting')" @click="handleOpen">
+  <NTooltipButton :button-props="{ quaternary: true }" :tooltip="$t('common.systemSetting')" @click="handleOpen">
     <template #icon>
       <i class="i-mage-settings" />
     </template>
-  </TooltipButton>
-  <n-drawer v-model:show="show" :width="320">
-    <n-drawer-content>
-      <template #header>
-        {{ $t('common.systemSetting') }}
-      </template>
-      <div class="w-full flex-col">
-        <n-divider title-placement="left">
-          通用
-        </n-divider>
-        <div class="w-full flex-col gap-[10px] rounded-md bg-black/5 p-[10px] dark:bg-white/5">
-          <n-form-item label="语言">
-            <n-select v-model:value="language" class="w-[260px]!" :options="localesOptions" />
-          </n-form-item>
-          <n-form-item label="颜色模式">
-            <n-select v-model:value="colorMode" class="w-[260px]!" :options="colorModeOptions" />
-          </n-form-item>
-        </div>
-        <n-divider title-placement="left">
-          布局
-        </n-divider>
-        <div class="w-full flex-col gap-[10px] rounded-md bg-black/5 p-[10px] dark:bg-white/5">
-          <LayoutModeSelect v-model:value="layout" />
-        </div>
-        <n-divider title-placement="left">
-          主题
-        </n-divider>
-        <div class="w-full flex-col gap-[10px] rounded-md bg-black/5 p-[10px] dark:bg-white/5">
-          <ThemeSelect v-model:value="color.primary" />
-        </div>
-        <n-divider title-placement="left">
-          其他配置
-        </n-divider>
-        <div class="w-full flex-col gap-[10px] rounded-md bg-black/5 p-[10px] dark:bg-white/5">
-          <div class="h-[30px] w-full flex-y-center justify-between">
-            <span>显示水印</span>
-            <n-switch v-model:value="showWatermark" />
-          </div>
-          <div class="h-[30px] w-full flex-y-center justify-between">
-            <span>动画效果</span>
-            <n-select v-model:value="transitionName" class="w-[120px]!" :options="transitionOptions" />
-          </div>
-        </div>
-      </div>
-    </n-drawer-content>
-  </n-drawer>
+  </NTooltipButtoN>
+  <NDrawer v-model:show="show" :width="320">
+    <NDrawerContent>
+      <NFlex vertical>
+        <NCard title="主题颜色" size="small" :segmented="true">
+          <NFormItem label="主题色">
+            <ThemeColorSelect v-model:value="color.primary" />
+          </NFormItem>
+          <NFormItem label="颜色模式">
+            <NSelect v-model:value="colorMode" :options="colorModeOptions" />
+          </NFormItem>
+        </NCard>
+        <NCard title="其他配置" size="small" :segmented="true">
+          <NFormItem label="显示水印" label-placement="left">
+            <NSwitch v-model:value="showWatermark" />
+          </NFormItem>
+          <NFormItem label="动画效果" label-placement="left">
+            <NSelect v-model:value="transitionName" :options="transitionOptions" />
+          </NFormItem>
+          <NFormItem label="自定义图片" label-placement="top">
+            <NFlex class="w-full" vertical>
+              <NImage class="h-[100px] w-full rounded-[8px]" object-fit="cover" :src="backgroundImage" />
+              <NInput v-model:value="backgroundImage" class="w-full!" type="textarea" />
+            </NFlex>
+          </NFormItem>
+        </NCard>
+      </NFlex>
+    </NDrawerContent>
+  </NDrawer>
 </template>
 
 <style scoped lang='less'>

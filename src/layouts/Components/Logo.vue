@@ -1,35 +1,17 @@
 <script setup lang='ts'>
 import SvgIcon from '~virtual/svg-component'
 
-const props = defineProps<{
-  size?: 'small' | 'middle' | 'large'
+const { collapsed } = defineProps<{
+  collapsed?: boolean
 }>()
-const iconSize = computed(() => {
-  switch (props.size) {
-    case 'small':
-      return 30
-    case 'middle':
-      return 40
-    case 'large':
-      return 50
-    default:
-      return 30
-  }
-})
 </script>
 
 <template>
-  <Transition enter-active-class="animated animated-faster animated-zoom-in" leave-active-class="animated animated-faster animated-fade-out" mode="out-in">
-    <div v-if="props.size === 'small'" class="flex-col-center gap-[10px]">
-      <SvgIcon :style="{ width: `${iconSize}px`, height: `${iconSize}px` }" name="icon-code" />
-    </div>
-    <div v-else-if="props.size === 'middle'" class="flex-col-center gap-[5px]">
-      <SvgIcon :style="{ width: `${iconSize}px`, height: `${iconSize}px` }" name="icon-code" />
-      <span class="nowrap-hidden text-xl font-bold">Code Admin</span>
-    </div>
-    <div v-else class="flex-col-center gap-[10px]">
-      <SvgIcon :style="{ width: `${iconSize}px`, height: `${iconSize}px` }" name="icon-code" />
-      <span class="nowrap-hidden text-xl font-bold">Code Admin</span>
+  <Transition name="fade" mode="out-in">
+    <SvgIcon v-if="collapsed" :style="{ width: `40px`, height: `40px` }" name="icon-code" />
+    <div v-else class="flex items-center justify-center gap-[10px]">
+      <SvgIcon :style="{ width: `40px`, height: `40px` }" name="icon-code" />
+      <span class="nowrap m-t-[10px] text-xl">Code Admin</span>
     </div>
   </Transition>
 </template>
