@@ -15,7 +15,7 @@ function validatePermission(routes: RouteRecordRaw[]): RouteRecordRaw[] {
     } as RouteRecordRaw
   }).filter(f => (permission.value.includes(f.path) || !f.meta?.requireAuth))
 }
-function parseRoutes(routes: RouteRecordRaw[]): RouteRecordRaw[] {
+function parseRoutes(routes: RouteRecordRaw[] | readonly RouteRecordRaw[]): RouteRecordRaw[] {
   return routes.map((route) => {
     const indexMeta = route.children?.find(f => f.path === ``)?.meta?.group
     return {

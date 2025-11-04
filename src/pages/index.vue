@@ -44,7 +44,13 @@ worker('foo').then((res) => {
     <div class="h-[20%] w-full rounded-xl bg-black/5 dark:bg-white/5" />
     <div class="w-full flex flex-1 gap-[10px] rounded-xl">
       <div class="h-full w-[30%] rounded-xl bg-black/5 dark:bg-white/5" />
-      <div class="h-full w-[50%] rounded-xl bg-black/5 p-[10px] dark:bg-white/5" />
+      <div class="h-full w-[50%] flex items-center justify-center rounded-xl bg-black/5 p-[10px] dark:bg-white/5">
+        <div class="h-[300px] w-[600px] border bg-white mockup-window">
+          <div class="wh-full flex-col-center">
+            Hello!
+          </div>
+        </div>
+      </div>
       <div class="h-full w-[20%] rounded-xl bg-black/5 dark:bg-white/5" />
     </div>
   </div>

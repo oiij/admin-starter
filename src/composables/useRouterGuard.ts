@@ -1,4 +1,4 @@
-import type { Router } from 'vue-router/auto'
+import type { Router } from 'vue-router'
 import { to as _to } from 'await-to-js'
 
 export function useRouteGuard(router: Router) {
