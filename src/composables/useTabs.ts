@@ -1,4 +1,5 @@
 import type { TabsOption } from '@oiij/chrome-tabs'
+import { getRouteMetaHide } from '~/utils/route-meta-utils'
 
 const tabOptions = ref<TabsOption[]>([])
 export function useTabs() {

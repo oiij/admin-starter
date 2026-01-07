@@ -4,6 +4,8 @@ import 'h3'
 export {}
 declare module 'h3' {
   interface H3EventContext {
-    _id?: string
+    _id: string
+    _sessionId: string
+    isSuperAdmin?: boolean
   }
 }

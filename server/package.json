@@ -29,22 +29,23 @@
     "start": "node dist/index.js"
   },
   "dependencies": {
-    "consola": "^3.4.0",
-    "h3": "^1.13.1",
+    "consola": "^3.4.2",
+    "dayjs": "^1.11.19",
+    "h3": "2.0.1-rc.5",
     "jsonwebtoken": "^9.0.2",
-    "mime": "^4.0.6",
-    "mongoose": "^8.9.5",
-    "nanoid": "^5.0.9",
+    "mime": "^4.1.0",
+    "mongoose": "^8.20.1",
+    "nanoid": "^5.1.6",
     "qiniu": "^7.14.0",
-    "redis": "^4.7.0",
-    "ws": "^8.18.0",
-    "zod": "^3.24.1"
+    "redis": "^5.10.0",
+    "ws": "^8.18.3",
+    "zod": "^4.1.12"
   },
   "devDependencies": {
-    "@types/jsonwebtoken": "^9.0.7",
-    "@types/ws": "^8.5.13",
-    "tsup": "^8.3.5",
-    "tsx": "^4.19.2"
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/ws": "^8.18.1",
+    "tsup": "^8.5.1",
+    "tsx": "^4.20.6"
   },
   "publishConfig": {
     "access": "public"

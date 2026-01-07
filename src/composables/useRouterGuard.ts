@@ -45,8 +45,7 @@ export function useRouteGuard(router: Router) {
   })
   router.afterEach((to) => {
     const title = useTitle()
-    const envTitle = import.meta.env.VITE_APP_TITLE || ''
-    title.value = to.meta.title ? `${envTitle} - ${to.meta.title}` : envTitle
+    title.value = to.meta.title ?? ''
     const { loading } = useAutoRoutes()
     loading.value = false
     const { setLoadingDone } = useTabs()

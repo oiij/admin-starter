@@ -3,6 +3,7 @@ import type { DropdownOption, TransferRenderSourceList, TreeOption } from 'naive
 import { useContextMenu } from '@oiij/use'
 import { cloneDeep } from 'es-toolkit'
 import { NButton, NFlex, NTree } from 'naive-ui'
+import { getRouteMetaHide } from '~/utils/route-meta-utils'
 
 interface Option {
   label: string

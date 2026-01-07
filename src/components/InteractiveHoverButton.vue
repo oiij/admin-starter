@@ -1,17 +1,13 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
-
 const { text = 'Button', color = '#18181b', textColor = '#fff' } = defineProps<{
   text?: string
   color?: string
   textColor?: string
 }>()
-
-const buttonRef = ref<HTMLButtonElement>()
 </script>
 
 <template>
-  <button ref="buttonRef" class="group relative w-32 cursor-pointer overflow-hidden border rounded-full bg-white p-2 text-center font-semibold" :style="{ '--background-color': `${color}`, '--text-color': `${textColor}` }">
+  <button class="group relative w-32 cursor-pointer overflow-hidden border rounded-full bg-white p-2 text-center font-semibold" :style="{ '--background-color': `${color}`, '--text-color': `${textColor}` }">
     <span class="inline-block translate-x-1 text-[--background-color] transition-all duration-300 group-hover:translate-x-12 group-hover:opacity-0">
       {{ text }}
     </span>

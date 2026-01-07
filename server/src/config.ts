@@ -1,14 +1,15 @@
 import process from 'node:process'
+import md5 from 'md5'
 import { nanoid } from 'nanoid'
 
 const ENV = process.env
 
-export const MONGODB_URI = ENV.MONGODB_URI ?? 'mongodb+srv://antrioe:cc995801@cluster0.vpoxgon.mongodb.net/e-chat?retryWrites=true&w=majority&appName=Cluster0'
-export const REDIS_URI = ENV.MONGODB_URI ?? ''
+export const MONGODB_URI = ENV.MONGODB_URI ?? 'mongodb+srv://antrioe:cc995801@cluster0.vpoxgon.mongodb.net/admin-starter?appName=Cluster0'
+export const REDIS_URI = ENV.MONGODB_URI ?? 'redis-12453.c10.us-east-1-3.ec2.cloud.redislabs.com'
 
 export const PORT = ENV.PORT ? Number(ENV.PORT) : 5633
 export const HOST = ENV.HOST ?? '127.0.0.1'
-export const PUBLIC_DIR = ENV.PUBLIC_DIR ?? '../dist'
+export const PUBLIC_DIR = ENV.PUBLIC_DIR ?? 'static'
 
 export const WS_PORT = ENV.WS_PORT ? Number(ENV.WS_PORT) : 5631
 export const WS_PATH = ENV.WS_PATH ?? '/_ws'
@@ -27,4 +28,11 @@ export const QINIU = {
   publicBucketDomain: '',
   privateBucketDomain: '',
   cdn: 'http://slwbh2ys8.hb-bkt.clouddn.com/',
+}
+
+export const SUPER_ADMIN = {
+  _id: nanoid(),
+  phone: '13000000000',
+  nickname: '管理员',
+  password: md5('admin'),
 }

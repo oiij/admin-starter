@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { RouteLocationNormalizedLoaded } from 'vue-router'
+import ScreenSnap from '~/components/ScreenSnap.vue'
 import BaseLayout from './BaseLayout.vue'
 import ScreenLockProvider from './components/ScreenLockProvider.vue'
 import Watermark from './components/Watermark.vue'
@@ -51,6 +52,7 @@ function formatComponentInstance(component: Component, route: RouteLocationNorma
     </BaseLayout>
     <Watermark />
     <ScreenLockProvider />
+    <ScreenSnap />
   </div>
 </template>
 

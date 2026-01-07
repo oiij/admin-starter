@@ -1,17 +1,5 @@
-import { presetDaisy } from '@ameinhardt/unocss-preset-daisy'
 import { oiijPreset } from '@oiij/unocss-preset'
-import {
-  defineConfig,
-  presetAttributify,
-  presetIcons,
-  presetTypography,
-  presetWebFonts,
-  presetWind3,
-  transformerAttributifyJsx,
-  transformerCompileClass,
-  transformerDirectives,
-  transformerVariantGroup,
-} from 'unocss'
+import { defineConfig, presetAttributify, presetIcons, presetTypography, presetWebFonts, presetWind3, transformerAttributifyJsx, transformerCompileClass, transformerDirectives, transformerVariantGroup } from 'unocss'
 import { presetAnimateCSS } from 'unocss-preset-animatecss'
 import { presetAnimations } from 'unocss-preset-animations'
 import { presetExtra } from 'unocss-preset-extra'
@@ -45,7 +33,7 @@ export default defineConfig({
         mono: 'DM Mono',
       },
     }),
-    presetDaisy(),
+    // presetDaisy(),
     presetExtra(),
     presetScrollbar(),
     oiijPreset(),

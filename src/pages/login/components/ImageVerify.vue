@@ -5,7 +5,7 @@ const { width = 120, height = 34 } = defineProps<{
   width?: number
   height?: number
 }>()
-const { domRef, code: _code } = useImageVerify({
+const { code: _code } = useImageVerify(useTemplateRef('dom-ref'), {
   type: 'operation',
   width,
   height,
@@ -20,10 +20,10 @@ watchEffect(() => {
 
 <template>
   <canvas
-    ref="domRef"
+    ref="dom-ref"
     :width="width"
     :height="height"
-    class="rounded-6px"
+    class="rounded-[6px]"
   />
 </template>
 

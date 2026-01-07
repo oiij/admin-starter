@@ -1,16 +1,12 @@
-import type {
-  AxiosError,
-  AxiosInstance,
-  AxiosResponse,
-  InternalAxiosRequestConfig,
-} from 'axios'
+import type { AxiosError, AxiosInstance, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 import type { NotificationReactive } from 'naive-ui'
 import axios from 'axios'
 import NProgress from 'nprogress'
 import { router } from '~/modules/router'
+import { API_BASE_PREFIX } from '../../config'
 
 export const axiosInstance: AxiosInstance = axios.create({
-  baseURL: '/api',
+  baseURL: API_BASE_PREFIX,
   timeout: 1000 * 60 * 100,
   headers: {
     'Content-Type': 'application/json',
@@ -53,27 +49,28 @@ axiosInstance.interceptors.response.use(
 
     return Promise.reject(response.data)
   },
-  (error: AxiosError<{ msg: string }>) => {
+  (error: AxiosError<{ message: string }>) => {
     NProgress.done()
+
     const { response, request } = error
     if (response) {
       const code = response.status
       if (code === 400) {
-        window.$message.error(response.data.msg, { duration: 3000 })
-        return Promise.reject(response.data)
+        window.$message.error(response.data.message, { duration: 1000 * 5 })
+        return Promise.reject(response)
       }
       if (code === 401) {
         const { userInfo, token, logged } = storeToRefs(useAuthStore())
         token.value = null
         userInfo.value = null
         logged.value = false
-        notification(`${code} 无权限`, response.data.msg)
+        window.$message.error(response.data.message, { duration: 1000 * 5 })
         const { currentRoutePath } = useAutoRoutes()
         router.push(`/login?redirect=${currentRoutePath.value}`)
-        return Promise.reject(response.data)
+        return Promise.reject(response)
       }
-      notification(`${code} 响应错误`, response.data.msg)
-      return Promise.reject(response.data)
+      notification(`${code}`, response.data.message)
+      return Promise.reject(response)
     }
     if (request) {
       notification('请求错误', '请联系管理员')

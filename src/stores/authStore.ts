@@ -1,9 +1,9 @@
-import type { UserType } from '~/api'
+import type { UserType } from '~/api/'
 import { acceptHMRUpdate, defineStore } from 'pinia'
 
 export const useAuthStore = defineStore('authStore', () => {
   const token = ref<string | null>(null)
-  const userInfo = ref<UserType | null>(null)
+  const userInfo = ref<UserType['Doc'] | null>(null)
   const permission = ref<string[]>([])
   const logged = ref(false)
 
