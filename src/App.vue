@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { NConfigProviders } from '@oiij/naive-ui/components'
 
-const { isDark, preferredDark, theme, themeOverrides, naiveLocal, dateLocale } = storeToRefs(useAppStore())
+const { isDark, preferredDark, theme, themeOverrides, naiveLocal } = storeToRefs(useAppStore())
 useHead({
   title: import.meta.env.VITE_APP_NAME,
   meta: [
@@ -22,7 +22,7 @@ useHead({
 </script>
 
 <template>
-  <NConfigProviders :config-provider-props="{ theme, themeOverrides, locale: naiveLocal, dateLocale }">
+  <NConfigProviders :config-provider-props="{ theme, themeOverrides, locale: naiveLocal.locale, dateLocale: naiveLocal.dateLocale }">
     <RouterView v-slot="{ Component }">
       <Transition appear mode="out-in" name="fade">
         <Component :is="Component" />

@@ -2,7 +2,7 @@ import type { UserType } from './user.api'
 import { to } from 'await-to-js'
 import { post } from '~/utils/http'
 
-export interface LoginType {
+export type LoginType = {
   Data: {
     phone: string
     password: string
@@ -19,7 +19,7 @@ export interface LoginType {
     isSuperAdmin?: boolean
   }
 }
-export interface StatusType {
+export type StatusType = {
   Data: {
     token: string
   }

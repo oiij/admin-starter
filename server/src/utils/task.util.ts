@@ -12,7 +12,7 @@ async function getTargetIds(node: WorkflowNodeType) {
     return []
   }
   const userIds = node?.config?.filter(m => m.type === 'USER')?.map(m => m.value).filter(f => f !== undefined) ?? []
-  const ruleIds = node?.config?.filter(m => m.type === 'ROLE')?.map(m => m.value) ?? []
+  const ruleIds = node?.config?.filter(m => m.type === 'ROLE')?.map(m => m.value).filter(f => f !== undefined) ?? []
   const ruleUserIds = await UserModel.find({ deleted: false, _roleId: { $in: ruleIds } }).exec()
   return [...new Set([...userIds, ...ruleUserIds.map(f => f._id.toString())])]
 }

@@ -1,6 +1,6 @@
 import { model, Schema } from 'mongoose'
 
-export interface TestDocument {
+export type TestDocument = {
   _id: string
   deleted: boolean
   createdAt: Date

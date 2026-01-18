@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 import { createEventStream, createRouter, defineEventHandler } from 'h3'
 
-interface TransformSseData {
+type TransformSseData = {
   comment?: string
   event?: string
   id?: string
