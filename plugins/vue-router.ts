@@ -1,5 +1,5 @@
 // https://github.com/posva/unplugin-vue-router
-import VueRouter from 'unplugin-vue-router/vite'
+import VueRouter from 'vue-router/vite'
 
 export default VueRouter({
   extensions: ['.vue', '.md', '.tsx'],

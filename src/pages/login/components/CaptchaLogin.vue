@@ -122,7 +122,7 @@ const options: PresetFormOptions<typeof formValues.value> = [
 <template>
   <NPresetForm
     ref="preset-form"
-    :values="formValues"
+    :value="formValues"
     :options="options"
     :grid-props="{
       cols: 1,

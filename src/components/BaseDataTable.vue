@@ -137,7 +137,7 @@ defineExpose({
       <NPresetForm
         v-if="filterOptions && filterOptions.length > 0"
         :options="_filterOptions"
-        :values="({ ...defaultParams } as P)"
+        :value="({ ...defaultParams } as P)"
         :grid-props="{ xGap: 10, yGap: 10, collapsed: filterCollapsed }"
         :form-props="{ showFeedback: false }"
       />

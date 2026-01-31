@@ -1,7 +1,7 @@
 <script setup lang='ts'
   generic="D extends DataObject, DU extends Partial<D>&{_id:string}"
 >
-import type { DataObject, NaiveFormRules } from '@oiij/naive-ui'
+import type { DataObject, UseNaiveFormRules } from '@oiij/naive-ui'
 import type { PresetFormOptions } from '@oiij/naive-ui/components'
 import { NPresetForm } from '@oiij/naive-ui/components'
 import { useBoolean } from '@oiij/use'
@@ -12,7 +12,7 @@ const { createApi, updateApi, defaultValues, rules, options, type, beforeSubmit 
   createApi: (data: D) => Promise<{ msg: string }>
   updateApi?: (data: DU) => Promise<{ msg: string }>
   defaultValues?: D | DU
-  rules?: NaiveFormRules<D | DU>
+  rules?: UseNaiveFormRules<D | DU>
   options?: PresetFormOptions<D | DU>
   type?: 'create' | 'update'
   beforeSubmit?: (data: D | DU) => (D | DU | Promise<D | DU>)
@@ -84,7 +84,7 @@ function handleCancel() {
       <!-- @vue-generic {D|DU} -->
       <NPresetForm
         ref="preset-form"
-        :values="defaultValues"
+        :value="defaultValues"
         :rules="rules"
         :options="options"
         :grid-props="{

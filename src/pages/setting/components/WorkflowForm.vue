@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import type { NaiveFormRules } from '@oiij/naive-ui'
+import type { UseNaiveFormRules } from '@oiij/naive-ui'
 import type { PresetFormOptions } from '@oiij/naive-ui/components'
 import type { WorkflowType } from '~/api'
 import { cloneDeep } from 'es-toolkit'
@@ -64,7 +64,7 @@ const options: PresetFormOptions<_CREATE | _UPDATE> = [
     span: 6,
   },
 ]
-const rules: NaiveFormRules<_CREATE | _UPDATE> = {
+const rules: UseNaiveFormRules<_CREATE | _UPDATE> = {
 
 }
 </script>

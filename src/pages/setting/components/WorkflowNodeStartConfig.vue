@@ -38,10 +38,11 @@ const nodeTypeOptions = [
 ]
 
 const { formProps, formValue, validate } = useNaiveForm<StartConfigType>(useTemplateRef<FormInst>('form-ref'), {
-  id: nanoid(),
-  type: 'INPUT',
-  ...defaultValues,
-}, {
+  value: {
+    id: nanoid(),
+    type: 'INPUT',
+    ...defaultValues,
+  },
   rules: {
     type: [{ required: true, message: '请选择节点类型', trigger: ['change', 'blur'] }],
     fieldLabel: [{ required: true, message: '请输入字段Key', trigger: ['change', 'blur'] }],

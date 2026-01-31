@@ -37,13 +37,14 @@ const nodeTypeOptions = [
   },
 ]
 const { formProps, formValue, validate } = useNaiveForm<WorkflowNodeType>(useTemplateRef<FormInst>('form-ref'), {
-  id: nanoid(),
-  name: '',
-  type: 'START',
-  strategy: 'AND',
-  config: [],
-  ...defaultValues,
-}, {
+  value: {
+    id: nanoid(),
+    name: '',
+    type: 'START',
+    strategy: 'AND',
+    config: [],
+    ...defaultValues,
+  },
   rules: {
     name: [{ required: true, message: '请输入节点名称', trigger: ['change', 'blur'] }],
     type: [{ required: true, message: '请选择节点类型', trigger: ['change', 'blur'] }],
