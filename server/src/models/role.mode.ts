@@ -9,7 +9,8 @@ export type RoleDocumentAggregate = Required<RoleDocument> & {
   createdAt: string
   updatedAt: string
 }
-export const RoleSchema = new Schema<RoleDocument>(
+
+export const RoleModel = model<RoleDocument>('Role', new Schema (
   {
     name: { type: String, required: true, unique: true },
     access: { type: [{ label: String, value: String }], required: true },
@@ -19,6 +20,4 @@ export const RoleSchema = new Schema<RoleDocument>(
   {
     timestamps: true,
   },
-)
-
-export const RoleModel = model<RoleDocument>('Role', RoleSchema)
+))

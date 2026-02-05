@@ -3,7 +3,7 @@ import type { SelectOption } from 'naive-ui'
 import { NTooltipButton } from '@oiij/naive-ui/components'
 import ThemeColorSelect from './ThemeColorSelect.vue'
 
-const { showWatermark, transitionName, colorMode, colors, backgroundImage } = storeToRefs(useAppStore())
+const { showWatermark, transitionName, colorMode, themeColors, backgroundImage } = storeToRefs(useAppStore())
 const show = ref(false)
 function handleOpen() {
   show.value = true
@@ -46,7 +46,7 @@ const colorModeOptions: SelectOption[] = [
       <NFlex vertical>
         <NCard title="主题颜色" size="small" :segmented="true">
           <NFormItem label="主题色">
-            <ThemeColorSelect v-model:value="colors.primary" />
+            <ThemeColorSelect v-model:value="themeColors.primary" />
           </NFormItem>
           <NFormItem label="颜色模式">
             <NSelect v-model:value="colorMode" :options="colorModeOptions" />

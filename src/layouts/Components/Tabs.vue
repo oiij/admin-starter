@@ -5,7 +5,7 @@ import { colord } from 'colord'
 import Reload from './Reload.vue'
 import ToggleContentFullScreen from './ToggleContentFullScreen.vue'
 
-const { colors } = storeToRefs(useAppStore())
+const { themeColors } = storeToRefs(useAppStore())
 const { tabOptions, closeTab, closeOtherTabs, clearTabs } = useTabs()
 const { currentRoutePath } = useAutoRoutes()
 const router = useRouter()
@@ -55,7 +55,7 @@ const dropdownOptions = computed(() => {
 <template>
   <CTabs
     data-guide="tabs"
-    :colors="{ background: '#fff', active: '#f1f1f1', primary: colord(colors.primary ?? '#fff').alpha(0.3).toHex() }"
+    :theme-colors="{ background: '#fff', active: '#f1f1f1', primary: colord(themeColors.primary ?? '#fff').alpha(0.3).toHex() }"
     :options="tabOptions"
     :value="currentRoutePath"
     @click="handleUpdateValue"

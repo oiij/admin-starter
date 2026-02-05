@@ -11,13 +11,12 @@ export type WorkflowRecordDocument = WithTimestamps<unknown> & {
   comment: string
   formDataSnapshot: []
 }
-export const WorkflowRecordSchema = new Schema<WorkflowRecordDocument>(
+
+export const WorkflowRecordModel = model<WorkflowRecordDocument>('WorkflowRecord', new Schema (
   {
 
   },
   {
     timestamps: true,
   },
-)
-
-export const WorkflowRecordModel = model<WorkflowRecordDocument>('WorkflowRecord', WorkflowRecordSchema)
+))

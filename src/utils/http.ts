@@ -1,7 +1,6 @@
 import type { AxiosError, AxiosInstance, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 import type { NotificationReactive } from 'naive-ui'
 import axios from 'axios'
-import NProgress from 'nprogress'
 import { router } from '~/modules/router'
 import { API_BASE_PREFIX } from '../../config'
 
@@ -12,10 +11,10 @@ export const axiosInstance: AxiosInstance = axios.create({
     'Content-Type': 'application/json',
   },
 })
+const { start, done } = useNProgress()
 axiosInstance.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    if (!NProgress.isStarted())
-      NProgress.start()
+    start()
     const { token } = useAuthStore()
 
     if (token) {
@@ -39,7 +38,7 @@ function notification(title?: string, content?: string) {
 }
 axiosInstance.interceptors.response.use(
   (response: AxiosResponse) => {
-    NProgress.done()
+    done()
     if (response.status === 200) {
       if (notificationRef.value) {
         notificationRef.value.destroy()
@@ -50,7 +49,7 @@ axiosInstance.interceptors.response.use(
     return Promise.reject(response.data)
   },
   (error: AxiosError<{ message: string }>) => {
-    NProgress.done()
+    done()
 
     const { response, request } = error
     if (response) {

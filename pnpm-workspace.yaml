@@ -1,7 +1,3 @@
 shellEmulator: true
-
-trustPolicy: no-downgrade
-
-packages:
-  - 'packages/**'
-  - 'server/**'
+# eslint-disable-next-line pnpm/yaml-enforce-settings
+trustPolicy: warn

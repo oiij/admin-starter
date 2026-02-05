@@ -8,7 +8,7 @@ export const useAppStore = defineStore(
   () => {
     const { isDark, preferredDark, colorMode } = useTheme()
     const { locale, language } = useLanguage()
-    const { colors, theme, themeOverrides, locale: naiveLocal } = useNaiveTheme({
+    const { colors, themeColors, theme, themeOverrides, locale: naiveLocal } = useNaiveTheme({
       darkMode: isDark,
       globalThemeOverrides: {
         common: {
@@ -55,6 +55,7 @@ export const useAppStore = defineStore(
       preferredDark,
       colorMode,
       colors,
+      themeColors,
       theme,
       themeOverrides,
       naiveLocal,

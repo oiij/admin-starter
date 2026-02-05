@@ -6,7 +6,7 @@ import { NAvatar } from 'naive-ui'
 import UserInfoPanel from './UserInfoPanel.vue'
 
 const router = useRouter()
-const { colors } = storeToRefs(useAppStore())
+const { themeColors } = storeToRefs(useAppStore())
 
 const { userInfo } = storeToRefs(useAuthStore())
 const { logout } = useLogin()
@@ -42,7 +42,7 @@ const options: DropdownOption[] = [
           size: 48,
           src: userInfo.value?.avatar,
           objectFit: 'cover',
-          style: { backgroundImage: `linear-gradient(to top right,${colors.value.primary ?? '#fff'},${colord(colors.value.primary ?? '#fff').lighten(0.2).toHex()})` },
+          style: { backgroundImage: `linear-gradient(to top right,${themeColors.value.primary ?? '#fff'},${colord(themeColors.value.primary ?? '#fff').lighten(0.2).toHex()})` },
         }, {
           default: () => userInfo.value ? userInfo.value.avatar ? null : h('span', { class: 'text-xl' }, { default: () => `${userInfo.value?.nickname?.slice(-1)}` }) : h('i', { class: 'i-mage-user text-3xl' }),
         }),
@@ -98,7 +98,7 @@ const options: DropdownOption[] = [
       object-fit="cover"
       round
       :size="32"
-      :style="{ backgroundImage: `linear-gradient(to top right,${colors.primary ?? '#fff'},${colord(colors.primary ?? '#fff').lighten(0.2).toHex()})` }"
+      :style="{ backgroundImage: `linear-gradient(to top right,${themeColors.primary ?? '#fff'},${colord(themeColors.primary ?? '#fff').lighten(0.2).toHex()})` }"
       @click="showDropdown"
     >
       <template v-if="!userInfo?.avatar" #default>

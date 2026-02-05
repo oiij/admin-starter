@@ -28,7 +28,8 @@ export type WorkflowTaskDocumentAggregate = Required<WorkflowTaskDocument> & {
   createdAt: string
   updatedAt: string
 }
-export const WorkflowTaskSchema = new Schema<WorkflowTaskDocument>(
+
+export const WorkflowTaskModel = model<WorkflowTaskDocument>('WorkflowTask', new Schema (
   {
     _applicantId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     _workflowInstanceId: { type: Schema.Types.ObjectId, ref: 'WorkflowInstance', required: true },
@@ -42,6 +43,4 @@ export const WorkflowTaskSchema = new Schema<WorkflowTaskDocument>(
   {
     timestamps: true,
   },
-)
-
-export const WorkflowTaskModel = model<WorkflowTaskDocument>('WorkflowTask', WorkflowTaskSchema)
+))

@@ -1,7 +1,6 @@
 export { default as loginRouter } from './login.api'
 export { default as orgTreeRouter } from './org.tree.api'
 export { default as permissionRouter } from './role.api'
-export { default as sseRouter } from './sse.api'
 export { default as uploadRouter } from './upload.api'
 export { default as userRouter } from './user.api'
 export { default as workflowRouter } from './workflow.api'
