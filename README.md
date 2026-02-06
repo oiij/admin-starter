@@ -2,14 +2,33 @@
 
 <div align="center">
 
-一个基于 Vue 3 + TypeScript 的现代化后台管理系统模板
+[![Vue.js](https://img.shields.io/badge/Vue.js-3.5.27-4FC08D?style=flat&logo=vue.js&logoColor=white)](https://vuejs.org/)
+[![Vite](https://img.shields.io/badge/Vite-7.3.1-646CFF?style=flat&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-3178C6?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-18+-339933?style=flat&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![Pinia](https://img.shields.io/badge/Pinia-3.0.4-FFD859?style=flat&logo=pinia&logoColor=white)](https://pinia.vuejs.org/)
+[![Vue Router](https://img.shields.io/badge/Vue_Router-4.6.4-4FC08D?style=flat&logoColor=white)](https://router.vuejs.org/)
+[![Vue I18n](https://img.shields.io/badge/Vue_I18n-11.2.8-42B883?style=flat&logoColor=white)](https://vue-i18n.intlify.dev/)
+[![UnoCSS](https://img.shields.io/badge/UnoCSS-66.6.0-4B5563?style=flat&logo=unocss&logoColor=white)](https://unocss.dev/)
+[![Naive UI](https://img.shields.io/badge/Naive_UI-2.43.2-5396EF?style=flat&logoColor=white)](https://www.naiveui.com/)
+[![ECharts](https://img.shields.io/badge/ECharts-6.0.0-AA344D?style=flat&logo=apache-echarts&logoColor=white)](https://echarts.apache.org/)
+[![Axios](https://img.shields.io/badge/Axios-1.13.4-5A29E4?style=flat&logo=axios&logoColor=white)](https://axios-http.com/)
+[![VueUse](https://img.shields.io/badge/VueUse-14.2.0-41B883?style=flat&logoColor=white)](https://vueuse.org/)
+[![Vitest](https://img.shields.io/badge/Vitest-4.0.18-6E9F18?style=flat&logo=vitest&logoColor=white)](https://vitest.dev/)
+[![ESLint](https://img.shields.io/badge/ESLint-9.39.2-4B32C3?style=flat&logo=eslint&logoColor=white)](https://eslint.org/)
+[![pnpm](https://img.shields.io/badge/pnpm-latest-F69220?style=flat&logo=pnpm&logoColor=white)](https://pnpm.io/)
+[![License](https://img.shields.io/badge/license-MIT-green?style=flat)](https://github.com/oiij/admin-simple/blob/main/LICENSE)
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Vue 3](https://img.shields.io/badge/Vue-3.5+-green.svg)](https://vuejs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.9+-blue.svg)](https://www.typescriptlang.org/)
-[![Vite](https://img.shields.io/badge/Vite-7.3+-646CFF.svg)](https://vitejs.dev/)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](https://github.com/oiij/admin-simple/pulls)
+[![GitHub stars](https://img.shields.io/github/stars/oiij/admin-simple?style=flat&logo=github)](https://github.com/oiij/admin-simple/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/oiij/admin-simple?style=flat&logo=github)](https://github.com/oiij/admin-simple/network/members)
+[![GitHub issues](https://img.shields.io/github/issues/oiij/admin-simple?style=flat&logo=github)](https://github.com/oiij/admin-simple/issues)
+[![GitHub last commit](https://img.shields.io/github/last-commit/oiij/admin-simple?style=flat&logo=github)](https://github.com/oiij/admin-simple/commits/main)
 
 </div>
+
+一个基于 Vue 3 + TypeScript 的现代化后台管理系统模板
+
 
 ## ✨ 特性
 
