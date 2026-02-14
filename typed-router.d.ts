@@ -35,7 +35,7 @@ declare module 'vue-router/auto-routes' {
     >,
     '/[...all]': RouteRecordInfo<
       '/[...all]',
-      '/[...all]',
+      '/:all(.*)',
       { all: ParamValue<true> },
       { all: ParamValue<false> },
       | never

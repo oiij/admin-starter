@@ -12,6 +12,7 @@ export const mongoosePlugin = definePlugin(async (h3) => {
       })
     }
   })
+
   mongoose.connect(MONGODB_URI, {
     serverApi: {
       version: '1',

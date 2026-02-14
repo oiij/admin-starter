@@ -1,12 +1,16 @@
 <script setup lang='ts'>
-import { useMenu } from '~/composables/useMenu'
+import type { MenuGroupOption, MenuOption } from 'naive-ui'
 import Logo from './components/Logo.vue'
 
-const { sideCollapsed } = storeToRefs(useAppStore())
-const { currentRoutePath } = useAutoRoutes()
-const { menuOptions } = useMenu()
+const { t } = useI18n()
 const router = useRouter()
-const { toggleCollapsed } = useAppStore()
+const route = useRoute()
+const appStore = useAppStore()
+const { menuOptions } = useMenu()
+function renderLabel(option: MenuOption | MenuGroupOption) {
+  return t(`GLOBAL.MENU.${option.label}`, `${option.label}`)
+}
+
 function handleUpdateValue(key: string) {
   router.push(key)
 }
@@ -15,28 +19,29 @@ function handleUpdateValue(key: string) {
 <template>
   <div class="wh-full flex-col">
     <div class="h-[60px] w-full flex-col-center overflow-hidden border-b dark:border-white/10">
-      <Logo :collapsed="sideCollapsed" />
+      <Logo :collapsed="appStore.collapsed" />
     </div>
     <div class="min-h-0 w-full flex-1">
       <NScrollbar>
         <NMenu
-          :collapsed="sideCollapsed"
+          :collapsed="appStore.collapsed"
           :collapsed-width="60"
           :collapsed-icon-size="32"
           :indent="14"
           :icon-size="24"
           accordion
-          :value="currentRoutePath"
+          :value="route.fullPath"
           :options="menuOptions"
+          :render-label="renderLabel"
           @update:value="handleUpdateValue"
         />
       </NScrollbar>
     </div>
     <div class="flex items-center justify-center p-y-[10px]">
-      <NButton quaternary @click="toggleCollapsed">
+      <NButton quaternary @click="appStore.toggleCollapsed">
         <template #icon>
           <Transition name="fade" mode="out-in">
-            <i v-if="sideCollapsed" class="i-mage-dots-menu" />
+            <i v-if="appStore.collapsed" class="i-mage-dots-menu" />
             <i v-else class="i-mage-dash-menu" />
           </Transition>
         </template>

@@ -3,6 +3,7 @@ import type { DropdownOption, TransferRenderSourceList, TreeOption } from 'naive
 import { useContextMenu } from '@oiij/use'
 import { cloneDeep } from 'es-toolkit'
 import { NButton, NFlex, NTree } from 'naive-ui'
+import { renderIcon } from '~/utils/render-icon'
 import { getRouteMetaHide } from '~/utils/route-meta-utils'
 
 type Option = {
@@ -23,12 +24,12 @@ const routesTreeOptions = computed(() => {
     return {
       key: m.path,
       label: m.meta?.title as string,
-      prefix: () => useRenderIcon(m.meta?.icon, 24),
+      prefix: () => renderIcon(m.meta?.icon, 24),
       children: m.children?.filter(_f => !getRouteMetaHide('menu', _f.meta)).map((_m) => {
         return {
           key: _m.path,
           label: `${m.meta?.title}-${_m.meta?.title}` as string,
-          prefix: () => useRenderIcon(_m.meta?.icon, 18),
+          prefix: () => renderIcon(_m.meta?.icon, 18),
           children: Object.values(usePageAccess(_m.path)).map(({ value, label }) => {
             return {
               key: value,

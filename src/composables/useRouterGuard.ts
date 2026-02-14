@@ -3,10 +3,7 @@ import { to as _to } from 'await-to-js'
 
 export function useRouteGuard(router: Router) {
   router.beforeEach(async (to, from) => {
-    const { loading } = useAutoRoutes()
-    loading.value = true
     const { addTab } = useTabs()
-
     const { token, permission } = storeToRefs(useAuthStore())
     const { refresh } = useLogin()
     const requireAuth = to.meta.requireAuth
@@ -46,8 +43,6 @@ export function useRouteGuard(router: Router) {
   router.afterEach((to) => {
     const title = useTitle()
     title.value = to.meta.title ?? ''
-    const { loading } = useAutoRoutes()
-    loading.value = false
     const { setLoadingDone } = useTabs()
     setLoadingDone(to.path)
   })

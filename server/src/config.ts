@@ -4,7 +4,7 @@ import { nanoid } from 'nanoid'
 
 const ENV = process.env
 
-export const MONGODB_URI = ENV.MONGODB_URI ?? 'mongodb+srv://antrioe:cc995801@cluster0.vpoxgon.mongodb.net/admin-starter?appName=Cluster0'
+export const MONGODB_URI = ENV.MONGODB_URI ?? 'mongodb+srv://antrioe:cc995801@cluster0.mongodb.net/admin-starter?appName=Cluster0'
 export const REDIS_URI = ENV.MONGODB_URI ?? 'redis-12453.c10.us-east-1-3.ec2.cloud.redislabs.com'
 
 export const PORT = ENV.PORT ? Number(ENV.PORT) : 5633

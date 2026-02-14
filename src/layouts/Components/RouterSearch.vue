@@ -5,16 +5,16 @@ import { useBoolean } from '@oiij/use'
 import Fuse from 'fuse.js'
 import { useThemeVars } from 'naive-ui'
 
-const { flattenMenuOptions } = useMenu()
+const { flattenedMenuOptions } = useMenu()
 const themeVars = useThemeVars()
 
 const router = useRouter()
-const fuse = new Fuse<MenuOption>(flattenMenuOptions.value, {
+const fuse = new Fuse<MenuOption>(flattenedMenuOptions.value, {
   includeScore: true,
   keys: ['label', 'key'],
 })
 const value = ref('')
-const result = computed(() => value.value ? fuse.search(value.value).map(m => m.item) : flattenMenuOptions.value)
+const result = computed(() => value.value ? fuse.search(value.value).map(m => m.item) : flattenedMenuOptions.value)
 const index = ref(0)
 const { Ctrl_K, ArrowUp, ArrowDown, Enter } = useMagicKeys({
   passive: false,

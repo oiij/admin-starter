@@ -1,4 +1,5 @@
 import type { TabsOption } from '@oiij/chrome-tabs'
+import { renderIcon } from '~/utils/render-icon'
 import { getRouteMetaHide } from '~/utils/route-meta-utils'
 
 const tabOptions = ref<TabsOption[]>([])
@@ -16,7 +17,7 @@ export function useTabs() {
       const tabOption: TabsOption = {
         key: path,
         label: route.meta?.title as string,
-        icon: () => useRenderIcon(route.meta?.icon),
+        icon: () => renderIcon(route.meta?.icon),
         loading: true,
         closable: path !== '/',
       }

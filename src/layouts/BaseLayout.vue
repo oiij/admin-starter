@@ -3,7 +3,7 @@ import BaseLayoutAside from './BaseLayoutAside.vue'
 import BaseLayoutFooter from './BaseLayoutFooter.vue'
 import BaseLayoutHeader from './BaseLayoutHeader.vue'
 
-const { sideCollapsed, contentFullScreen } = storeToRefs(useAppStore())
+const { collapsed, contentFullScreen } = storeToRefs(useAppStore())
 </script>
 
 <template>
@@ -13,7 +13,7 @@ const { sideCollapsed, contentFullScreen } = storeToRefs(useAppStore())
       :width="200"
       :collapsed-width="60"
       collapse-mode="width"
-      :collapsed="sideCollapsed"
+      :collapsed="collapsed"
       class="shadow-xl"
     >
       <BaseLayoutAside />

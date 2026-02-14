@@ -1,13 +1,14 @@
 import { useNaiveTheme } from '@oiij/naive-ui'
+import { useBoolean, useTheme } from '@oiij/use'
 import { defineStore } from 'pinia'
 import baseBackgroundImage from '~/assets/images/background.jpg'
-import { useLanguage } from '~/modules'
+import { autoI18n } from '~/modules/i18n'
 
 export const useAppStore = defineStore(
   'appStore',
   () => {
-    const { isDark, preferredDark, colorMode } = useTheme()
-    const { locale, language } = useLanguage()
+    const { locale, language } = autoI18n
+    const { isDark, preferredDark, colorMode, toggleDark } = useTheme()
     const { colors, themeColors, theme, themeOverrides, locale: naiveLocal } = useNaiveTheme({
       darkMode: isDark,
       globalThemeOverrides: {
@@ -17,10 +18,7 @@ export const useAppStore = defineStore(
       },
     })
 
-    const sideCollapsed = ref(false)
-    function toggleCollapsed() {
-      sideCollapsed.value = !sideCollapsed.value
-    }
+    const { value: collapsed, toggle: toggleCollapsed } = useBoolean(false)
     const reloadFlag = ref(false)
     async function reload(delay = 300) {
       reloadFlag.value = true
@@ -54,12 +52,13 @@ export const useAppStore = defineStore(
       isDark,
       preferredDark,
       colorMode,
+      toggleDark,
       colors,
       themeColors,
       theme,
       themeOverrides,
       naiveLocal,
-      sideCollapsed,
+      collapsed,
       toggleCollapsed,
       reloadFlag,
       reload,
