@@ -2,13 +2,12 @@
 import type { MenuGroupOption, MenuOption } from 'naive-ui'
 import Logo from './components/Logo.vue'
 
-const { t } = useI18n()
 const router = useRouter()
 const route = useRoute()
 const appStore = useAppStore()
 const { menuOptions } = useMenu()
 function renderLabel(option: MenuOption | MenuGroupOption) {
-  return t(`GLOBAL.MENU.${option.label}`, `${option.label}`)
+  return `${option.label}`
 }
 
 function handleUpdateValue(key: string) {

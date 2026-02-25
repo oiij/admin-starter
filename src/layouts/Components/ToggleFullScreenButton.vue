@@ -5,7 +5,7 @@ const { toggle, isFullscreen } = useFullscreen()
 </script>
 
 <template>
-  <NTooltipButton :button-props="{ quaternary: true }" :tooltip="`${isFullscreen ? $t('common.exitFullScreen') : $t('common.fullScreen')}`" @click="toggle">
+  <NTooltipButton :button-props="{ quaternary: true }" :tooltip="`${isFullscreen ? $t('common.exit-full-screen') : $t('common.enter-full-screen')}`" @click="toggle">
     <template #icon>
       <Transition name="fade" mode="out-in">
         <i v-if="isFullscreen" class="i-mage-minimize" />

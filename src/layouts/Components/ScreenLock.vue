@@ -2,7 +2,7 @@
 import type { FormValidationStatus } from 'naive-ui'
 import { useBoolean } from '@oiij/use'
 import { AnimatePresence, motion } from 'motion-v'
-import ToggleDarkMode from './ToggleDarkMode.vue'
+import ToggleDarkModeButton from './ToggleDarkModeButton.vue'
 
 const MotionDiv = motion.div
 const { backgroundImageSrc } = storeToRefs(useAppStore())
@@ -46,7 +46,7 @@ function onKeyUp(e: KeyboardEvent) {
     <img :src="backgroundImageSrc" class="absolute inset-0 z-1 wh-full object-cover dark:brightness-50">
     <div class="absolute inset-0 z-2 wh-full transition-base" :class="loginFlag ? 'backdrop-blur-3xl  bg-white/10 dark:backdrop-brightness-120 dark:backdrop-contrast-200 dark:bg-black/50 backdrop-saturate-200 ' : 'bg-transparent'" />
     <div class="absolute right-[20px] top-[20px] z-4 flex-y-center gap-[10px]">
-      <ToggleDarkMode />
+      <ToggleDarkModeButton />
     </div>
     <div class="absolute inset-0 z-3 wh-full flex-col items-center">
       <MotionDiv class="flex-col-center cursor-default drop-shadow-2xl" :animate="{ translateY: loginFlag ? '25vh' : '35vh' }" :transition="{ ease: 'easeInOut' }">

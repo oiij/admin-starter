@@ -6,7 +6,7 @@ const { toggleContentFullScreen } = useAppStore()
 </script>
 
 <template>
-  <NTooltipButton :button-props="{ quaternary: true, size: 'small' }" :tooltip="contentFullScreen ? $t('common.exitContentFullScreenMode') : $t('common.enterContentFullScreenMode')" @click="toggleContentFullScreen">
+  <NTooltipButton :button-props="{ quaternary: true, size: 'small' }" :tooltip="contentFullScreen ? $t(`common.tabs.exit-content-full-screen-mode`) : $t(`common.tabs.enter-content-full-screen-mode`)" @click="toggleContentFullScreen">
     <template #icon>
       <Transition name="fade" mode="out-in">
         <i v-if="contentFullScreen" class="i-mage-television-minus" />

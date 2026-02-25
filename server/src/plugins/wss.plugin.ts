@@ -2,7 +2,7 @@ import type { WebSocket } from 'ws'
 
 import { definePlugin } from 'h3'
 import { WebSocketServer } from 'ws'
-import { HOST, WS_PATH, WS_PORT } from '../config'
+import { WS_PATH, WS_PORT } from '../config'
 import { logger } from '../plugins'
 
 export const connections = new Map<WebSocket, object>()
@@ -13,7 +13,7 @@ export const wss = new WebSocketServer({
   port: WS_PORT,
   path: WS_PATH,
 }, () => {
-  logger.success(`websocket server is running at ws://${HOST}:${WS_PORT}${WS_PATH}`)
+  logger.success(`websocket server is running at ws://127.0.0.1:${WS_PORT}${WS_PATH}`)
 })
 
 wss.on('connection', (socket, request) => {

@@ -3,7 +3,7 @@ definePage({
   meta: {
     layout: 'default',
     title: '🔒无权限',
-    hide: true,
+    hidden: true,
   },
 })
 const router = useRouter()

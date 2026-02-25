@@ -4,6 +4,7 @@ import { useBoolean } from '@oiij/use'
 import { snapdom } from '@zumer/snapdom'
 import dayjs from 'dayjs'
 
+const { t } = useI18n()
 const snapDomRef = shallowRef<CaptureResult | null>(null)
 const showPopover = ref(false)
 const hideTooltip = ref(false)
@@ -26,7 +27,7 @@ async function handleSnap() {
 
   if (el) {
     snapDomRef.value = await snapdom(el, {
-      exclude: ['.screen-snap'],
+      exclude: ['.screen-snap-snap'],
     })
     const blob = await snapDomRef.value.toBlob()
     snapUrl.value = URL.createObjectURL(blob)
@@ -69,7 +70,7 @@ async function handleFeedback() {
 <template>
   <NTooltip :disabled="hideTooltip">
     <template #trigger>
-      <div class="screen-snap fixed bottom-[100px] right-0 border rounded-l-full border-r-none bg-white p-[6px]">
+      <div class="screen-snap-snap fixed bottom-[100px] right-0 border rounded-l-full border-r-none bg-white p-[6px]">
         <NPopover trigger="manual" :show="showPopover" style="padding: 6px;">
           <template #trigger>
             <NButton size="small" :loading="loading" class="rounded-l-full!" quaternary @click="() => handleSnap()">
@@ -95,20 +96,20 @@ async function handleFeedback() {
             <NDivider class="m-y-[10px]!" />
             <NFlex justify="end">
               <NButton type="primary" size="small" @click="() => handleSave()">
-                保存
+                {{ t(`common.screen-snap.save`) }}
               </NButton>
               <NButton type="primary" size="small" @click="() => handleCopy()">
-                复制
+                {{ t(`common.screen-snap.copy`) }}
               </NButton>
               <NButton type="primary" size="small" @click="() => handleFeedback()">
-                反馈
+                {{ t(`common.screen-snap.feedback`) }}
               </NButton>
             </NFlex>
           </div>
         </NPopover>
       </div>
     </template>
-    <span>截屏反馈</span>
+    <span>{{ t(`common.screen-snap.tooltip`) }}</span>
   </NTooltip>
 </template>
 

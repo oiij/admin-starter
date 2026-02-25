@@ -1,10 +1,8 @@
 <script setup lang='ts'>
 import type { DropdownOption, TransferRenderSourceList, TreeOption } from 'naive-ui'
 import { useContextMenu } from '@oiij/use'
-import { cloneDeep } from 'es-toolkit'
 import { NButton, NFlex, NTree } from 'naive-ui'
-import { renderIcon } from '~/utils/render-icon'
-import { getRouteMetaHide } from '~/utils/route-meta-utils'
+import { flattenDeep } from '~/utils/flatten'
 
 type Option = {
   label: string
@@ -17,23 +15,23 @@ const { value } = defineProps<{
 const emit = defineEmits<{
   (e: 'update:value', val: string[], raw: { value: string, label: string }[]): void
 }>()
-const { routes } = useAutoRoutes()
+const menu = useMenu()
 const { copy } = useClipboard()
-const routesTreeOptions = computed(() => {
-  return cloneDeep(routes).filter(f => !getRouteMetaHide('menu', f.meta)).map((m) => {
+const treeOptions = computed(() => {
+  return menu.menuOptions.value.map((m) => {
     return {
-      key: m.path,
-      label: m.meta?.title as string,
-      prefix: () => renderIcon(m.meta?.icon, 24),
-      children: m.children?.filter(_f => !getRouteMetaHide('menu', _f.meta)).map((_m) => {
+      key: m.key,
+      label: m.label,
+      prefix: m.icon,
+      children: m.children?.map((_m) => {
         return {
-          key: _m.path,
-          label: `${m.meta?.title}-${_m.meta?.title}` as string,
-          prefix: () => renderIcon(_m.meta?.icon, 18),
-          children: Object.values(usePageAccess(_m.path)).map(({ value, label }) => {
+          key: _m.key,
+          label: `${m.label}-${_m.label}`,
+          prefix: _m.icon,
+          children: Object.values(usePageAccess(_m.key?.toString() || '')).map(({ value, label }) => {
             return {
               key: value,
-              label: `${m.meta?.title}-${_m.meta?.title}-[${label}]`,
+              label: `${m.label}-${_m.label}-[${label}]`,
             }
           }),
         }
@@ -41,22 +39,13 @@ const routesTreeOptions = computed(() => {
     } as TreeOption
   })
 })
-const treeOptions = computed(() => [...routesTreeOptions.value])
-function flattenTree(list: undefined | TreeOption []): Option[] {
-  const result: Option[] = []
-  function flatten(_list: TreeOption [] = []) {
-    _list.forEach((item) => {
-      result.push({
-        label: item.label as string,
-        value: item.key as string,
-      })
-      flatten(item.children)
-    })
+
+const options = computed(() => flattenDeep(treeOptions.value).map((m) => {
+  return {
+    label: m.label || '',
+    value: m.key?.toString() || '',
   }
-  flatten(list)
-  return result
-}
-const options = computed(() => flattenTree(treeOptions.value))
+}))
 
 function getParentNode(tree: TreeOption[], key: string): TreeOption | null {
   // 辅助函数：递归查找父节点

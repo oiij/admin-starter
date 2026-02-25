@@ -1,24 +1,59 @@
 {
-  "Hello": "Hello World !",
-  "Welcome": "Welcome Use This Template",
-  "Examples": "Examples",
-  "Dependents": "Dependents",
   "common": {
-    "globalSearch": {
+    "global-search": {
+      "tooltip": "Global Search",
       "placeholder": "Global Search",
       "enter": "Enter",
-      "navigate": "Navigate",
-      "closure": "Closure"
+      "navigate": "Select",
+      "closure": "Close"
     },
-    "lockScreen": "Lock Screen",
-    "fullScreen": "Full Screen",
-    "exitFullScreen": "Exit Full Screen",
-    "darkMode": "Dark Mode",
-    "lightMode": "Light Mode",
-    "systemMode": "System Mode",
-    "systemSetting": "System Setting",
-    "refreshPage": "Refresh Page",
-    "enterContentFullScreenMode": "Enter Content Full Screen Mode",
-    "exitContentFullScreenMode": "Exit Content Full Screen Mode"
+    "screen-lock": {
+      "tooltip": "Lock Screen",
+      "title": "Set Lock Screen Password",
+      "placeholder": "Please enter lock screen password",
+      "confirm": "Confirm"
+    },
+    "enter-full-screen": "Full Screen",
+    "exit-full-screen": "Exit Full Screen",
+    "dark-mode": "Dark Mode",
+    "light-mode": "Light Mode",
+    "system-mode": "Follow System",
+    "system-setting": {
+      "tooltip": "System Settings",
+      "appearance": "Appearance",
+      "theme-color": "Theme Color",
+      "color-mode": "Color Mode",
+      "dark-mode": "Dark Mode",
+      "light-mode": "Light Mode",
+      "auto-mode": "Follow System",
+      "language": "Language",
+      "zh-CN": "Simplified Chinese",
+      "en-US": "English",
+      "auto-language": "Auto",
+      "other": "Other Settings",
+      "show-watermark": "Show Watermark",
+      "transition": "Transition Animation",
+      "fade": "Fade In/Out",
+      "fade-left": "Enter From Left",
+      "fade-right": "Enter From Right",
+      "fade-top": "Enter From Top",
+      "fade-bottom": "Enter From Bottom",
+      "zoom-in": "Zoom In",
+      "zoom-out": "Zoom Out",
+      "custom-image": "Custom Background Image"
+    },
+    "tabs": {
+      "close-others": "Close Other Tabs",
+      "close-all": "Close All Tabs",
+      "refresh-page": "Refresh Page",
+      "enter-content-full-screen-mode": "Enter Content Full Screen Mode",
+      "exit-content-full-screen-mode": "Exit Content Full Screen Mode"
+    },
+    "screen-snap": {
+      "tooltip": "Screen Snap Feedback",
+      "feedback": "Feedback",
+      "save": "Save",
+      "copy": "Copy"
+    }
   }
 }

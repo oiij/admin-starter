@@ -6,8 +6,8 @@ import { SUPER_ADMIN } from '../config'
 import { LoginRecordModel } from '../models/login.record.model'
 import { RoleModel } from '../models/role.mode'
 import { UserModel } from '../models/user.model'
-import { redis } from '../plugins'
 import { dateToLocalString, isSuperAdmin, sign, zodError } from '../utils'
+import { memoryStorage } from '../utils/memory-storage'
 import { captchaLoginZod, captchaZod, loginZod } from '../zod'
 
 const router = new H3()
@@ -54,9 +54,6 @@ router.post('/login', defineEventHandler(async (handler) => {
     })
   }
   const _sessionId = nanoid()
-  await redis.set(user._id.toString(), _sessionId, {
-    EX: 60 * 3,
-  })
   const role = await RoleModel.findOne({ deleted: false, _id: user._roleId }).exec()
   const ip = getRequestIP(handler)
   const userAgent = handler.req.headers.get('user-agent')
@@ -101,7 +98,7 @@ router.post('/captcha-login', defineEventHandler(async (handler) => {
       statusMessage: '账号已被禁用',
     })
   }
-  const remoteCaptcha = await redis.get(phone)
+  const remoteCaptcha = memoryStorage.get(phone)
   if (!remoteCaptcha) {
     throw new HTTPError({
       status: 401,
@@ -115,7 +112,7 @@ router.post('/captcha-login', defineEventHandler(async (handler) => {
     })
   }
   const _sessionId = nanoid()
-  await redis.set(user._id.toString(), _sessionId, {
+  memoryStorage.set(user._id.toString(), _sessionId, {
     EX: 60 * 3,
   })
   const role = await RoleModel.findOne({ deleted: false, _id: user._roleId }).exec()
@@ -155,7 +152,7 @@ router.post('/status', defineEventHandler(async (handler) => {
       isSuperAdmin: true,
     }
   }
-  const _remoteSessionId = await redis.get(_id)
+  const _remoteSessionId = memoryStorage.get(_id)
   if (_remoteSessionId && _sessionId !== _remoteSessionId) {
     throw new HTTPError({
       status: 401,
@@ -243,7 +240,7 @@ router.post('/captcha', defineEventHandler(async (handler) => {
   }
   const { phone } = body.data
   const captcha = customAlphabet('1234567890', 6)()
-  await redis.set(phone, captcha, {
+  memoryStorage.set(phone, captcha, {
     EX: 60 * 5,
   })
   return {

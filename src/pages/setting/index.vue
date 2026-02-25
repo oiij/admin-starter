@@ -2,8 +2,8 @@
 definePage({
   meta: {
     layout: 'default',
-    hide: true,
-    group: {
+    hidden: true,
+    parent: {
       title: '设置',
       icon: 'i-mage-box-3d-scan',
     },

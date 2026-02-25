@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import type { RouteLocationNormalizedLoaded } from 'vue-router'
-import { useAutoRouter } from '@oiij/auto-router'
 
-const autoRouter = useAutoRouter()
+const autoRouter = useAutoRoutes()
 const appStore = useAppStore()
 const keepAliveName = computed(() => autoRouter.flattenRoutes.map(m => m.name?.toString() ?? m.path))
 

@@ -1,6 +1,4 @@
 import type { TabsOption } from '@oiij/chrome-tabs'
-import { renderIcon } from '~/utils/render-icon'
-import { getRouteMetaHide } from '~/utils/route-meta-utils'
 
 const tabOptions = ref<TabsOption[]>([])
 export function useTabs() {
@@ -10,17 +8,17 @@ export function useTabs() {
       has.loading = false
       return
     }
-    const { flattenRoutes } = useAutoRoutes()
-    const route = flattenRoutes.find(f => !getRouteMetaHide('tab', f.meta) && f.path === path)
+    const menu = useMenu()
+    const findMenu = menu.flattenedMenuOptions.value.find(f => f.key === path)
 
-    if (route) {
-      const tabOption: TabsOption = {
+    if (findMenu) {
+      const tabOption = {
         key: path,
-        label: route.meta?.title as string,
-        icon: () => renderIcon(route.meta?.icon),
+        label: findMenu.label as string,
+        icon: findMenu.icon,
         loading: true,
         closable: path !== '/',
-      }
+      } as TabsOption
       tabOptions.value.push(tabOption)
     }
   }

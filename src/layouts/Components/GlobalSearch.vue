@@ -14,7 +14,7 @@ const fuse = new Fuse<MenuOption>(flattenedMenuOptions.value, {
   keys: ['label', 'key'],
 })
 const value = ref('')
-const result = computed(() => value.value ? fuse.search(value.value).map(m => m.item) : flattenedMenuOptions.value)
+const result = computed(() => value.value ? fuse.search(value.value).map(m => m.item) : flattenedMenuOptions.value as unknown as MenuOption[])
 const index = ref(0)
 const { Ctrl_K, ArrowUp, ArrowDown, Enter } = useMagicKeys({
   passive: false,
@@ -85,7 +85,7 @@ const highLightStyle = computed(() => {
 </script>
 
 <template>
-  <NTooltipButton :button-props="{ quaternary: true }" :tooltip="$t(`common.globalSearch.placeholder`)" @click="showModal">
+  <NTooltipButton :button-props="{ quaternary: true }" :tooltip="$t(`common.global-search.tooltip`)" @click="showModal">
     <template #icon>
       <i class="i-mage-search" />
     </template>
@@ -95,7 +95,7 @@ const highLightStyle = computed(() => {
   </NTooltipButton>
   <NModal v-model:show="modalFlag" preset="card" :closable="false" class="h-[600px]! w-[600px]!" content-class="min-h-0" @after-leave="reset">
     <template #header>
-      <NSearchInput v-model:value="value" :input-props="{ placeholder: $t(`common.globalSearch.placeholder`), size: 'large' }" :button-props="{ size: 'large' }" />
+      <NSearchInput v-model:value="value" :input-props="{ placeholder: $t(`common.global-search.placeholder`), size: 'large' }" :button-props="{ size: 'large' }" />
     </template>
     <NScrollbar v-if="result.length > 0" class="wh-full">
       <div class="w-full flex-col gap-[10px]">
@@ -131,20 +131,20 @@ const highLightStyle = computed(() => {
           <NTag size="small" :bordered="false">
             <i class="i-mage-l-arrow-down-left" />
           </NTag>
-          {{ $t('common.globalSearch.enter') }}
+          {{ $t(`common.global-search.enter`) }}
         </div>
         <div class="flex-y-center gap-[5px]">
           <NTag size="small" :bordered="false">
             <i class="i-mage-arrow-up" />
             <i class="i-mage-arrow-down" />
           </NTag>
-          {{ $t('common.globalSearch.navigate') }}
+          {{ $t(`common.global-search.navigate`) }}
         </div>
         <div class="flex-y-center gap-[5px]">
           <NTag size="small" :bordered="false">
             <i class="">Esc</i>
           </NTag>
-          {{ $t('common.globalSearch.closure') }}
+          {{ $t(`common.global-search.closure`) }}
         </div>
       </div>
     </template>

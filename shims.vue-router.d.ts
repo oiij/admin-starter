@@ -10,7 +10,7 @@ import 'vue-router'
 
 // 为了确保这个文件被当作一个模块，添加至少一个 `export` 声明
 export {}
-
+type Hidden = 'menu' | 'tab' | 'shortcut' | 'index'
 declare module 'vue-router' {
   interface RouteMeta {
     layout?: string
@@ -24,12 +24,12 @@ declare module 'vue-router' {
     keepAlive?: boolean
     requireAuth?: boolean
     root?: boolean
-    hide?: boolean | ['menu' | 'tab' | 'shortcut' | 'index']
-    group?: {
+    hidden?: boolean | Hidden[]
+    parent?: {
       title?: string
       icon?: string
       description?: string
-      hide?: boolean | ['menu' | 'tab' | 'shortcut' | 'index']
+      hidden?: boolean | Hidden[]
     }
   }
 }

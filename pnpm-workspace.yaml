@@ -1,3 +1,5 @@
 shellEmulator: true
 # eslint-disable-next-line pnpm/yaml-enforce-settings
 trustPolicy: warn
+packages:
+  - server

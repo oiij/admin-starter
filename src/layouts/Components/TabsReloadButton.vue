@@ -6,11 +6,11 @@ const { loading } = useAutoRoutes()
 </script>
 
 <template>
-  <NTooltipButton :button-props="{ quaternary: true, size: 'small' }" :tooltip="$t('common.refreshPage')" @click="() => reload()">
+  <NTooltipButton :button-props="{ quaternary: true, size: 'small' }" :tooltip="$t(`common.tabs.refresh-page`)" @click="() => reload()">
     <template #icon>
       <i class="i-mage-reload" :class="loading ? 'animate-spin' : ''" />
     </template>
-  </NTooltipButtoN>
+  </NTooltipButton>
 </template>
 
 <style scoped lang='less'>

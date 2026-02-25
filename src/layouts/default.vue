@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import ScreenSnap from '~/components/ScreenSnap.vue'
 import BaseLayout from './BaseLayout.vue'
 import RouterEntry from './components/RouterEntry.vue'
 import ScreenLockProvider from './components/ScreenLockProvider.vue'
+import ScreenSnap from './components/ScreenSnap.vue'
 import Watermark from './components/Watermark.vue'
 </script>
 

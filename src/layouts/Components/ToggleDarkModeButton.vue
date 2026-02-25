@@ -5,7 +5,7 @@ const appStore = useAppStore()
 </script>
 
 <template>
-  <NTooltipButton :button-props="{ quaternary: true }" :tooltip="`${appStore.isDark ? $t('common.lightMode') : $t('common.darkMode')}`" @click=" appStore.toggleDark($event)">
+  <NTooltipButton :button-props="{ quaternary: true }" :tooltip="`${appStore.isDark ? $t('common.light-mode') : $t('common.dark-mode')}`" @click=" appStore.toggleDark($event)">
     <template #icon>
       <div :class="appStore.isDark ? 'text-[#FFEB3B]/50' : 'text-[#FF7043]'" class="transition-base hover:scale-110">
         <Transition enter-active-class="animated animated-faster animated-rotate-in" leave-active-class="animated animated-faster animated-rotate-out" mode="out-in">

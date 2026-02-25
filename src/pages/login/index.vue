@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import ToggleDarkMode from '~/layouts/components/ToggleDarkMode.vue'
+import ToggleDarkModeButton from '~/layouts/components/ToggleDarkModeButton.vue'
 import CaptchaLogin from './components/CaptchaLogin.vue'
 import PasswordLogin from './components/PasswordLogin.vue'
 
@@ -7,9 +7,9 @@ definePage({
   meta: {
     layout: 'blank',
     title: '登陆',
-    hide: true,
-    group: {
-      hide: true,
+    hidden: true,
+    parent: {
+      hidden: true,
     },
   },
 })
@@ -43,7 +43,7 @@ function handleLogged() {
       </div>
     </div>
     <div class="absolute right-[20px] top-[20px] flex-y-center gap-[10px]">
-      <ToggleDarkMode />
+      <ToggleDarkModeButton />
     </div>
   </div>
 </template>

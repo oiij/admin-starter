@@ -1,20 +1,20 @@
 <script setup lang='ts'>
 import type { DropdownOption } from 'naive-ui'
-import { CTabs } from '@oiij/chrome-tabs'
+import { ChromeTabs } from '@oiij/chrome-tabs'
 import { colord } from 'colord'
-import Reload from './Reload.vue'
-import ToggleContentFullScreen from './ToggleContentFullScreen.vue'
+import TabsReloadButton from './TabsReloadButton.vue'
+import TabsToggleContentFullScreenButton from './TabsToggleContentFullScreenButton.vue'
 
 const { themeColors } = storeToRefs(useAppStore())
 const { tabOptions, closeTab, closeOtherTabs, clearTabs } = useTabs()
-const { currentRoutePath } = useAutoRoutes()
+const autoRoutes = useAutoRoutes()
 const router = useRouter()
-
+const { t } = useI18n()
 function handleUpdateValue(key: string | number) {
   router.push(key as string)
 }
 function handleCloseTab(key: string) {
-  if (currentRoutePath.value === key) {
+  if (autoRoutes.currentRoutePath.value === key) {
     const prevIndex = tabOptions.value.findIndex(f => f.key === key) - 1
     const preTab = tabOptions.value[prevIndex]
     const nextIndex = tabOptions.value.findIndex(f => f.key === key) + 1
@@ -30,7 +30,7 @@ function handleCloseTab(key: string) {
 const dropdownOptions = computed(() => {
   return [
     {
-      label: '全部关闭',
+      label: t(`common.tabs.close-all`),
       key: 'close-all',
       props: {
         onClick: () => {
@@ -40,11 +40,11 @@ const dropdownOptions = computed(() => {
       },
     },
     {
-      label: '全部其他',
+      label: t(`common.tabs.close-others`),
       key: 'close-others',
       props: {
         onClick: () => {
-          closeOtherTabs(currentRoutePath.value)
+          closeOtherTabs(autoRoutes.currentRoutePath.value)
         },
       },
     },
@@ -53,11 +53,11 @@ const dropdownOptions = computed(() => {
 </script>
 
 <template>
-  <CTabs
+  <ChromeTabs
     data-guide="tabs"
     :theme-colors="{ background: '#fff', active: '#f1f1f1', primary: colord(themeColors.primary ?? '#fff').alpha(0.3).toHex() }"
     :options="tabOptions"
-    :value="currentRoutePath"
+    :value="autoRoutes.currentRoutePath.value"
     @click="handleUpdateValue"
     @close="(key) => handleCloseTab(key as string)"
   >
@@ -73,14 +73,14 @@ const dropdownOptions = computed(() => {
     <template #suffix>
       <div class="flex-y-center gap-[10px] p-x-[10px]">
         <div data-guide="reload">
-          <Reload />
+          <TabsReloadButton />
         </div>
         <div data-guide="content-fullscreen">
-          <ToggleContentFullScreen />
+          <TabsToggleContentFullScreenButton />
         </div>
       </div>
     </template>
-  </CTabs>
+  </ChromeTabs>
 </template>
 
 <style scoped lang='less'>
