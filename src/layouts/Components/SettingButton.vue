@@ -1,5 +1,4 @@
 <script setup lang='ts'>
-import type { SelectOption } from 'naive-ui'
 import { NTooltipButton } from '@oiij/naive-ui/components'
 import ThemeColorSelect from './ThemeColorSelect.vue'
 
