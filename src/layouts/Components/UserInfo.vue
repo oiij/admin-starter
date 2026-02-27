@@ -23,7 +23,7 @@ function handleShowDialog() {
     maskClosable: false,
     content: () => {
       return h(UserInfoPanel, {
-        defaultValues: userInfo.value!,
+        defaultValue: userInfo.value!,
         onCancel: () => {
           dialog.destroy()
         },

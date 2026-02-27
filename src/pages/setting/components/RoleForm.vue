@@ -11,23 +11,26 @@ type _CREATE = RoleType['Create']
 type _UPDATE = RoleType['Update']
 type _LIST = RoleType['Doc']
 
-const { defaultValues } = defineProps<{
-  defaultValues?: Partial<_LIST>
+type _FormValueType = _CREATE | _UPDATE
+type _ResultType = Awaited<ReturnType<typeof _API>>
+const { defaultValue } = defineProps<{
+  defaultValue?: Partial<_LIST>
 }>()
 const emit = defineEmits<{
   cancel: []
-  submit: [data: _CREATE | Partial<_CREATE> | _UPDATE | Partial<_UPDATE>, msg: string]
+  submit: [data: _FormValueType, result: _ResultType]
 }>()
 const _ADD_API = roleApi.create
 const _UPDATE_API = roleApi.update
+const _API = defaultValue?._id ? _UPDATE_API : _ADD_API
 
-const formValue = ref<_CREATE | _UPDATE>({
+const formValue = ref<_FormValueType>({
   name: '',
   access: [],
   disabled: false,
-  ...cloneDeep(defaultValues),
+  ...cloneDeep(defaultValue),
 })
-const options: PresetFormOptions<_CREATE | _UPDATE> = [
+const options: PresetFormOptions<_FormValueType> = [
   {
     type: 'input',
     label: `名称`,
@@ -42,7 +45,7 @@ const options: PresetFormOptions<_CREATE | _UPDATE> = [
     render: () => {
       return h(AccessPicker, {
         'value': formValue.value.access?.map(m => m.value),
-        'fallbackLabel': defaultValues?.access?.map(m => m.label).join(','),
+        'fallbackLabel': defaultValue?.access?.map(m => m.label).join(','),
         'multiple': true,
         'onUpdate:value': (val, raw) => {
           formValue.value.access = raw as { label: string, value: string }[]
@@ -57,7 +60,7 @@ const options: PresetFormOptions<_CREATE | _UPDATE> = [
     span: 6,
   },
 ]
-const rules: UseNaiveFormRules<_CREATE | _UPDATE> = {
+const rules: UseNaiveFormRules<_FormValueType> = {
 
 }
 </script>
@@ -65,13 +68,12 @@ const rules: UseNaiveFormRules<_CREATE | _UPDATE> = {
 <template>
   <BaseForm
     class="h-[320px] w-[500px]"
-    :create-api="_ADD_API"
-    :update-api="_UPDATE_API"
-    :default-values="formValue"
+    :api="_API"
+    :default-value="formValue"
     :options="options"
     :rules="rules"
     @cancel="emit('cancel')"
-    @submit="(data, msg) => emit('submit', data, msg)"
+    @submit="(data, result) => emit('submit', data, result)"
   />
 </template>
 

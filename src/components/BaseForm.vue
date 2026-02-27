@@ -1,77 +1,57 @@
-<script setup lang='ts'
-  generic="D extends DataObject, DU extends Partial<D>&{_id:string}"
->
-import type { DataObject, UseNaiveFormRules } from '@oiij/naive-ui'
+<script setup lang='ts' generic="API extends (data: any) => Promise<any>">
+import type { UseNaiveFormRules } from '@oiij/naive-ui'
 import type { PresetFormOptions } from '@oiij/naive-ui/components'
+import type { ButtonProps } from 'naive-ui'
 import { NPresetForm } from '@oiij/naive-ui/components'
 import { useBoolean } from '@oiij/use'
 import { useDebounceFn } from '@vueuse/core'
 import { to } from 'await-to-js'
 
-const { createApi, updateApi, defaultValues, rules, options, type, beforeSubmit } = defineProps<{
-  createApi: (data: D) => Promise<{ msg: string }>
-  updateApi?: (data: DU) => Promise<{ msg: string }>
-  defaultValues?: D | DU
-  rules?: UseNaiveFormRules<D | DU>
-  options?: PresetFormOptions<D | DU>
-  type?: 'create' | 'update'
-  beforeSubmit?: (data: D | DU) => (D | DU | Promise<D | DU>)
+type ExtractData<T> = T extends (data: infer D) => any ? D : never
+type ExtractResult<T> = T extends (data: any) => Promise<infer R> ? R : never
+type D = ExtractData<API>
+type R = ExtractResult<API>
+
+const { api, defaultValue, rules, options, beforeSubmit, submitText = '确定', submitProps } = defineProps<{
+  api: API
+  defaultValue?: D
+  rules?: UseNaiveFormRules<D>
+  options?: PresetFormOptions<D>
+  beforeSubmit?: (data: D) => (D | Promise<D>)
+  submitText?: string
+  submitProps?: ButtonProps
 }>()
 const emit = defineEmits<{
-  (e: 'create', data: D, msg: string): void
-  (e: 'update', data: DU, msg: string): void
   (e: 'cancel'): void
-  (e: 'submit', data: D | DU, msg: string): void
+  (e: 'submit', data: D, result: R): void
+  (e: 'error', error: Error): void
 }>()
 const presetForm = useTemplateRef('preset-form')
 
 const { value: loading, setTrue, setFalse } = useBoolean(false)
 const formValue = computed(() => presetForm.value?.formValue)
-const _type = computed(() => type ?? defaultValues?._id ? 'update' : 'create')
-async function createMethod(values: D) {
-  const [err, data] = await to(createApi(values))
-  if (err) {
-    return
-  }
-  emit('create', values, data.msg)
-  emit('submit', values, data.msg)
-}
-async function updateMethod(values: DU) {
-  if (!updateApi) {
-    return
-  }
-  const [err, data] = await to(updateApi(values))
-  if (err) {
-    return
-  }
-  emit('update', values, data.msg)
-  emit('submit', values, data.msg)
-}
 
-const handleSave = useDebounceFn(async () => {
+const handleSubmit = useDebounceFn(async () => {
   try {
     if (!formValue.value) {
       return
     }
     const values = beforeSubmit ? await Promise.try(beforeSubmit, formValue.value) : formValue.value
     setTrue()
-    switch (_type.value) {
-      case 'create':
-        await createMethod(values as D)
-        break
-      case 'update':
-        await updateMethod(values as DU)
-        break
-      default:
-        break
+
+    const [err, data] = await to(api(values))
+    if (err) {
+      emit('error', err)
+      return
     }
+    emit('submit', values, data)
   }
   finally {
     setFalse()
   }
 })
 function handleValidate() {
-  presetForm.value?.validate()?.then(() => handleSave())
+  presetForm.value?.validate()?.then(() => handleSubmit())
 }
 function handleCancel() {
   emit('cancel')
@@ -80,11 +60,10 @@ function handleCancel() {
 
 <template>
   <NFlex vertical>
-    <NScrollbar class="min-h-0 flex-1" content-class="p-0px">
-      <!-- @vue-generic {D|DU} -->
+    <NScrollbar class="min-h-0 flex-1" content-class="p-x-10px">
       <NPresetForm
         ref="preset-form"
-        :value="defaultValues"
+        :value="defaultValue"
         :rules="rules"
         :options="options"
         :grid-props="{
@@ -107,8 +86,8 @@ function handleCancel() {
       <NButton type="default" @click="handleCancel">
         取消
       </NButton>
-      <NButton :loading="loading" type="primary" @click="handleValidate">
-        {{ _type === 'create' ? '创建' : '更新' }}
+      <NButton :loading="loading" type="primary" v-bind="submitProps" @click="handleValidate">
+        {{ submitText }}
       </NButton>
     </NFlex>
   </NFlex>

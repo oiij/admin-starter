@@ -13,29 +13,33 @@ type _CREATE = OrgTreeType['Create']
 type _UPDATE = OrgTreeType['Update']
 type _LIST = OrgTreeType['Doc']
 
-const { defaultValues } = defineProps<{
-  defaultValues?: Partial<_LIST>
+type _FormValueType = _CREATE | _UPDATE
+type _ResultType = Awaited<ReturnType<typeof _API>>
+const { defaultValue } = defineProps<{
+  defaultValue?: Partial<_LIST>
 }>()
 const emit = defineEmits<{
   cancel: []
-  submit: [data: _CREATE | _UPDATE, msg: string]
+  submit: [data: _FormValueType, result: _ResultType]
 }>()
+
 const _ADD_API = orgTreeApi.create
 const _UPDATE_API = orgTreeApi.update
+const _API = defaultValue?._id ? _UPDATE_API : _ADD_API
 
-const formValue = ref<_CREATE | _UPDATE>({
+const formValue = ref<_FormValueType>({
   name: '',
   disabled: false,
-  ...cloneDeep(defaultValues),
+  ...cloneDeep(defaultValue),
 })
-const options: PresetFormOptions<_CREATE | _UPDATE> = [
+const options: PresetFormOptions<_FormValueType> = [
   {
     label: '父级',
     key: '_parentId',
     span: 24,
-    hidden: () => !defaultValues?._parentId,
+    hidden: () => !defaultValue?._parentId,
     render: () => {
-      return h(NInput, { value: defaultValues?.parentName, readonly: true })
+      return h(NInput, { value: defaultValue?.parentName, readonly: true })
     },
   },
   {
@@ -79,7 +83,7 @@ const options: PresetFormOptions<_CREATE | _UPDATE> = [
     span: 6,
   },
 ]
-const rules: UseNaiveFormRules<_CREATE | _UPDATE> = {
+const rules: UseNaiveFormRules<_FormValueType> = {
 
 }
 </script>
@@ -87,13 +91,12 @@ const rules: UseNaiveFormRules<_CREATE | _UPDATE> = {
 <template>
   <BaseForm
     class="h-[400px] w-[500px]"
-    :create-api="_ADD_API"
-    :update-api="_UPDATE_API"
-    :default-values="formValue"
+    :api="_API"
+    :default-value="formValue"
     :options="options"
     :rules="rules"
     @cancel="emit('cancel')"
-    @submit="(data, msg) => emit('submit', data, msg)"
+    @submit="(data, result) => emit('submit', data, result)"
   />
 </template>
 

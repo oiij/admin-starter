@@ -6,8 +6,8 @@ import WorkflowNodeItemInput from './WorkflowNodeItemInput.vue'
 type WorkflowNodeType = WorkflowType['NodeType']
 type WorkflowNodeConfigType = NonNullable<WorkflowNodeType['config']>[0]
 
-const { defaultValues, preview } = defineProps<{
-  defaultValues: WorkflowNodeType
+const { defaultValue, preview } = defineProps<{
+  defaultValue: WorkflowNodeType
   preview?: boolean
 }>()
 const emit = defineEmits<{
@@ -18,9 +18,9 @@ const emit = defineEmits<{
 
 <template>
   <div class="w-full flex-col gap-[10px]">
-    <template v-if="defaultValues.type === 'START'">
+    <template v-if="defaultValue.type === 'START'">
       <WorkflowNodeConfigPreviewActions
-        v-for="(item, index) in defaultValues.config"
+        v-for="(item, index) in defaultValue.config"
         :key="index"
         :preview="preview"
         @confirm="() => emit('confirm', item)"
@@ -29,9 +29,9 @@ const emit = defineEmits<{
         <WorkflowNodeItemInput v-bind="item" />
       </WorkflowNodeConfigPreviewActions>
     </template>
-    <template v-if="defaultValues.type === 'APPROVAL' || defaultValues.type === 'CC'">
+    <template v-if="defaultValue.type === 'APPROVAL' || defaultValue.type === 'CC'">
       <WorkflowNodeConfigPreviewActions
-        v-for="(item, index) in defaultValues.config"
+        v-for="(item, index) in defaultValue.config"
         :key="index"
         :preview="preview"
         @confirm="() => emit('confirm', item)"

@@ -7,8 +7,8 @@ import { nanoid } from 'nanoid'
 type WorkflowNodeType = WorkflowType['NodeType']
 type StartConfigType = NonNullable<Extract<WorkflowNodeType, { type: 'START' }>['config']>[0]
 
-const { defaultValues } = defineProps<{
-  defaultValues?: StartConfigType
+const { defaultValue } = defineProps<{
+  defaultValue?: StartConfigType
 }>()
 const emit = defineEmits<{
   (e: 'confirm', value: StartConfigType): void
@@ -41,7 +41,7 @@ const { formProps, formValue, validate } = useNaiveForm<StartConfigType>(useTemp
   value: {
     id: nanoid(),
     type: 'INPUT',
-    ...defaultValues,
+    ...defaultValue,
   },
   rules: {
     type: [{ required: true, message: '请选择节点类型', trigger: ['change', 'blur'] }],

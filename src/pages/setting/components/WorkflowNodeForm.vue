@@ -11,8 +11,8 @@ import WorkflowNodeStartConfig from './WorkflowNodeStartConfig.vue'
 type WorkflowNodeType = WorkflowType['NodeType']
 type WorkflowNodeConfigType = NonNullable<WorkflowNodeType['config']>[0]
 
-const { defaultValues } = defineProps<{
-  defaultValues?: WorkflowNodeType
+const { defaultValue } = defineProps<{
+  defaultValue?: WorkflowNodeType
 }>()
 const emit = defineEmits<{
   (e: 'confirm', value: WorkflowNodeType): void
@@ -43,7 +43,7 @@ const { formProps, formValue, validate } = useNaiveForm<WorkflowNodeType>(useTem
     type: 'START',
     strategy: 'AND',
     config: [],
-    ...defaultValues,
+    ...defaultValue,
   },
   rules: {
     name: [{ required: true, message: '请输入节点名称', trigger: ['change', 'blur'] }],
@@ -70,7 +70,7 @@ function handleShowConfigForm(data?: WorkflowNodeConfigType) {
     maskClosable: false,
     content: () => {
       return h(components[formValue.value.type], {
-        defaultValues: data,
+        defaultValue: data,
         onConfirm: (val: WorkflowNodeConfigType) => {
           if (!formValue.value.config) {
             formValue.value.config = []
@@ -138,7 +138,7 @@ function handleClear() {
             </NButton>
           </div>
           <NScrollbar class="min-h-0 w-full flex-1">
-            <WorkflowNodeConfigPreview :default-values="formValue" @confirm="handleShowConfigForm" @remove="handleRemove" />
+            <WorkflowNodeConfigPreview :default-value="formValue" @confirm="handleShowConfigForm" @remove="handleRemove" />
           </NScrollbar>
         </div>
       </NFormItem>

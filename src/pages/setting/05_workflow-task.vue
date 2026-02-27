@@ -26,7 +26,7 @@ const { _ROUTE_TITLE } = usePageInfo()
 
 const baseTableRef = useTemplateRef('base-table')
 
-const { show: showDetailDialog } = useFormDialog(WorkflowTaskDetail, {
+const { showForm: showDetailDialog } = useFormDialog(WorkflowTaskDetail, {
   title: '详情',
   manual: true,
   onSubmit: () => {
@@ -88,7 +88,7 @@ const columns: DataTableColumns<_LIST> = [
             secondary: true,
             onClick: () => {
               showDetailDialog({
-                defaultValues: row,
+                defaultValue: row,
               })
             },
           }, {

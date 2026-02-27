@@ -10,20 +10,23 @@ import { PHONE_REGEXP } from '~/utils/regexp'
 type _CREATE = UserType['Create']
 type _UPDATE = UserType['Update']
 type _LIST = UserType['Doc']
+type _FormValue = _CREATE | _UPDATE
+type _ResultType = Awaited<ReturnType<typeof _API>>
 
-const { defaultValues } = defineProps<{
-  defaultValues?: _LIST
+const { defaultValue } = defineProps<{
+  defaultValue?: _LIST
 }>()
 const emit = defineEmits<{
   (e: 'cancel'): void
+  (e: 'submit', data: _FormValue, result: _ResultType): void
 }>()
 const { refresh } = useLogin()
 async function handleAvatarUpdate(url: string) {
-  if (!defaultValues?._id) {
+  if (!defaultValue?._id) {
     return
   }
 
-  const [err, res] = await to(userApi.update({ _id: defaultValues?._id, avatar: url }))
+  const [err, res] = await to(userApi.update({ _id: defaultValue?._id, avatar: url }))
   if (!err) {
     await refresh()
     window.$message.success(res.msg)
@@ -31,15 +34,16 @@ async function handleAvatarUpdate(url: string) {
 }
 const _ADD_API = userApi.create
 const _UPDATE_API = userApi.update
+const _API = defaultValue?._id ? _UPDATE_API : _ADD_API
 
-const formValue = ref<_CREATE | _UPDATE>({
+const formValue = ref<_FormValue>({
   phone: '',
   nickname: '',
   password: '',
   disabled: false,
-  ...cloneDeep(defaultValues),
+  ...cloneDeep(defaultValue),
 })
-const options: PresetFormOptions<_CREATE | _UPDATE> = [
+const options: PresetFormOptions<_FormValue> = [
   {
     type: 'input',
     label: `手机号`,
@@ -80,18 +84,16 @@ async function handleUpdate(msg: string) {
 <template>
   <NFlex vertical>
     <div class="w-full flex-x-center">
-      <AvatarUpload :value="defaultValues?.avatar" @update:value="handleAvatarUpdate" />
+      <AvatarUpload :value="defaultValue?.avatar" @update:value="handleAvatarUpdate" />
     </div>
     <NDivider />
     <BaseForm
       class="h-[300px] w-[500px]"
-      :create-api="_ADD_API"
-      :update-api="_UPDATE_API"
+      :api="_API"
       :before-submit="(data) => ({ ...data, password: data.password ? md5(data.password) : undefined })"
-      type="update"
-      :default-values="formValue"
+      :default-value="formValue"
       :options="options"
-      @submit="(data, msg) => handleUpdate(msg)"
+      @submit="(data, result) => handleUpdate(result?.msg || '操作成功')"
       @cancel="() => emit('cancel')"
     />
   </NFlex>

@@ -34,7 +34,7 @@ function handleShowNodeForm(data?: WorkflowNodeType) {
     style: 'width:auto;',
     content: () => {
       return h(WorkflowNodeForm, {
-        defaultValues: data,
+        defaultValue: data,
         onConfirm: (val) => {
           const index = nodes.value.findIndex(f => f.id === val.id)
           if (index !== -1) {
@@ -121,7 +121,7 @@ function handleClear() {
                 </NFlex>
               </template>
               <NScrollbar class="max-h-[300px]">
-                <WorkflowNodeConfigPreview preview :default-values="item" />
+                <WorkflowNodeConfigPreview preview :default-value="item" />
               </NScrollbar>
             </NCard>
           </div>

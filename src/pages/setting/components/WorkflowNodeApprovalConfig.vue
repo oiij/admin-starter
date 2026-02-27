@@ -9,8 +9,8 @@ import UserSelect from './UserSelect.vue'
 type WorkflowNodeType = WorkflowType['NodeType']
 type ApprovalConfigType = NonNullable<Extract<WorkflowNodeType, { type: 'APPROVAL' }>['config']>[0]
 
-const { defaultValues } = defineProps<{
-  defaultValues?: ApprovalConfigType
+const { defaultValue } = defineProps<{
+  defaultValue?: ApprovalConfigType
 }>()
 const emit = defineEmits<{
   (e: 'confirm', value: ApprovalConfigType): void
@@ -37,7 +37,7 @@ const nodeTypeOptions = [
 const { formProps, formValue, validate } = useNaiveForm<ApprovalConfigType>(useTemplateRef<FormInst>('form-ref'), {
   value: {
     id: nanoid(),
-    ...defaultValues,
+    ...defaultValue,
   },
   rules: {
     type: [{ required: true, message: '请选择节点类型', trigger: ['change', 'blur'] }],

@@ -25,7 +25,7 @@ export function useAutoRoutes() {
   const { loading, flattenRoutes, routes, routesRaw } = autoRouter
   const authRoutes = computed(() => validatePermission(cloneDeep(routes)))
   const allPermission = flattenRoutes.map(m => m.name?.toString()).filter(f => f !== undefined).flatMap(f => [f, ...Object.values(usePageAccess(f)).map(m => `${m.value}`)])
-  const keepAlivePath = computed(() => flattenRoutes.filter(f => f.meta?.keepAlive).map(m => m.name?.toString()).filter(f => f !== undefined))
+  const keepAliveName = computed(() => flattenRoutes.filter(f => f.meta?.keepAlive).map(m => m.name?.toString()).filter(f => f !== undefined))
 
   return {
     loading,
@@ -33,7 +33,7 @@ export function useAutoRoutes() {
     routesRaw,
     flattenRoutes,
     authRoutes,
-    keepAlivePath,
+    keepAliveName,
     allPermission,
     currentRoutePath: computed(() => router.currentRoute.value.path),
   }

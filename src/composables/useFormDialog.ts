@@ -1,58 +1,68 @@
 import type { DataObject } from '@oiij/naive-ui'
 import type { DialogOptions } from 'naive-ui'
 import type { Component } from 'vue'
+import type { ExtractComponentProps } from './useComponentDialog'
+import { createEventHook } from '@vueuse/core'
+import { useComponentDialog } from './useComponentDialog'
 
-type Options<P extends DataObject, V extends DataObject> = & {
+type FormComponentProps<V extends DataObject> = {
+  defaultValue?: Partial<V>
+  onCancel: () => void
+  onSubmit: (data: V, msg: string) => void
+}
+
+type Options<C extends Component, V extends DataObject> = {
   title?: string
-  defaultValues?: Partial<V>
+  defaultValue?: Partial<V>
   manual?: boolean
   onCancel?: () => void
   onSubmit?: (data: V, msg: string) => void
-  props?: P
+  props?: Omit<ExtractComponentProps<C>, keyof FormComponentProps<V>>
   dialogOptions?: DialogOptions
 }
 
-export function useFormDialog<P extends DataObject = DataObject, V extends DataObject = DataObject>(component: Component, options?: Options<P, V>) {
+export function useFormDialog<C extends Component, V extends DataObject = DataObject>(component: C, options?: Options<C, V>) {
   const { manual = false, ...extraProps } = options ?? {}
   const onCancelEvent = createEventHook<[void]>()
   const onSubmitEvent = createEventHook<[V, string]>()
-  function show(_options?: Omit<Options<P, V>, 'manual'>) {
-    const { title, defaultValues, props, dialogOptions, onCancel, onSubmit } = { ...extraProps, ..._options }
+  const dialogInst = shallowRef<ReturnType<typeof useComponentDialog>>()
+  function showForm(_options?: Omit<Options<C, V>, 'manual'>) {
+    const { title, defaultValue, props, dialogOptions, onCancel, onSubmit } = { ...extraProps, ..._options }
     if (!component) {
       console.error('component is required')
       return
     }
-    const dialog = window.$dialog.create({
+    dialogInst.value = useComponentDialog(component, {
       title,
-      style: 'width:auto;',
-      showIcon: false,
-      maskClosable: false,
-      contentClass: 'border-t',
-      contentStyle: 'padding-top:10px;',
-      content: () => h(component!, {
-        defaultValues,
+      dialogOptions,
+      props: {
+        defaultValue,
         onCancel: () => {
           onCancelEvent.trigger()
           onCancel?.()
-          dialog.destroy()
+          dialogInst.value?.destroy()
         },
         onSubmit: (data: V, msg: string) => {
           onSubmitEvent.trigger(data, msg)
           onSubmit?.(data, msg)
-          dialog.destroy()
+          dialogInst.value?.destroy()
         },
         ...props,
-      }),
-      ...dialogOptions,
+      } as ExtractComponentProps<C>,
     })
-    return dialog
+
+    return dialogInst.value
+  }
+  function closeForm() {
+    dialogInst.value?.destroy()
   }
   if (!manual) {
-    show()
+    showForm()
   }
   return {
-    show,
-    close,
+    dialog: dialogInst,
+    showForm,
+    closeForm,
     onCancel: onCancelEvent.on,
     onSubmit: onSubmitEvent.on,
   }

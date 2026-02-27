@@ -29,14 +29,14 @@ const { _ROUTE_TITLE, _UPDATE_ACCESS, _ADD_ACCESS } = usePageInfo()
 
 const baseTableRef = useTemplateRef('base-table')
 
-const { show: handleShowForm } = useFormDialog(WorkflowInstanceForm, {
+const { showForm: handleShowForm } = useFormDialog(WorkflowInstanceForm, {
   manual: true,
   title: '新增',
   onSubmit: () => {
     baseTableRef.value?.refresh()
   },
 })
-const { show: showDetailDialog } = useFormDialog(WorkflowInstanceDetail, {
+const { showForm: showDetailDialog } = useFormDialog(WorkflowInstanceDetail, {
   title: '详情',
   manual: true,
   onSubmit: () => {
@@ -105,7 +105,7 @@ const columns: DataTableColumns<_LIST> = [
             secondary: true,
             onClick: () => {
               showDetailDialog({
-                defaultValues: row,
+                defaultValue: row,
               })
             },
           }, {

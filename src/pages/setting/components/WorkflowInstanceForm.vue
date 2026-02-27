@@ -13,21 +13,24 @@ type WorkflowNodeType = WorkflowType['NodeType']
 type _CREATE = WorkflowInstanceType['Create']
 type _LIST = WorkflowInstanceType['Doc']
 
-const { defaultValues } = defineProps<{
-  defaultValues?: Partial<_LIST>
+type _FormValueType = _CREATE
+type _ResultType = Awaited<ReturnType<typeof _API>>
+const { defaultValue } = defineProps<{
+  defaultValue?: Partial<_LIST>
 }>()
 const emit = defineEmits<{
   cancel: []
-  submit: [data: _CREATE, msg: string]
+  submit: [data: _FormValueType, result: _ResultType]
 }>()
 const _ADD_API = workflowInstanceApi.create
+const _API = _ADD_API
 
-const formValue = ref<_CREATE>({
+const formValue = ref<_FormValueType>({
   formData: {},
-  ...cloneDeep(defaultValues),
+  ...cloneDeep(defaultValue),
 })
 const nodes = ref<WorkflowNodeType[]>()
-const options: PresetFormOptions<_CREATE> = [
+const options: PresetFormOptions<_FormValueType> = [
   {
     label: `工作流`,
     key: '_workflowId',
@@ -47,7 +50,7 @@ const options: PresetFormOptions<_CREATE> = [
   },
 
 ]
-const rules: UseNaiveFormRules<_CREATE> = {
+const rules: UseNaiveFormRules<_FormValueType> = {
 
 }
 </script>
@@ -55,13 +58,13 @@ const rules: UseNaiveFormRules<_CREATE> = {
 <template>
   <BaseForm
     class="h-[600px] w-[500px]"
-    :create-api="_ADD_API"
+    :api="_API"
     :before-submit="(data) => data"
-    :default-values="formValue"
+    :default-value="formValue"
     :options="options"
     :rules="rules"
     @cancel="emit('cancel')"
-    @submit="(data, msg) => emit('submit', data, msg)"
+    @submit="(data, result) => emit('submit', data, result)"
   >
     <template #footer>
       <div class="flex-col gap-[10px]">

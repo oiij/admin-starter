@@ -11,23 +11,26 @@ type _CREATE = WorkflowType['Create']
 type _UPDATE = WorkflowType['Update']
 type _LIST = WorkflowType['Doc']
 
-const { defaultValues } = defineProps<{
-  defaultValues?: Partial<_LIST>
+type _FormValueType = _CREATE | _UPDATE
+type _ResultType = Awaited<ReturnType<typeof _API>>
+const { defaultValue } = defineProps<{
+  defaultValue?: Partial<_LIST>
 }>()
 const emit = defineEmits<{
   cancel: []
-  submit: [data: _CREATE | _UPDATE, msg: string]
+  submit: [data: _FormValueType, result: _ResultType]
 }>()
 const _ADD_API = workflowApi.create
 const _UPDATE_API = workflowApi.update
+const _API = defaultValue?._id ? _UPDATE_API : _ADD_API
 
-const formValue = ref<_CREATE | _UPDATE>({
+const formValue = ref<_FormValueType>({
   name: '',
   nodes: [],
   disabled: false,
-  ...cloneDeep(defaultValues),
+  ...cloneDeep(defaultValue),
 })
-const options: PresetFormOptions<_CREATE | _UPDATE> = [
+const options: PresetFormOptions<_FormValueType> = [
   {
     type: 'input',
     label: `名称`,
@@ -64,7 +67,7 @@ const options: PresetFormOptions<_CREATE | _UPDATE> = [
     span: 6,
   },
 ]
-const rules: UseNaiveFormRules<_CREATE | _UPDATE> = {
+const rules: UseNaiveFormRules<_FormValueType> = {
 
 }
 </script>
@@ -72,14 +75,13 @@ const rules: UseNaiveFormRules<_CREATE | _UPDATE> = {
 <template>
   <BaseForm
     class="h-[600px] w-[600px]"
-    :create-api="_ADD_API"
-    :update-api="_UPDATE_API"
+    :api="_API"
     :before-submit="(data) => data"
-    :default-values="formValue"
+    :default-value="formValue"
     :options="options"
     :rules="rules"
     @cancel="emit('cancel')"
-    @submit="(data, msg) => emit('submit', data, msg)"
+    @submit="(data, result) => emit('submit', data, result)"
   />
 </template>
 
