@@ -15,8 +15,8 @@ type _LIST = UserType['Doc']
 
 type _FormValueType = _CREATE | _UPDATE
 type _ResultType = Awaited<ReturnType<typeof _API>>
-const { defaultValue } = defineProps<{
-  defaultValue?: Partial<_LIST>
+const { defaultValues } = defineProps<{
+  defaultValues?: Partial<_LIST>
 }>()
 const emit = defineEmits<{
   cancel: []
@@ -24,14 +24,14 @@ const emit = defineEmits<{
 }>()
 const _ADD_API = userApi.create
 const _UPDATE_API = userApi.update
-const _API = defaultValue?._id ? _UPDATE_API : _ADD_API
+const _API = defaultValues?._id ? _UPDATE_API : _ADD_API
 
-const formValue = ref<_FormValueType>({
+const formValues = ref<_FormValueType>({
   phone: '',
   nickname: '',
   password: '',
   disabled: false,
-  ...cloneDeep(defaultValue),
+  ...cloneDeep(defaultValues),
 })
 const options: PresetFormOptions<_FormValueType> = [
   {
@@ -86,10 +86,10 @@ const options: PresetFormOptions<_FormValueType> = [
     required: true,
     render: () => {
       return h(RoleSelect, {
-        'value': formValue.value._roleId,
-        'fallbackLabel': defaultValue?.roleName,
+        'value': formValues.value._roleId,
+        'fallbackLabel': defaultValues?.roleName,
         'onUpdate:value': (val) => {
-          formValue.value._roleId = val as string
+          formValues.value._roleId = val as string
         },
       })
     },
@@ -111,7 +111,7 @@ const rules: UseNaiveFormRules<_FormValueType> = {
     class="h-[400px] w-[500px]"
     :api="_API"
     :before-submit="(data) => ({ ...data, password: data.password ? md5(data.password) : undefined })"
-    :default-value="formValue"
+    :default-values="formValues"
     :options="options"
     :rules="rules"
     @cancel="emit('cancel')"

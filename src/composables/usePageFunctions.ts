@@ -19,7 +19,7 @@ export function usePageFunctions<D extends DataObject, R extends DataObject>(opt
     }
     useFormDialog(component, {
       title: title ?? data ? '更新' : '新增',
-      defaultValue: data,
+      defaultValues: data,
       onSubmit: () => {
         onRefresh?.()
       },

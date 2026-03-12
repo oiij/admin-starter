@@ -11,8 +11,8 @@ import WorkflowNodeStartConfig from './WorkflowNodeStartConfig.vue'
 type WorkflowNodeType = WorkflowType['NodeType']
 type WorkflowNodeConfigType = NonNullable<WorkflowNodeType['config']>[0]
 
-const { defaultValue } = defineProps<{
-  defaultValue?: WorkflowNodeType
+const { defaultValues } = defineProps<{
+  defaultValues?: WorkflowNodeType
 }>()
 const emit = defineEmits<{
   (e: 'confirm', value: WorkflowNodeType): void
@@ -36,14 +36,14 @@ const nodeTypeOptions = [
     value: 'END',
   },
 ]
-const { formProps, formValue, validate } = useNaiveForm<WorkflowNodeType>(useTemplateRef<FormInst>('form-ref'), {
-  value: {
+const { formProps, formValues, validate } = useNaiveForm<WorkflowNodeType>(useTemplateRef<FormInst>('form-ref'), {
+  values: {
     id: nanoid(),
     name: '',
     type: 'START',
     strategy: 'AND',
     config: [],
-    ...defaultValue,
+    ...defaultValues,
   },
   rules: {
     name: [{ required: true, message: '请输入节点名称', trigger: ['change', 'blur'] }],
@@ -52,8 +52,8 @@ const { formProps, formValue, validate } = useNaiveForm<WorkflowNodeType>(useTem
   },
 })
 function handleTypeUpdate(_val: string, option: { label: string, value: string }) {
-  formValue.value.config = []
-  formValue.value.name = option.label
+  formValues.value.config = []
+  formValues.value.name = option.label
 }
 function handleShowConfigForm(data?: WorkflowNodeConfigType) {
   const components = {
@@ -64,23 +64,23 @@ function handleShowConfigForm(data?: WorkflowNodeConfigType) {
   } as Record<WorkflowNodeType['type'], Component>
 
   const dialog = window.$dialog.create({
-    title: `[${nodeTypeOptions.find(f => f.value === formValue.value.type)?.label}] 节点规则配置`,
+    title: `[${nodeTypeOptions.find(f => f.value === formValues.value.type)?.label}] 节点规则配置`,
     style: 'width:auto;',
     showIcon: false,
     maskClosable: false,
     content: () => {
-      return h(components[formValue.value.type], {
-        defaultValue: data,
+      return h(components[formValues.value.type], {
+        defaultValues: data,
         onConfirm: (val: WorkflowNodeConfigType) => {
-          if (!formValue.value.config) {
-            formValue.value.config = []
+          if (!formValues.value.config) {
+            formValues.value.config = []
           }
-          const index = formValue.value.config.findIndex(f => f.id === val?.id)
+          const index = formValues.value.config.findIndex(f => f.id === val?.id)
           if (index !== -1) {
-            formValue.value.config[index] = val
+            formValues.value.config[index] = val
           }
           else {
-            formValue.value.config.push(val as any)
+            formValues.value.config.push(val as any)
           }
           dialog.destroy()
         },
@@ -92,33 +92,33 @@ function handleShowConfigForm(data?: WorkflowNodeConfigType) {
   })
 }
 function handleRemove(index: number) {
-  formValue.value.config?.splice(index, 1)
+  formValues.value.config?.splice(index, 1)
 }
 function handleConfirm() {
   validate().then(() => {
-    emit('confirm', formValue.value)
+    emit('confirm', formValues.value)
   })
 }
 function handleCancel() {
   emit('cancel')
 }
 function handleClear() {
-  formValue.value.config = []
+  formValues.value.config = []
 }
 </script>
 
 <template>
   <NForm v-bind="formProps" ref="form-ref" class="w-[400px]">
     <NFormItem label="节点类型" path="type">
-      <NSelect v-model:value="formValue.type" :options="nodeTypeOptions" @update-value="handleTypeUpdate" />
+      <NSelect v-model:value="formValues.type" :options="nodeTypeOptions" @update-value="handleTypeUpdate" />
     </NFormItem>
     <NFormItem label="节点名称" path="name">
-      <NInput v-model:value="formValue.name" />
+      <NInput v-model:value="formValues.name" />
     </NFormItem>
 
-    <template v-if="formValue.type !== 'END'">
-      <NFormItem v-if="formValue.type === 'APPROVAL'" label="节点策略" path="strategy">
-        <NSwitch v-model:value="formValue.strategy" checked-value="AND" unchecked-value="OR">
+    <template v-if="formValues.type !== 'END'">
+      <NFormItem v-if="formValues.type === 'APPROVAL'" label="节点策略" path="strategy">
+        <NSwitch v-model:value="formValues.strategy" checked-value="AND" unchecked-value="OR">
           <template #checked>
             AND
           </template>
@@ -127,7 +127,7 @@ function handleClear() {
           </template>
         </NSwitch>
       </NFormItem>
-      <NFormItem :label="`[${nodeTypeOptions.find(f => f.value === formValue.type)?.label}] 节点规则配置`" path="config">
+      <NFormItem :label="`[${nodeTypeOptions.find(f => f.value === formValues.type)?.label}] 节点规则配置`" path="config">
         <div class="h-[200px] w-full flex-col gap-[10px]">
           <div class="w-full flex-y-center gap-[10px]">
             <NButton type="primary" @click="() => handleShowConfigForm()">
@@ -138,7 +138,7 @@ function handleClear() {
             </NButton>
           </div>
           <NScrollbar class="min-h-0 w-full flex-1">
-            <WorkflowNodeConfigPreview :default-value="formValue" @confirm="handleShowConfigForm" @remove="handleRemove" />
+            <WorkflowNodeConfigPreview :default-values="formValues" @confirm="handleShowConfigForm" @remove="handleRemove" />
           </NScrollbar>
         </div>
       </NFormItem>

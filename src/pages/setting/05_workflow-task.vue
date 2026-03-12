@@ -88,7 +88,7 @@ const columns: DataTableColumns<_LIST> = [
             secondary: true,
             onClick: () => {
               showDetailDialog({
-                defaultValue: row,
+                defaultValues: row,
               })
             },
           }, {

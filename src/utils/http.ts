@@ -28,54 +28,46 @@ axiosInstance.interceptors.request.use(
 )
 const notificationRef = ref<NotificationReactive | null>(null)
 function notification(title?: string, content?: string) {
-  if (notificationRef.value) {
-    notificationRef.value.title = title
-    notificationRef.value.content = content
-  }
-  else {
-    notificationRef.value = window.$notification.create({ title, content, type: 'error' })
-  }
+  notificationRef.value = window.$notification.error({ title, content })
 }
 axiosInstance.interceptors.response.use(
   (response: AxiosResponse) => {
     done()
     if (response.status === 200) {
-      if (notificationRef.value) {
-        notificationRef.value.destroy()
-      }
       return response.data
     }
 
     return Promise.reject(response.data)
   },
-  (error: AxiosError<{ message: string }>) => {
+  async (error: AxiosError<{ message: string }>) => {
     done()
 
     const { response, request } = error
     if (response) {
       const code = response.status
       if (code === 400) {
-        window.$message.error(response.data.message, { duration: 1000 * 5 })
-        return Promise.reject(response)
+        window.$message.error(response.data.message, { duration: 3000 })
+        return Promise.reject(response.data)
       }
       if (code === 401) {
         const { userInfo, token, logged } = storeToRefs(useAuthStore())
         token.value = null
         userInfo.value = null
         logged.value = false
-        window.$message.error(response.data.message, { duration: 1000 * 5 })
+        notification(`${code} ${response.statusText}`, response.data.message)
         const { currentRoutePath } = useAutoRoutes()
-        router.push(`/login?redirect=${currentRoutePath.value}`)
-        return Promise.reject(response)
+        await router.replace(`/login?redirect=${currentRoutePath.value}`)
+        return Promise.reject(response.data)
       }
-      notification(`${code}`, response.data.message)
+      notification(`${code} ${response.statusText}`)
+
       return Promise.reject(response)
     }
     if (request) {
-      notification('请求错误', '请联系管理员')
+      notification('Request Failed.')
       return Promise.reject(error)
     }
-    notification('未知错误', '请联系管理员')
+    notification('Request Failed.')
     return Promise.reject(error)
   },
 )

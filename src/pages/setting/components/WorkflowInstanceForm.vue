@@ -15,8 +15,8 @@ type _LIST = WorkflowInstanceType['Doc']
 
 type _FormValueType = _CREATE
 type _ResultType = Awaited<ReturnType<typeof _API>>
-const { defaultValue } = defineProps<{
-  defaultValue?: Partial<_LIST>
+const { defaultValues } = defineProps<{
+  defaultValues?: Partial<_LIST>
 }>()
 const emit = defineEmits<{
   cancel: []
@@ -25,9 +25,9 @@ const emit = defineEmits<{
 const _ADD_API = workflowInstanceApi.create
 const _API = _ADD_API
 
-const formValue = ref<_FormValueType>({
+const formValues = ref<_FormValueType>({
   formData: {},
-  ...cloneDeep(defaultValue),
+  ...cloneDeep(defaultValues),
 })
 const nodes = ref<WorkflowNodeType[]>()
 const options: PresetFormOptions<_FormValueType> = [
@@ -38,9 +38,9 @@ const options: PresetFormOptions<_FormValueType> = [
     required: true,
     render: () => {
       return h(WorkflowSelect, {
-        'value': formValue.value._workflowId,
+        'value': formValues.value._workflowId,
         'onUpdate:value': (v, _, raw) => {
-          formValue.value._workflowId = v as string
+          formValues.value._workflowId = v as string
           if (raw && !Array.isArray(raw)) {
             nodes.value = raw.nodes
           }
@@ -60,7 +60,7 @@ const rules: UseNaiveFormRules<_FormValueType> = {
     class="h-[600px] w-[500px]"
     :api="_API"
     :before-submit="(data) => data"
-    :default-value="formValue"
+    :default-values="formValues"
     :options="options"
     :rules="rules"
     @cancel="emit('cancel')"
@@ -73,7 +73,7 @@ const rules: UseNaiveFormRules<_FormValueType> = {
             <WorkflowNodeItemInput
               v-for="item in node.config"
               :key="item.id"
-              v-model:value="formValue.formData![item.fieldKey as string]"
+              v-model:value="formValues.formData![item.fieldKey as string]"
               :type="item.type"
               :field-label="item.fieldLabel"
               :required="item.required"

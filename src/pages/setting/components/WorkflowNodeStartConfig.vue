@@ -7,8 +7,8 @@ import { nanoid } from 'nanoid'
 type WorkflowNodeType = WorkflowType['NodeType']
 type StartConfigType = NonNullable<Extract<WorkflowNodeType, { type: 'START' }>['config']>[0]
 
-const { defaultValue } = defineProps<{
-  defaultValue?: StartConfigType
+const { defaultValues } = defineProps<{
+  defaultValues?: StartConfigType
 }>()
 const emit = defineEmits<{
   (e: 'confirm', value: StartConfigType): void
@@ -37,11 +37,11 @@ const nodeTypeOptions = [
   },
 ]
 
-const { formProps, formValue, validate } = useNaiveForm<StartConfigType>(useTemplateRef<FormInst>('form-ref'), {
-  value: {
+const { formProps, formValues, validate } = useNaiveForm<StartConfigType>(useTemplateRef<FormInst>('form-ref'), {
+  values: {
     id: nanoid(),
     type: 'INPUT',
-    ...defaultValue,
+    ...defaultValues,
   },
   rules: {
     type: [{ required: true, message: '请选择节点类型', trigger: ['change', 'blur'] }],
@@ -59,11 +59,11 @@ const { formProps, formValue, validate } = useNaiveForm<StartConfigType>(useTemp
   },
 })
 const hasOptions = computed(() => {
-  return formValue.value.type && ['SELECT', 'RADIO', 'CHECKBOX'].includes(formValue.value.type)
+  return formValues.value.type && ['SELECT', 'RADIO', 'CHECKBOX'].includes(formValues.value.type)
 })
 function handleConfirm() {
   validate().then(() => {
-    emit('confirm', formValue.value)
+    emit('confirm', formValues.value)
   })
 }
 function handleCancel() {
@@ -74,28 +74,28 @@ function handleCancel() {
 <template>
   <NForm v-bind="formProps" ref="form-ref" class="w-[400px]">
     <NFormItem label="节点类型" path="type">
-      <NSelect v-model:value="formValue.type" :options="nodeTypeOptions" />
+      <NSelect v-model:value="formValues.type" :options="nodeTypeOptions" />
     </NFormItem>
     <NFlex>
       <NFormItem label="字段Label" path="fieldLabel">
-        <NInput v-model:value="formValue.fieldLabel" />
+        <NInput v-model:value="formValues.fieldLabel" />
       </NFormItem>
       <NFormItem label="字段Key" path="fieldKey">
-        <NInput v-model:value="formValue.fieldKey" />
+        <NInput v-model:value="formValues.fieldKey" />
       </NFormItem>
       <NFormItem label="字段Value" path="fieldValue">
-        <NInput v-model:value="formValue.fieldValue" />
+        <NInput v-model:value="formValues.fieldValue" />
       </NFormItem>
       <NFormItem label="占位符" path="placeholder">
-        <NInput v-model:value="formValue.placeholder" />
+        <NInput v-model:value="formValues.placeholder" />
       </NFormItem>
     </NFlex>
     <NFormItem label="是否必填" path="required">
-      <NSwitch v-model:value="formValue.required" />
+      <NSwitch v-model:value="formValues.required" />
     </NFormItem>
     <NFormItem v-if="hasOptions" label="配置项" path="options">
       <NScrollbar class="h-[160px] w-full">
-        <NDynamicInput v-model:value="formValue.options" :on-create="() => ({ label: '', value: '' })">
+        <NDynamicInput v-model:value="formValues.options" :on-create="() => ({ label: '', value: '' })">
           <template #create-button-default>
             新增
           </template>

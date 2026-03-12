@@ -13,8 +13,8 @@ type _LIST = RoleType['Doc']
 
 type _FormValueType = _CREATE | _UPDATE
 type _ResultType = Awaited<ReturnType<typeof _API>>
-const { defaultValue } = defineProps<{
-  defaultValue?: Partial<_LIST>
+const { defaultValues } = defineProps<{
+  defaultValues?: Partial<_LIST>
 }>()
 const emit = defineEmits<{
   cancel: []
@@ -22,13 +22,13 @@ const emit = defineEmits<{
 }>()
 const _ADD_API = roleApi.create
 const _UPDATE_API = roleApi.update
-const _API = defaultValue?._id ? _UPDATE_API : _ADD_API
+const _API = defaultValues?._id ? _UPDATE_API : _ADD_API
 
-const formValue = ref<_FormValueType>({
+const formValues = ref<_FormValueType>({
   name: '',
   access: [],
   disabled: false,
-  ...cloneDeep(defaultValue),
+  ...cloneDeep(defaultValues),
 })
 const options: PresetFormOptions<_FormValueType> = [
   {
@@ -44,11 +44,11 @@ const options: PresetFormOptions<_FormValueType> = [
     span: 24,
     render: () => {
       return h(AccessPicker, {
-        'value': formValue.value.access?.map(m => m.value),
-        'fallbackLabel': defaultValue?.access?.map(m => m.label).join(','),
+        'value': formValues.value.access?.map(m => m.value),
+        'fallbackLabel': defaultValues?.access?.map(m => m.label).join(','),
         'multiple': true,
         'onUpdate:value': (val, raw) => {
-          formValue.value.access = raw as { label: string, value: string }[]
+          formValues.value.access = raw as { label: string, value: string }[]
         },
       })
     },
@@ -69,7 +69,7 @@ const rules: UseNaiveFormRules<_FormValueType> = {
   <BaseForm
     class="h-[320px] w-[500px]"
     :api="_API"
-    :default-value="formValue"
+    :default-values="formValues"
     :options="options"
     :rules="rules"
     @cancel="emit('cancel')"

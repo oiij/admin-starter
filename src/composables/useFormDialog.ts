@@ -6,14 +6,14 @@ import { createEventHook } from '@vueuse/core'
 import { useComponentDialog } from './useComponentDialog'
 
 type FormComponentProps<V extends DataObject> = {
-  defaultValue?: Partial<V>
+  defaultValues?: Partial<V>
   onCancel: () => void
   onSubmit: (data: V, msg: string) => void
 }
 
 type Options<C extends Component, V extends DataObject> = {
   title?: string
-  defaultValue?: Partial<V>
+  defaultValues?: Partial<V>
   manual?: boolean
   onCancel?: () => void
   onSubmit?: (data: V, msg: string) => void
@@ -27,7 +27,7 @@ export function useFormDialog<C extends Component, V extends DataObject = DataOb
   const onSubmitEvent = createEventHook<[V, string]>()
   const dialogInst = shallowRef<ReturnType<typeof useComponentDialog>>()
   function showForm(_options?: Omit<Options<C, V>, 'manual'>) {
-    const { title, defaultValue, props, dialogOptions, onCancel, onSubmit } = { ...extraProps, ..._options }
+    const { title, defaultValues, props, dialogOptions, onCancel, onSubmit } = { ...extraProps, ..._options }
     if (!component) {
       console.error('component is required')
       return
@@ -36,7 +36,7 @@ export function useFormDialog<C extends Component, V extends DataObject = DataOb
       title,
       dialogOptions,
       props: {
-        defaultValue,
+        defaultValues,
         onCancel: () => {
           onCancelEvent.trigger()
           onCancel?.()

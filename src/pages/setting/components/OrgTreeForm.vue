@@ -15,8 +15,8 @@ type _LIST = OrgTreeType['Doc']
 
 type _FormValueType = _CREATE | _UPDATE
 type _ResultType = Awaited<ReturnType<typeof _API>>
-const { defaultValue } = defineProps<{
-  defaultValue?: Partial<_LIST>
+const { defaultValues } = defineProps<{
+  defaultValues?: Partial<_LIST>
 }>()
 const emit = defineEmits<{
   cancel: []
@@ -25,21 +25,21 @@ const emit = defineEmits<{
 
 const _ADD_API = orgTreeApi.create
 const _UPDATE_API = orgTreeApi.update
-const _API = defaultValue?._id ? _UPDATE_API : _ADD_API
+const _API = defaultValues?._id ? _UPDATE_API : _ADD_API
 
-const formValue = ref<_FormValueType>({
+const formValues = ref<_FormValueType>({
   name: '',
   disabled: false,
-  ...cloneDeep(defaultValue),
+  ...cloneDeep(defaultValues),
 })
 const options: PresetFormOptions<_FormValueType> = [
   {
     label: '父级',
     key: '_parentId',
     span: 24,
-    hidden: () => !defaultValue?._parentId,
+    hidden: () => !defaultValues?._parentId,
     render: () => {
-      return h(NInput, { value: defaultValue?.parentName, readonly: true })
+      return h(NInput, { value: defaultValues?.parentName, readonly: true })
     },
   },
   {
@@ -55,9 +55,9 @@ const options: PresetFormOptions<_FormValueType> = [
     span: 24,
     render: () => {
       return h(UserSelect, {
-        'value': formValue.value._leaderId,
+        'value': formValues.value._leaderId,
         'onUpdate:value': (val) => {
-          formValue.value._leaderId = val as string
+          formValues.value._leaderId = val as string
         },
       })
     },
@@ -68,10 +68,10 @@ const options: PresetFormOptions<_FormValueType> = [
     span: 24,
     render: () => {
       return h(UserPicker, {
-        'value': formValue.value._userIds,
+        'value': formValues.value._userIds,
         'multiple': true,
         'onUpdate:value': (val) => {
-          formValue.value._userIds = val as string[]
+          formValues.value._userIds = val as string[]
         },
       })
     },
@@ -92,7 +92,7 @@ const rules: UseNaiveFormRules<_FormValueType> = {
   <BaseForm
     class="h-[400px] w-[500px]"
     :api="_API"
-    :default-value="formValue"
+    :default-values="formValues"
     :options="options"
     :rules="rules"
     @cancel="emit('cancel')"

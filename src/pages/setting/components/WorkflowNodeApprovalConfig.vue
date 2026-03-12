@@ -9,8 +9,8 @@ import UserSelect from './UserSelect.vue'
 type WorkflowNodeType = WorkflowType['NodeType']
 type ApprovalConfigType = NonNullable<Extract<WorkflowNodeType, { type: 'APPROVAL' }>['config']>[0]
 
-const { defaultValue } = defineProps<{
-  defaultValue?: ApprovalConfigType
+const { defaultValues } = defineProps<{
+  defaultValues?: ApprovalConfigType
 }>()
 const emit = defineEmits<{
   (e: 'confirm', value: ApprovalConfigType): void
@@ -34,10 +34,10 @@ const nodeTypeOptions = [
     value: 'APPLICANT',
   },
 ]
-const { formProps, formValue, validate } = useNaiveForm<ApprovalConfigType>(useTemplateRef<FormInst>('form-ref'), {
-  value: {
+const { formProps, formValues, validate } = useNaiveForm<ApprovalConfigType>(useTemplateRef<FormInst>('form-ref'), {
+  values: {
     id: nanoid(),
-    ...defaultValue,
+    ...defaultValues,
   },
   rules: {
     type: [{ required: true, message: '请选择节点类型', trigger: ['change', 'blur'] }],
@@ -46,43 +46,43 @@ const { formProps, formValue, validate } = useNaiveForm<ApprovalConfigType>(useT
 })
 function handleConfirm() {
   validate().then(() => {
-    emit('confirm', formValue.value)
+    emit('confirm', formValues.value)
   })
 }
 function handleCancel() {
   emit('cancel')
 }
 function handleTypeUpdate(option: { label: string, value: string }) {
-  formValue.value.typeName = option.label
-  formValue.value.value = ''
-  formValue.value.label = ''
+  formValues.value.typeName = option.label
+  formValues.value.value = ''
+  formValues.value.label = ''
 }
 function handleUserUpdate(raw: UserType['Doc']) {
-  formValue.value.value = raw._id
-  formValue.value.label = raw.nickname
+  formValues.value.value = raw._id
+  formValues.value.label = raw.nickname
 }
 function handleRoleUpdate(raw: RoleType['Doc']) {
-  formValue.value.value = raw._id
-  formValue.value.label = raw.name
+  formValues.value.value = raw._id
+  formValues.value.label = raw.name
 }
 </script>
 
 <template>
   <NForm v-bind="formProps" ref="form-ref" class="w-[400px]">
     <NFormItem label="节点规则类型" path="type">
-      <NSelect v-model:value="formValue.type" :options="nodeTypeOptions" @update:value="(_val, option) => handleTypeUpdate(option)" />
+      <NSelect v-model:value="formValues.type" :options="nodeTypeOptions" @update:value="(_val, option) => handleTypeUpdate(option)" />
     </NFormItem>
-    <NFormItem v-if="formValue.type === 'USER' || formValue.type === 'ROLE'" label="节点规则值" path="value">
+    <NFormItem v-if="formValues.type === 'USER' || formValues.type === 'ROLE'" label="节点规则值" path="value">
       <UserSelect
-        v-if="formValue.type === 'USER'"
-        :value="formValue.value"
-        :fallback-label="formValue.label"
+        v-if="formValues.type === 'USER'"
+        :value="formValues.value"
+        :fallback-label="formValues.label"
         @update:value="(val, _opt, raw) => raw && !Array.isArray(raw) && handleUserUpdate(raw)"
       />
       <RoleSelect
-        v-else-if="formValue.type === 'ROLE'"
-        :value="formValue.value"
-        :fallback-label="formValue.label"
+        v-else-if="formValues.type === 'ROLE'"
+        :value="formValues.value"
+        :fallback-label="formValues.label"
         @update:value="(val, _opt, raw) => raw && !Array.isArray(raw) && handleRoleUpdate(raw)"
       />
       <NInput v-else placeholder="请先选择节点规则类型" disabled />

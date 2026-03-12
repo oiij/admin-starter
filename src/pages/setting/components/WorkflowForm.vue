@@ -13,8 +13,8 @@ type _LIST = WorkflowType['Doc']
 
 type _FormValueType = _CREATE | _UPDATE
 type _ResultType = Awaited<ReturnType<typeof _API>>
-const { defaultValue } = defineProps<{
-  defaultValue?: Partial<_LIST>
+const { defaultValues } = defineProps<{
+  defaultValues?: Partial<_LIST>
 }>()
 const emit = defineEmits<{
   cancel: []
@@ -22,13 +22,13 @@ const emit = defineEmits<{
 }>()
 const _ADD_API = workflowApi.create
 const _UPDATE_API = workflowApi.update
-const _API = defaultValue?._id ? _UPDATE_API : _ADD_API
+const _API = defaultValues?._id ? _UPDATE_API : _ADD_API
 
-const formValue = ref<_FormValueType>({
+const formValues = ref<_FormValueType>({
   name: '',
   nodes: [],
   disabled: false,
-  ...cloneDeep(defaultValue),
+  ...cloneDeep(defaultValues),
 })
 const options: PresetFormOptions<_FormValueType> = [
   {
@@ -53,9 +53,9 @@ const options: PresetFormOptions<_FormValueType> = [
     span: 24,
     render: () => {
       return h(WorkflowNodes, {
-        'value': formValue.value.nodes,
+        'value': formValues.value.nodes,
         'onUpdate:value': (v) => {
-          formValue.value.nodes = v
+          formValues.value.nodes = v
         },
       })
     },
@@ -77,7 +77,7 @@ const rules: UseNaiveFormRules<_FormValueType> = {
     class="h-[600px] w-[600px]"
     :api="_API"
     :before-submit="(data) => data"
-    :default-value="formValue"
+    :default-values="formValues"
     :options="options"
     :rules="rules"
     @cancel="emit('cancel')"

@@ -13,8 +13,8 @@ type _LIST = UserType['Doc']
 type _FormValue = _CREATE | _UPDATE
 type _ResultType = Awaited<ReturnType<typeof _API>>
 
-const { defaultValue } = defineProps<{
-  defaultValue?: _LIST
+const { defaultValues } = defineProps<{
+  defaultValues?: _LIST
 }>()
 const emit = defineEmits<{
   (e: 'cancel'): void
@@ -22,11 +22,11 @@ const emit = defineEmits<{
 }>()
 const { refresh } = useLogin()
 async function handleAvatarUpdate(url: string) {
-  if (!defaultValue?._id) {
+  if (!defaultValues?._id) {
     return
   }
 
-  const [err, res] = await to(userApi.update({ _id: defaultValue?._id, avatar: url }))
+  const [err, res] = await to(userApi.update({ _id: defaultValues?._id, avatar: url }))
   if (!err) {
     await refresh()
     window.$message.success(res.msg)
@@ -34,14 +34,14 @@ async function handleAvatarUpdate(url: string) {
 }
 const _ADD_API = userApi.create
 const _UPDATE_API = userApi.update
-const _API = defaultValue?._id ? _UPDATE_API : _ADD_API
+const _API = defaultValues?._id ? _UPDATE_API : _ADD_API
 
-const formValue = ref<_FormValue>({
+const formValues = ref<_FormValue>({
   phone: '',
   nickname: '',
   password: '',
   disabled: false,
-  ...cloneDeep(defaultValue),
+  ...cloneDeep(defaultValues),
 })
 const options: PresetFormOptions<_FormValue> = [
   {
@@ -84,14 +84,14 @@ async function handleUpdate(msg: string) {
 <template>
   <NFlex vertical>
     <div class="w-full flex-x-center">
-      <AvatarUpload :value="defaultValue?.avatar" @update:value="handleAvatarUpdate" />
+      <AvatarUpload :value="defaultValues?.avatar" @update:value="handleAvatarUpdate" />
     </div>
     <NDivider />
     <BaseForm
       class="h-[300px] w-[500px]"
       :api="_API"
       :before-submit="(data) => ({ ...data, password: data.password ? md5(data.password) : undefined })"
-      :default-value="formValue"
+      :default-values="formValues"
       :options="options"
       @submit="(data, result) => handleUpdate(result?.msg || '操作成功')"
       @cancel="() => emit('cancel')"

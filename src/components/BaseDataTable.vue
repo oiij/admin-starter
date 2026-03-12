@@ -48,7 +48,7 @@ const _filterOptions = computed(() => {
       itemProps: {
         suffix: true,
       },
-      render: ({ formValue, resetForm, overflow }) => {
+      render: ({ formValues, resetForm, overflow }) => {
         return h(NButtonGroup, {
           class: 'm-l-auto',
         }, {
@@ -58,7 +58,7 @@ const _filterOptions = computed(() => {
               'data-guide': 'filter-btn',
               'onClick': () => {
                 baseDataTableRef.value?.runParams({
-                  ...formValue.value,
+                  ...formValues.value,
                 })
               },
 
@@ -68,7 +68,7 @@ const _filterOptions = computed(() => {
               'onClick': () => {
                 resetForm()
                 baseDataTableRef.value?.runParams({
-                  ...formValue.value,
+                  ...formValues.value,
                 })
               },
             }, { default: () => '重置' }),
@@ -137,7 +137,7 @@ defineExpose({
       <NPresetForm
         v-if="filterOptions && filterOptions.length > 0"
         :options="_filterOptions"
-        :value="({ ...defaultParams } as P)"
+        :values="({ ...defaultParams } as P)"
         :grid-props="{ xGap: 10, yGap: 10, collapsed: filterCollapsed }"
         :form-props="{ showFeedback: false }"
       />

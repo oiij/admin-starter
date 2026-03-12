@@ -94,7 +94,7 @@ function getAllChildren(tree: TreeOption[], key: string): TreeOption[] {
     if (node.children && node.children.length > 0) {
       for (const child of node.children) {
         children.push(child)
-        children = children.concat(collectChildren(child))
+        children = [...children, ...collectChildren(child)]
       }
     }
 

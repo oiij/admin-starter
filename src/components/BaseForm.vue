@@ -12,9 +12,9 @@ type ExtractResult<T> = T extends (data: any) => Promise<infer R> ? R : never
 type D = ExtractData<API>
 type R = ExtractResult<API>
 
-const { api, defaultValue, rules, options, beforeSubmit, submitText = '确定', submitProps } = defineProps<{
+const { api, defaultValues, rules, options, beforeSubmit, submitText = '确定', submitProps } = defineProps<{
   api: API
-  defaultValue?: D
+  defaultValues?: D
   rules?: UseNaiveFormRules<D>
   options?: PresetFormOptions<D>
   beforeSubmit?: (data: D) => (D | Promise<D>)
@@ -29,14 +29,14 @@ const emit = defineEmits<{
 const presetForm = useTemplateRef('preset-form')
 
 const { value: loading, setTrue, setFalse } = useBoolean(false)
-const formValue = computed(() => presetForm.value?.formValue)
+const formValues = computed(() => presetForm.value?.formValues)
 
 const handleSubmit = useDebounceFn(async () => {
   try {
-    if (!formValue.value) {
+    if (!formValues.value) {
       return
     }
-    const values = beforeSubmit ? await Promise.try(beforeSubmit, formValue.value) : formValue.value
+    const values = beforeSubmit ? await Promise.try(beforeSubmit, formValues.value) : formValues.value
     setTrue()
 
     const [err, data] = await to(api(values))
@@ -63,7 +63,7 @@ function handleCancel() {
     <NScrollbar class="min-h-0 flex-1" content-class="p-x-10px">
       <NPresetForm
         ref="preset-form"
-        :value="defaultValue"
+        :values="defaultValues"
         :rules="rules"
         :options="options"
         :grid-props="{
